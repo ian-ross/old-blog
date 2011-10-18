@@ -164,9 +164,7 @@ postCompiler = readPageCompiler
   >>> renderTagsField "prettytags" "<div class=\"tags\">" "</div>" "" 
       (fromCapture "tags/*")
   >>> addPageTitle >>> addTeaser
-  >>> applyTemplateCompiler "templates/post.html"
-  >>> applyTemplateCompiler "templates/onecol.html"
-  >>> applyTemplateCompiler "templates/default.html"
+  >>> applyTemplateCompilers ["post", "onecol", "default"]
   >>> relativizeUrlsCompiler
 
 
@@ -192,9 +190,7 @@ addPageTitle = (id &&& arr (getField "title"))
 staticCompiler :: Compiler Resource (Page String)
 staticCompiler = pageCompiler 
   >>> addPageTitle
-  >>> applyTemplateCompiler "templates/static.html"
-  >>> applyTemplateCompiler "templates/onecol.html"
-  >>> applyTemplateCompiler "templates/default.html"
+  >>> applyTemplateCompilers ["static", "onecol", "default"]
   >>> relativizeUrlsCompiler
 
 
@@ -220,9 +216,7 @@ makeTagList tag posts =
                  ("Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"))
         >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
         >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-        >>> applyTemplateCompiler "templates/tags.html"
-        >>> applyTemplateCompiler "templates/onecol.html"
-        >>> applyTemplateCompiler "templates/default.html"
+        >>> applyTemplateCompilers ["tags", "onecol", "default"]
         >>> relativizeUrlsCompiler
 
 
@@ -260,10 +254,7 @@ makeIndexPage n maxn posts =
   >>> arr (setField "pagetitle" "Sky Blue Trades")
   >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
   >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-  >>> applyTemplateCompiler "templates/posts.html"
-  >>> applyTemplateCompiler "templates/index.html"
-  >>> applyTemplateCompiler "templates/twocol.html"
-  >>> applyTemplateCompiler "templates/default.html"
+  >>> applyTemplateCompilers ["posts", "index", "twocol", "default"]
   >>> relativizeUrlsCompiler
 
 
@@ -399,6 +390,14 @@ todaysPostDir = do
   return $ joinPath ["posts", show y, show0 m, show0 d]
   where show0 n = (if n < 10 then "0" else "") ++ show n
   
+
+-- | String together multiple template compilers.
+--
+applyTemplateCompilers :: [String] -> Compiler (Page String) (Page String)
+applyTemplateCompilers [] = arr id
+applyTemplateCompilers (c:cs) = applyTemplateCompiler ident >>> applyTemplateCompilers cs
+  where ident = parseIdentifier ("templates/" ++ c ++ ".html")
+
 
 -- | Split list into equal sized sublists.
 --
