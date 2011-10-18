@@ -111,8 +111,7 @@ doHakyll = hakyllWith hakyllConf $ do
     -- right number of index pages.
     match "index*.html" $ route idRoute
     metaCompile $ requireAll_ postsPattern
-      >>> (arr length &&& 
-           arr (chunk articlesPerIndexPage . chronological))
+      >>> arr (chunk articlesPerIndexPage . chronological)
       >>^ makeIndexPages
       
 
@@ -238,16 +237,15 @@ renderBlogRoll = arr (replace "<a" "<a class=\"blogrolllink\"" .
 -- appropriate number of index pages with correct names and the
 -- appropriate posts on each one.
 --
-makeIndexPages :: (Int, [[Page String]]) -> 
+makeIndexPages :: [[Page String]] -> 
                   [(Identifier (Page String), Compiler () (Page String))]
-makeIndexPages (nposts, ps) = map doOne (zip [1..] ps)
+makeIndexPages ps = map doOne (zip [1..] ps)
   where doOne (n, ps) = (indexIdentifier n, makeIndexPage n maxn ps)
         maxn = nposts `div` articlesPerIndexPage +
                if (nposts `mod` articlesPerIndexPage /= 0) then 1 else 0
+        nposts = sum $ map length ps
         indexIdentifier n = parseIdentifier url
-          where url = if (n == 1) 
-                      then "index.html" 
-                      else "index" ++ (show n) ++ ".html"
+          where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html" 
 
 
 -- | Make a single index page: inserts posts, sets up navigation links
