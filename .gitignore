@@ -3,6 +3,7 @@ _site/
 bin/blog
 *.hi
 *.o
+*~
 drafts/
 files/
 images/
