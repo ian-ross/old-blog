@@ -138,7 +138,6 @@ renderDateField = renderDateFieldWith defaultTimeLocale
 -- | Render tags with links
 --
 renderTagsField :: String                       -- ^ Destination key
-                   -> String -> String -> String -- ^ Prefix, Suffix, Empty
                    -> (String -> Identifier a)    -- ^ Create a link for a tag
                    -> Compiler (Page a) (Page a)  -- ^ Resulting compiler
 renderTagsField = renderTagsFieldWith getTags
@@ -146,10 +145,9 @@ renderTagsField = renderTagsFieldWith getTags
 
 renderTagsFieldWith :: (Page a -> [String])          -- ^ Function to get the tags
                        -> String                   -- ^ Destination key
-                       -> String -> String -> String -- ^ Prefix, Suffix, Empty
                        -> (String -> Identifier a)    -- ^ Create a link for a tag
                        -> Compiler (Page a) (Page a)  -- ^ Resulting compiler
-renderTagsFieldWith tags destination prefix suffix empty makeUrl =
+renderTagsFieldWith tags destination makeUrl =
     id &&& arr tags >>> setFieldA destination renderTags'
   where
     -- Compiler creating a comma-separated HTML string for a list of tags
@@ -161,8 +159,8 @@ renderTagsFieldWith tags destination prefix suffix empty makeUrl =
 
     surround :: [Maybe H.Html] -> String
     surround ms = if (length links > 0)
-                  then prefix ++ links ++ suffix
-                  else empty
+                  then "<div class=\"tags\">" ++ links ++ "</div>"
+                  else ""
                       where links = intercalate " " $ map renderHtml $ catMaybes ms
     
     -- Render one tag link

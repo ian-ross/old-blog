@@ -161,8 +161,7 @@ postCompiler = readPageCompiler
   >>> pageReadPandocWith defaultHakyllParserState
   >>> arr (fmap (writePandocWith articleWriterOptions))
   >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
-  >>> renderTagsField "prettytags" "<div class=\"tags\">" "</div>" "" 
-      (fromCapture "tags/*")
+  >>> renderTagsField "prettytags" (fromCapture "tags/*")
   >>> addPageTitle >>> addTeaser
   >>> applyTemplateCompilers ["post", "onecol", "default"]
   >>> relativizeUrlsCompiler
