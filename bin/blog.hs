@@ -179,9 +179,8 @@ articleWriterOptions = defaultWriterOptions
 -- | Add a page title field.
 --
 addPageTitle :: Compiler (Page String) (Page String)
-addPageTitle = (id &&& arr (getField "title")) 
-               >>> arr (\(p, t) -> setField "pagetitle" 
-                                   ("Sky Blue Trades | " ++ t) p)
+addPageTitle = (arr (getField "title") &&& id)
+               >>> arr (uncurry $ (setField "pagetitle") . ("Sky Blue Trades | " ++))
 
 
 -- | Static page compiler: page title, applies templates.
@@ -200,8 +199,7 @@ addPostList :: String -> Compiler (Page String, [Page String]) (Page String)
 addPostList tmp = setFieldA "posts" $
     arr chronological
         >>> require (parseIdentifier tmp) (\p t -> map (applyTemplate t) p)
-        >>> arr mconcat
-        >>> arr pageBody
+        >>> arr mconcat >>> arr pageBody
 
 
 -- | Auxiliary compiler: set up a tag list page.
@@ -260,19 +258,15 @@ makeIndexPage n maxn posts =
 -- | Generate navigation link HTML for stepping between index pages.
 --
 indexNavLink :: Int -> Int -> Int -> String
-indexNavLink n dir maxn = renderHtml ref
-  where ref = if (refPage == "")
-              then ""
+indexNavLink n d maxn = renderHtml ref
+  where ref = if (refPage == "") then ""
               else H.a ! A.href (toValue $ toUrl $ refPage) $ 
-                   (preEscapedString dirlabel)
-        dirlabel = if (dir > 0) 
-                   then "&laquo; OLDER POSTS" 
-                   else "NEWER POSTS &raquo;"
-        refPage = if (n + dir < 1 || n + dir > maxn)
-                  then ""
-                  else case (n + dir) of
+                   (preEscapedString lab)
+        lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
+        refPage = if (n + d < 1 || n + d > maxn) then ""
+                  else case (n + d) of
                     1 -> "index.html"
-                    _ -> "index" ++ (show $ n + dir) ++ ".html"
+                    _ -> "index" ++ (show $ n + d) ++ ".html"
   
 
 -- | RSS feed configuration.
@@ -282,7 +276,7 @@ feedConfiguration = FeedConfiguration
     { feedTitle       = "Sky Blue Trades RSS feed."
     , feedDescription = "RSS feed for the Sky Blue Trades blog."
     , feedAuthorName  = "Ian Ross"
-    , feedRoot        = "http://www.skybluetrades.net/blog"
+    , feedRoot        = "http://www.skybluetrades.net"
     }
 
 
@@ -301,13 +295,9 @@ addTeaser = arr (copyBodyToField "teaser")
                         (if (isInfixOf "<!--MORE-->" (pageBody p)) 
                          then (readMoreLink p) else "") p)
       where
-        extractTeaser :: String -> String
         extractTeaser = unlines . (noTeaser . extractTeaser') . lines
-        
-        extractTeaser' :: [String] -> [String]
         extractTeaser' = takeWhile (/= "<!--MORE-->")
         
-        noTeaser :: [String] -> [String]
         noTeaser [] = []
         noTeaser ("<!--NOTEASERBEGIN-->" : xs) = 
           drop 1 $ dropWhile (/= "<!--NOTEASEREND-->") xs
@@ -324,9 +314,9 @@ addTeaser = arr (copyBodyToField "teaser")
                   changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
 
         fixResourceUrls'' :: String -> String -> String
-        fixResourceUrls'' path = withUrls ["src", "href", "data"] rel
-          where
-            rel x = if '/' `elem` x then x else path ++ "/" ++ x
+        fixResourceUrls'' path = withUrls ["src", "href", "data"] 
+                                 (\x -> if '/' `elem` x then x 
+                                        else path ++ "/" ++ x)
 
 
 -- | Publishing a draft:

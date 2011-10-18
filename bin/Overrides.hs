@@ -46,14 +46,13 @@ relativizeUrlsCompiler = getRoute &&& id >>^ uncurry relativize
     relativize Nothing = id
     relativize (Just r) = fmap (relativizeUrls $ toSiteRoot r)
 
--- | Relativize URL's in HTML
+-- | Relativize URLs in HTML
 --
 relativizeUrls :: String  -- ^ Path to the site root
                -> String  -- ^ HTML to relativize
                -> String  -- ^ Resulting HTML
-relativizeUrls root = withUrls ["src", "href", "data"] rel
-  where
-    rel x = if "/" `isPrefixOf` x then root ++ x else x
+relativizeUrls root = withUrls ["src", "href", "data"] 
+                      (\x -> if "/" `isPrefixOf` x then root ++ x else x)
 
 -- | Apply a function to each URL on a webpage
 --
@@ -72,8 +71,7 @@ renderTagCloud :: Compiler (Tags String) String
 renderTagCloud =
     tagRenderer (fromCapture "tags/*") makeLink (intercalate " ")
   where
-    minSize = 100
-    maxSize = 200
+    (minSize, maxSize) = (100, 200)
     
     makeLink tag url count min' max' = renderHtml $
         H.span ! A.class_ "tagcloud" ! 

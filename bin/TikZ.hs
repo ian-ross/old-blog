@@ -37,7 +37,7 @@ import Hakyll
 
 -- | Main TikZ processing compiler: transforms TikZ images within
 -- Markdown text, extracting image bodies and MD5 digests for
--- processing into SVG and PNG files.
+-- processing into SVG files.
 --
 processTikZs :: Compiler (Page String) (Page String)
 processTikZs = (id &&& (arr pageBody 
