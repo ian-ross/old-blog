@@ -27,6 +27,7 @@ import Text.HTML.TagSoup (Tag (..), renderTags, parseTags)
 import qualified Data.Set as S
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
+import Debug.Trace (trace, traceShow)
 
 -- We override some names from Hakyll so we can use a different post
 -- naming convention.
@@ -50,19 +51,19 @@ relativizeUrlsCompiler = getRoute &&& id >>^ uncurry relativize
 relativizeUrls :: String  -- ^ Path to the site root
                -> String  -- ^ HTML to relativize
                -> String  -- ^ Resulting HTML
-relativizeUrls root = withUrls rel
+relativizeUrls root = withUrls ["src", "href", "data"] rel
   where
     rel x = if "/" `isPrefixOf` x then root ++ x else x
 
 -- | Apply a function to each URL on a webpage
 --
-withUrls :: (String -> String) -> String -> String
-withUrls f = renderTags . map tag . parseTags
+withUrls :: [String] -> (String -> String) -> String -> String
+withUrls urls f = renderTags . map tag . parseTags
   where
     tag (TagOpen s a) = TagOpen s $ map attr a
     tag x = x
     attr (k, v) = (k, if k `S.member` refs then f v else v)
-    refs = S.fromList ["src", "href", "data"]
+    refs = S.fromList urls
 
 
 -- | Render a tag cloud in HTML
@@ -202,10 +203,17 @@ renderDateFieldWith locale key format defaultValue =
 -- | Sort pages chronologically. This function assumes that the pages have a
 -- @year/month/day/title[.extension]@ naming scheme.
 --
-chronological :: [Page a] -> [Page a]
-chronological = reverse . sortBy (comparing (canonicalise . getField "path"))
-  where canonicalise p = 
-          joinPath $ take 4 $ drop 1 $ splitDirectories $
-          case (takeFileName p) of
-            "text.markdown" -> takeDirectory p
-            _               -> dropExtension p
+chronological :: [Page String] -> [Page String]
+chronological = reverse . (sortBy $ comparing pageSortKey)
+
+
+-- | Generate a sort key for ordering entries on the index page.
+--
+pageSortKey :: Page String -> String
+pageSortKey pg =  datePart ++ "/" ++ (if ts /= "" then ts else namePart)
+  where path = getField "path" pg
+        ts = getField "timestamp" pg
+        datePart = joinPath $ take 3 $ drop 1 $ splitDirectories path
+        namePart = case (takeFileName path) of
+            "text.markdown" -> last $ splitDirectories $ takeDirectory path
+            _               -> dropExtension (takeFileName path)

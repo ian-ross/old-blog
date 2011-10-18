@@ -2,7 +2,7 @@
 module Main where
 
 import Prelude hiding (id)
-import Control.Arrow ((>>>), arr, (&&&))
+import Control.Arrow ((>>>), arr, (&&&), (>>^))
 import Control.Category (id)
 import Control.Monad (forM_)
 import Data.Monoid (mempty, mconcat)
@@ -16,14 +16,18 @@ import System.Directory (doesFileExist, doesDirectoryExist,
                          renameFile, renameDirectory)
 import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.Calendar (toGregorian)
-import System.FilePath (takeFileName, joinPath)
+import System.Locale (defaultTimeLocale)
+import Data.Time.Format (parseTime, formatTime)
+import System.FilePath (joinPath, splitDirectories, takeDirectory)
 import System.Cmd (rawSystem)
 import Data.String.Utils (replace)
 import Text.Blaze.Renderer.String (renderHtml)
 import Text.Blaze ((!), toValue, preEscapedString)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
--- import Debug.Trace (trace, traceShow)
+import qualified Data.ByteString.Char8 as B
+import qualified Data.Map as M
+import Debug.Trace (trace, traceShow)
 
 -- We override some names from Hakyll so we can use a different post
 -- naming convention.
@@ -45,7 +49,7 @@ articlesPerIndexPage = 10
 -- | Set up deployment command.
 --
 hakyllConf = defaultHakyllConfiguration {
-  deployCommand = "rsync -ave ssh _site/ iross@www.skybluetrades.net:/var/www/blog"
+  deployCommand = "rsync -ave ssh _site/ iross@www.skybluetrades.net:/var/www"
   }
 
 
@@ -89,10 +93,12 @@ doHakyll = hakyllWith hakyllConf $ do
       route   idRoute
       compile copyFileCompiler
 
-    -- Static files.
-    match "files/*" $ do
-      route   idRoute
-      compile copyFileCompiler
+    -- Static files, images and old web site stuff to just be copied
+    -- over.
+    forM_ [ "files/*", "images/*" ] $
+      \p -> match p $ do
+        route   idRoute
+        compile copyFileCompiler
 
     -- Static pages.
     match "static/*" $ do
@@ -107,7 +113,7 @@ doHakyll = hakyllWith hakyllConf $ do
     metaCompile $ requireAll_ postsPattern
       >>> (arr length &&& 
            arr (chunk articlesPerIndexPage . chronological))
-      >>> arr makeIndexPages
+      >>^ makeIndexPages
       
 
     -- Extract tags.
@@ -117,8 +123,8 @@ doHakyll = hakyllWith hakyllConf $ do
     -- Add a tag list compiler for every tag.
     match "tags/*" $ route $ setExtension ".html"
     metaCompile $ require_ "tags"
-      >>> arr tagsMap
-      >>> arr (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
+      >>^ tagsMap
+      >>^ (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
 
 
     -- Import blogroll.
@@ -141,7 +147,7 @@ doHakyll = hakyllWith hakyllConf $ do
 --
 sass :: Compiler Resource String
 sass = getResourceString >>> unixFilter "sass" ["-s", "--scss"]
-                         >>> arr compressCss
+                         >>^ compressCss
 
 
 -- | Main post compiler: renders date field, adds tags, page title,
@@ -298,9 +304,10 @@ feedConfiguration = FeedConfiguration
 -- keeping images out of teasers).
 --
 addTeaser :: Compiler (Page String) (Page String) 
-addTeaser = arr $ 
-    copyBodyToField "teaser" 
-    >>> changeField "teaser" extractTeaser
+addTeaser = arr (copyBodyToField "teaser")
+    >>> arr (changeField "teaser" extractTeaser)
+    >>> (arr $ getField "url" &&& id) 
+    >>> fixTeaserResourceUrls
     >>> (id &&& arr pageBody)
     >>> arr (\(p, b) -> setField "readmore" 
                         (if (isInfixOf "<!--MORE-->" (pageBody p)) 
@@ -322,6 +329,16 @@ addTeaser = arr $
         readMoreLink p = renderHtml $ H.div ! A.class_ "readmore" $ 
                          H.a ! A.href (toValue $ getField "url" p) $ 
                          preEscapedString "Read more &raquo;"
+                         
+        fixTeaserResourceUrls :: Compiler (String, (Page String)) (Page String)
+        fixTeaserResourceUrls = arr $ (\(url, p) -> fixResourceUrls' url p)
+          where fixResourceUrls' url p = 
+                  changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
+
+        fixResourceUrls'' :: String -> String -> String
+        fixResourceUrls'' path = withUrls ["src", "href", "data"] rel
+          where
+            rel x = if '/' `elem` x then x else path ++ "/" ++ x
 
 
 -- | Publishing a draft:
@@ -346,13 +363,34 @@ publishDraft path = do
     else do
       postDir <- todaysPostDir
       createDirectoryIfMissing True postDir
-      let postPath = joinPath [postDir, takeFileName path]
+      let postPath = joinPath [postDir, last $ splitDirectories path]
       if fExist 
         then renameFile path postPath
-        else renameDirectory path postPath
+        else do 
+        putStrLn (path ++ " -> " ++ postPath)
+        renameDirectory path postPath
       err <- rawSystem "touch" [postPath]
+      addTimestamp postPath
       putStrLn $ "Published to " ++ postPath
 
+
+-- | Add a timestamp as metadata for ordering purposes.
+--
+addTimestamp :: String -> IO ()
+addTimestamp postPath = do
+  fExist <- doesFileExist postPath
+  let modFile = if fExist then postPath else postPath ++ "/text.markdown"
+  putStrLn ("Editing " ++ modFile)
+  pg <- B.readFile modFile
+  t <- getCurrentTime
+  let ts = formatTime defaultTimeLocale "%H:%M:%S" t
+  B.writeFile modFile $ B.pack $ addTimestamp' (B.unpack pg) ts
+    where addTimestamp' pg ts = writePage $ setField "timestamp" ts $ readPage pg
+          writePage :: Page String -> String
+          writePage pg = "---\n" ++ renderMetadata (pageMetadata pg) ++ 
+                         "---\n" ++ (pageBody pg)
+          renderMetadata md = unlines $ map (\(k, d) -> k ++ ": " ++ d) $ M.toList md
+        
 
 -- | Utility function to generate path to today's posts directory.
 --
