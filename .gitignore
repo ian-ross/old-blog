@@ -1,0 +1,11 @@
+_cache/
+_site/
+bin/blog
+*.hi
+*.o
+drafts/
+files/
+images/
+posts/
+resources/
+static/
