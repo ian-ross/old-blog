@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<container>
+  <baseDirectory name="/home/iross/misc-doc/comics"/>
+  <comics>
+    <comic name="Girl Genius"
+           url="http://www.girlgeniusonline.com/comic.php"
+           regex="ggmain/strips/ggmain[^']+"
+           prefix="http://www.girlgeniusonline.com/"/>
+    <comic name="XKCD"
+           url="http://www.xkcd.com/"
+           regex="comics/.+png"
+           prefix="http://imgs.xkcd.com/"/>
+    <comic name="Girls With Slingshots"
+           url="http://www.daniellecorsetto.com/gws.html"
+           regex="images/gws/GWS[^\&quot;]+"
+           prefix="http://www.daniellecorsetto.com/"/>
+  </comics>
+</container>
+
