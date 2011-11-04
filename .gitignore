@@ -5,8 +5,6 @@ bin/blog
 *.o
 *~
 drafts/
-files/
-images/
-posts/
-resources/
-static/
+published/
+test/
+

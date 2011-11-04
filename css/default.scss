@@ -95,7 +95,7 @@ dt { font-weight: bold; }
 dd { margin-left: $hmargin/2; }
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold; border-bottom: none;
-    margin-top: $vmargin*2; margin-bottom: $vmargin;
+    margin-top: $vmargin; margin-bottom: $vmargin/2;
 }
 h1 { font-size: 153.9% }      //26px
 h2 { font-size: 153.9% }      //23px
@@ -165,6 +165,8 @@ a:hover { color: $dkgrey; }
     margin: -40px 0 -10px 0; padding: 4px 10px 4px 10px;
 }
 
+.caption { text-align: center; font-style: italic; }
+
 .img-right { float: right; width: 50%; margin-left: 1em; margin-bottom: 1em; }
 .img-right img { width: 100%; }
 .img-left { float: left; width: 50%; margin-right: 1em; margin-bottom: 1em; }
@@ -178,8 +180,12 @@ a:hover { color: $dkgrey; }
 .img-spacer { clear: both; }
 .img2-box { float: left; width: 50%; margin-bottom: 1em; }
 .img2-box img { width: 90%; margin-left: auto; margin-right: auto; }
+.img-box { float: left; margin-bottom: 1em; }
+.img-box img { width: 90%; margin-left: auto; margin-right: auto; }
 .img-center { width: 100%; }
 .img-center img { margin-left: auto; margin-right: auto; width:45%;  }
+.img-center2 { width: 100%; }
+.img-center2 img { margin-left: auto; margin-right: auto; }
 
 .header { line-height: 190%; a { text-decoration: none; margin-right: 10px; } }
 .leftcol {
