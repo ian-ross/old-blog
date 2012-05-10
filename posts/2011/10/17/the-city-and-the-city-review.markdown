@@ -2,7 +2,7 @@
 author: Ian
 tags: book-reviews
 timestamp: 22:01:01
-title: The City & The City
+title: The City &amp; The City
 ---
 *by China Miéville*
 
