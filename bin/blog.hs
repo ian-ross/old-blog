@@ -134,12 +134,20 @@ doHakyll = hakyllWith hakyllConf $ do
     match "rss.xml" $ route idRoute
     create "rss.xml" $
       requireAll_ postsPattern
-      >>> mapCompiler (arr $ copyBodyToField "description")
+      >>> arr chronological
+      >>> mapCompiler (fixRssResourceUrls (feedRoot feedConfiguration))
       >>> renderRss feedConfiguration
   where
     postsPattern :: Pattern (Page String)
     postsPattern = predicate (\i -> matches "posts/*/*/*/*.markdown" i || 
                                     matches "posts/*/*/*/*/text.markdown" i)
+                   
+fixRssResourceUrls :: String -> Compiler (Page String) (Page String)
+fixRssResourceUrls root = 
+  (arr $ getField "url" &&& id)
+  >>> arr (\(url, p) -> changeField "description" 
+                        (fixResourceUrls'' (root ++ takeDirectory url)) p)
+
 
 
 -- | Process SCSS or CSS.
@@ -161,8 +169,10 @@ postCompiler = readPageCompiler
   >>> pageReadPandocWith defaultHakyllParserState
   >>> arr (fmap (writePandocWith articleWriterOptions))
   >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
+  >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
   >>> renderTagsField "prettytags" (fromCapture "tags/*")
   >>> addPageTitle >>> addTeaser
+  >>> arr (copyBodyToField "description")
   >>> applyTemplateCompilers ["post", "onecol", "default"]
   >>> relativizeUrlsCompiler
 
@@ -313,10 +323,11 @@ addTeaser = arr (copyBodyToField "teaser")
           where fixResourceUrls' url p = 
                   changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
 
-        fixResourceUrls'' :: String -> String -> String
-        fixResourceUrls'' path = withUrls ["src", "href", "data"] 
-                                 (\x -> if '/' `elem` x then x 
-                                        else path ++ "/" ++ x)
+
+fixResourceUrls'' :: String -> String -> String
+fixResourceUrls'' path = withUrls ["src", "href", "data"] 
+                         (\x -> if '/' `elem` x then x 
+                                else path ++ "/" ++ x)
 
 
 -- | Publishing a draft:
@@ -384,7 +395,8 @@ todaysPostDir = do
 --
 applyTemplateCompilers :: [String] -> Compiler (Page String) (Page String)
 applyTemplateCompilers [] = arr id
-applyTemplateCompilers (c:cs) = applyTemplateCompiler ident >>> applyTemplateCompilers cs
+applyTemplateCompilers (c:cs) = applyTemplateCompiler ident >>> 
+                                applyTemplateCompilers cs
   where ident = parseIdentifier ("templates/" ++ c ++ ".html")
 
 

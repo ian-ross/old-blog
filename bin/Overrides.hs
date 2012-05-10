@@ -14,7 +14,7 @@ import Prelude hiding (id)
 import Control.Arrow ((>>>), (***), arr, (&&&), (<<^), (>>^), returnA)
 import Control.Category (id)
 import Data.List (intercalate, sortBy, isPrefixOf)
-import Data.Maybe (fromMaybe, catMaybes)
+import Data.Maybe (fromMaybe, catMaybes, isNothing)
 import Data.Ord (comparing)
 import System.FilePath (takeFileName, takeDirectory, 
                         joinPath, splitDirectories, dropExtension)
@@ -25,6 +25,7 @@ import Text.Blaze.Renderer.String (renderHtml)
 import Text.Blaze ((!), toHtml, toValue)
 import Text.HTML.TagSoup (Tag (..), renderTags, parseTags)
 import qualified Data.Set as S
+import qualified Data.Map as M
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import Debug.Trace (trace, traceShow)
@@ -185,16 +186,25 @@ renderDateFieldWith :: TimeLocale  -- ^ Output time locale
                        -> Page a      -- ^ Target page
                        -> Page a      -- ^ Resulting page
 renderDateFieldWith locale key format defaultValue =
-  renderField "path" key renderDate'
+  renderField' ["path", "timestamp"] key renderDate'
   where
-    renderDate' filePath = fromMaybe defaultValue $ do
-        let dateString = intercalate "-" $ take 3
-                       $ drop 1 $ splitDirectories filePath
+    renderDate' [filePath, ts] = fromMaybe defaultValue $ do
         time <- parseTime defaultTimeLocale
-                          "%Y-%m-%d"
-                          dateString :: Maybe UTCTime
+                          "%Y-%m-%d %H:%M:%S"
+                          (dateString filePath ++ " " ++ 
+                           if (ts == "") then "00:00:00" else ts) :: Maybe UTCTime
         return $ formatTime locale format time
+    dateString filePath = intercalate "-" $ take 3
+                          $ drop 1 $ splitDirectories filePath
 
+renderField' :: [String] -> String -> ([String] -> String) -> Page a -> Page a
+renderField' srcs dst f page = 
+  setField dst (f $ map (fromMaybe "") values) page
+    where values = map ((flip M.lookup) (pageMetadata page)) srcs
+
+renderField src dst f page = case M.lookup src (pageMetadata page) of
+    Nothing    -> page
+    Just value -> setField dst (f value) page
 
 -- | Sort pages chronologically. This function assumes that the pages have a
 -- @year/month/day/title[.extension]@ naming scheme.
