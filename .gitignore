@@ -1,13 +1,13 @@
 _cache/
 _site/
-bin/blog
 *.hi
 *.o
 *~
 drafts/
 published/
-test/
+blog
+build/.hsenv_build
+build/00-HSENV-DIRECTORY
+build/dist
+build/dist_build
 
-/hakyll-3.2.7.2
-build
-/blog
