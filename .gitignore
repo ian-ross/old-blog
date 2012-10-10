@@ -9,3 +9,5 @@ published/
 test/
 
 /hakyll-3.2.7.2
+build
+/blog
