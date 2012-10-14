@@ -30,7 +30,7 @@ needed to talk to all of that.
 We're going to put everything we need into a single Haskell module
 called `JqSlider` (file `JqSlider.hs`).
 
-### Setup
+## Setup
 
 ~~~~ {.haskell}
 {-# LANGUAGE OverloadedStrings, TemplateHaskell, 
@@ -92,7 +92,7 @@ class YesodJqSlider master where
   jqSliderScript :: master -> Either (Route master) Text
 ~~~~
 
-### Settings
+## Settings
 
 Much of the work we have to do turns out to be marshalling values
 between Haskell and JavaScript for setting the many options of the
@@ -170,7 +170,7 @@ instance ToJSON JqSliderSettings where
 This feels a little clunky, but it's easy to use and the
 implementation details are hidden away.
 
-### A slider field
+## A slider field
 
 Finally, we get to the definition of a slider field.  This is
 essentially a double field with a prettier user interface (apart from
@@ -199,12 +199,14 @@ jqSliderField s = Field
        addScriptEither $ urlJqueryJs master
        addScriptEither $ jqSliderScript master
        toWidget [whamlet|
-<input id="#{i}" name="#{n}" *{as} type="slider" :req:required="" value="#{showVal v}">
+<input id="#{i}" name="#{n}" *{as} type="slider"
+       :req:required="" value="#{showVal v}">
 |]
        toWidget [julius| $(function() { $("##{i}").slider(#{toJSON s}); }); |]
   }
  where showVal :: Either Text (Either Double (Double,Double)) -> Text
-       showVal = either id (either (T.pack . show) (T.pack . (\(l,h) -> show l ++ ";" ++ show h)))
+       showVal = either id (either (T.pack . show)
+                                   (T.pack . (\(l,h) -> show l ++ ";" ++ show h)))
 ~~~~
 
 To render the field, we just produce a HTML `INPUT` element of the
@@ -220,7 +222,7 @@ and `jqRangeSliderField` field types.)
 
 So, how do we use it?
 
-### File layout
+## File layout
 
 One slight ugliness we need to deal with up front is file layout.  We
 need access to the CSS and JavaScript files for the slider plugin
@@ -238,7 +240,7 @@ Anyway, modulo this minor problem, we can now use slider fields
 directly from Haskell with little or no pain (file
 `jqslider-example.hs`).
 
-### Setup
+## Setup
 
 ~~~~ {.haskell}
 {-# LANGUAGE OverloadedStrings, MultiParamTypeClasses, TypeFamilies,
@@ -273,7 +275,7 @@ mkYesod "App" [parseRoutes|
 |]
 ~~~~
 
-### Handlers
+## Handlers
 
 The handlers are also pretty simple: generate a form using the
 `sliderForm` function, then either just lay it out or process the
@@ -295,7 +297,8 @@ postHomeR = do
   ((result, formWidget), formEnctype) <- runFormPost sliderForm
   case result of
     FormSuccess (a, b, c) -> 
-      setMessage [shamlet|<p>Values: s1=#{showVal a}  s2=#{showVal b}  s3=#{showVal c}|]
+      setMessage
+        [shamlet|<p>Values: s1=#{showVal a} s2=#{showVal b} s3=#{showVal c}|]
     _ -> setMessage "Bad form response"
   defaultLayout $ do
     setTitle "Sliders"
@@ -315,7 +318,7 @@ $newline never
   <input type="submit" value="Submit">
 ~~~~
 
-### Form definition
+## Form definition
 
 Constructing the sliders is basically a matter of choosing settings.
 Note that the result value for a slider form field is a `JqSliderVal`,
@@ -325,13 +328,15 @@ since we need to represent both single values and ranges.
 -- Build a form with three sliders, two with single values and one
 -- range slider.
 sliderForm :: Html -> MForm App App
-              (FormResult (JqSliderVal, JqSliderVal, JqSliderVal), GWidget App App ())
+              (FormResult (JqSliderVal, JqSliderVal, JqSliderVal),
+               GWidget App App ())
 sliderForm = renderDivs $ (,,) 
              <$> areq (jqSliderField ss1) "Slider 1" (Just $ Left 15)
              <*> areq (jqSliderField ss2) "Slider 2" (Just $ Right (25,75))
              <*> areq (jqSliderField ss3) "Slider 3" (Just $ Left 50)
   where ss1 = def { ssRange = (5, 50), ssStep = Just 2.5, ssRound = Just 1,
-                    ssFormat = Just (JqSliderFormat "##.0" "de"), ssDimension = "&nbsp;$" }
+                    ssFormat = Just (JqSliderFormat "##.0" "de"),
+                    ssDimension = "&nbsp;$" }
         ss2 = def { ssRange = (0, 500), ssStep = Just 1, ssLimits = False,
                     ssHeterogeneity = [(50,100), (75,250)],
                     ssScale = ["0", "|", "50", "|" , "100", "|", "250", "|", "500"],
@@ -339,7 +344,7 @@ sliderForm = renderDivs $ (,,)
         ss3 = def { ssRange = (0, 100), ssSkin = Just "round" }
 ~~~~
 
-### Type class instances
+## Type class instances
 
 We need to set up our static site and implement some type class
 instances, and then we're ready to go.
@@ -357,7 +362,7 @@ instance RenderMessage App FormMessage where
   renderMessage _ _ = defaultFormMessage
 ~~~~
 
-### Off we go...
+## Off we go...
 
 The main program only has one wrinkle, in that we need to set up the
 static site in our foundation object.

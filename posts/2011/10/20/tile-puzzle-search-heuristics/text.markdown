@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence
+tags: AI
 timestamp: 07:15:44
 title: AI Class: Tile Puzzle Heuristics
 ---

@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence,haskell,programming
+tags: AI,haskell,programming
 timestamp: 21:34:14
 title: AI Class: A* Search
 ---

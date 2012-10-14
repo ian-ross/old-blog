@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence,haskell
+tags: AI,haskell
 timestamp: 19:48:56
 title: AI Class: Bayes Networks
 ---

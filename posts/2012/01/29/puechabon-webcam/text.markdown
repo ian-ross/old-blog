@@ -48,7 +48,7 @@ see something though!
     <p style="text-align: center;">*Chromatic green time series*</p>
   </div>
   <div class="img-spacer"/>
-<div>
+</div>
 
 The potential difficulties in data analysis aren't helped much by the
 local criminal low-lives.  We've had four major thefts at Puéchabon in

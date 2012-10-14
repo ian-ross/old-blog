@@ -28,4 +28,4 @@ also pretty outstanding:
     <p style="text-align: center;"><a href="http://arxiv.org/abs/1110.3698">*Freezey trees!*</a></p>
   </div>
   <div class="img-spacer"/>
-<div>
+</div>

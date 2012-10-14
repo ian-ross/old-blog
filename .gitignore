@@ -11,3 +11,5 @@ build/00-HSENV-DIRECTORY
 build/dist
 build/dist_build
 
+design/*
+old/*

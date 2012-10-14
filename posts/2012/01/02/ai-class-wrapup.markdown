@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence
+tags: AI
 timestamp: 19:09:22
 title: AI Class Wrap-up
 ---

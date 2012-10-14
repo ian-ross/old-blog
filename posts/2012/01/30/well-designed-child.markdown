@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence
+tags: AI
 timestamp: 20:06:22
 title: Common sense and the well-designed child
 ---

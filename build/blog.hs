@@ -77,18 +77,34 @@ doHakyll = hakyllWith hakyllConf $ do
       route   $ setExtension "css"
       compile sass
 
+    -- Copy JavaScript files.
+    match "js/*" $ do
+      route   idRoute
+      compile copyFileCompiler
+
+
+    -- Extract tags from raw Markdown: extra "raw" group is needed to
+    -- break dependency cycle between page rendering and tag
+    -- extraction.
+    group "raw" $ do
+      match "posts/*/*/*/*.markdown" $ do
+        compile $ readPageCompiler
+      match "posts/*/*/*/*/text.markdown" $ do
+        compile $ readPageCompiler
+    create "tags" $
+      requireAll (inGroup $ Just "raw") (\_ ps -> readTags ps :: Tags String)
+    
 
     -- Render simple posts.
-    forM_ ["*.markdown", "*.lhs"] $ 
-      \p -> match (parseGlob ("posts/*/*/*/" ++ p)) $ do
-        route   $ setExtension ".html"
-        compile $ postCompiler
+    match "posts/*/*/*/*.markdown" $ do
+      route   $ setExtension ".html"
+      compile $ postCompiler
 
     -- Render posts with resources.
-    forM_ ["text.markdown", "text.lhs"] $ 
-      \p -> match (parseGlob ("posts/*/*/*/*/" ++ p)) $ do
-        route   $ gsubRoute "text.markdown" (const "index.html")
-        compile $ postCompiler
+    match "posts/*/*/*/*/text.markdown" $ do
+      route   $ gsubRoute "text.markdown" (const "index.html")
+      compile $ postCompiler
+
 
     -- Copy resource files.
     match "posts/*/*/*/*/*" $ do
@@ -97,18 +113,13 @@ doHakyll = hakyllWith hakyllConf $ do
 
     -- Static files, images and old web site stuff to just be copied
     -- over.
-    forM_ [ "files/*", "images/*" ] $
+    forM_ [ "images/*" ] $
       \p -> match p $ do
         route   idRoute
         compile copyFileCompiler
 
-    -- Static pages.
-    match "static/*" $ do
-      route $ setExtension ".html"
-      compile staticCompiler
-      
-
-    -- Generate index pages: we need to calculate and pass through the
+    
+-- Generate index pages: we need to calculate and pass through the
     -- total number of articles to be able to split them across the
     -- right number of index pages.
     match "index*.html" $ route idRoute
@@ -117,17 +128,13 @@ doHakyll = hakyllWith hakyllConf $ do
       >>^ makeIndexPages
       
 
-    -- Extract tags.
-    create "tags" $
-      requireAll postsPattern (\_ ps -> readTags ps :: Tags String)
-    
     -- Add a tag list compiler for every tag.
     match "tags/*" $ route $ setExtension ".html"
     metaCompile $ require_ "tags"
       >>^ tagsMap
       >>^ (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
 
-
+    
     -- Import blogroll.
     match "resources/blogroll.html" $ compile getResourceString
 
@@ -171,8 +178,7 @@ msgCompiler = unsafeCompiler $
 -- get at the raw Markdown source to pick out TikZ images.
 --
 postCompiler :: Compiler Resource (Page String)
-postCompiler = readPageCompiler 
-  >>> processTikZs
+postCompiler = readPageCompiler >>> processTikZs
   >>> addDefaultFields >>> arr applySelf
   >>> pageReadPandocWith defaultHakyllParserState
   >>> arr (fmap (writePandocWith articleWriterOptions))
@@ -181,9 +187,13 @@ postCompiler = readPageCompiler
   >>> renderTagsField "prettytags" (fromCapture "tags/*")
   >>> addPageTitle >>> addTeaser
   >>> arr (copyBodyToField "description")
-  >>> applyTemplateCompilers ["post", "onecol", "default"]
+  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
+  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
+  >>> applyTemplateCompilers ["post", "default"]
   >>> relativizeUrlsCompiler
 
+-- postsCompiler :: Compiler [Page String] [Page String]
+-- postsCompiler = postCompiler
 
 -- | Pandoc writer options.
 --
@@ -199,15 +209,6 @@ articleWriterOptions = defaultWriterOptions
 addPageTitle :: Compiler (Page String) (Page String)
 addPageTitle = (arr (getField "title") &&& id)
                >>> arr (uncurry $ (setField "pagetitle") . ("Sky Blue Trades | " ++))
-
-
--- | Static page compiler: page title, applies templates.
---
-staticCompiler :: Compiler Resource (Page String)
-staticCompiler = pageCompiler 
-  >>> addPageTitle
-  >>> applyTemplateCompilers ["static", "onecol", "default"]
-  >>> relativizeUrlsCompiler
 
 
 -- | Auxiliary compiler: generate a post list from a list of given posts, and
@@ -231,7 +232,7 @@ makeTagList tag posts =
                  ("Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"))
         >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
         >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-        >>> applyTemplateCompilers ["tags", "onecol", "default"]
+        >>> applyTemplateCompilers ["tags", "default"]
         >>> relativizeUrlsCompiler
 
 
@@ -269,7 +270,7 @@ makeIndexPage n maxn posts =
   >>> arr (setField "pagetitle" "Sky Blue Trades")
   >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
   >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-  >>> applyTemplateCompilers ["posts", "index", "twocol", "default"]
+  >>> applyTemplateCompilers ["posts", "index", "default"]
   >>> relativizeUrlsCompiler
 
 

@@ -10,8 +10,11 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="alternate" type="application/rss+xml"
          title="Sky Blue Trades" href="/rss.xml" />
-    <link rel="stylesheet" type="text/css" href="/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/css/default.css" />
+    <link href='http://fonts.googleapis.com/css?family=Philosopher:400,700,400italic|Oxygen+Mono|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/grid.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/css/livefyre.css" />
     <script type="text/javascript">
@@ -29,24 +32,37 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <a class="sitelink" href="/">skybluetrades</a>
-        <a class="navlink" href="/static/about.html">about</a>
-        <a class="navlink" href="mailto:ian@skybluetrades.net">mail</a>
-        <div class="pagetitle">&nbsp;&nbsp;<a href="/">sky blue trades</a></div>
+    <div class="container_16">
+      <div class="grid_16 branding">
+        <h1 id="branding">
+          <a href="/">sky blue trades</a>
+        </h1>
       </div>
-
-      <div class="main">
+      <div class="clear"></div>
+      <div class="grid_16 nav">
+	<ul class="nav main">
+          <li><a href="mailto:ian@skybluetrades.net">mail</a></li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+      <div class="grid_12">
         $body$
       </div>
+      <div class="grid_3">
+        <div class="right-container">
+          $tagcloud$
 
-      <footer class="footer">
+          <div class="clear"></div>
+          <a href="/rss.xml"><img src="/images/rss.png"></img></a>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="grid_16 branding" id="site_info">
         Site content copyright &copy; 2012 Ian Ross &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a>
-      </footer>
+      </div>
+      <div class="clear"></div>
     </div>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   </body>
 </html>

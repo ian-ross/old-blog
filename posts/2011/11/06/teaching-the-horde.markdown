@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence
+tags: AI
 timestamp: 21:15:52
 title: AI Class: Teaching the horde...
 ---

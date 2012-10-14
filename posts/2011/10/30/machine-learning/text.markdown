@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: artificial-intelligence,phd,maths
+tags: AI,phd,maths
 timestamp: 20:06:15
 title: AI Class: Machine Learning
 ---

@@ -1,7 +1,7 @@
 ---
 title: Stanford AI Class
 author: Ian
-tags: artificial-intelligence
+tags: AI
 ---
 
 Along with about 160,000 other people, I've signed up for the
