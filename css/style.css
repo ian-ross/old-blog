@@ -43,6 +43,8 @@ h2 a { font-weight:normal; }
 
 .postdate { float: right; margin: -2.4em 0 0 0; padding: 4px;
             background-color: #AAA; color: #FFF; }
+.tagdate { float: right; margin: -2.4em 0 0 0; padding: 4px;
+           background-color: #AAA; color: #FFF; }
 
 .tags { display:block; padding: 7px 5px; text-align:right; }
 .tag { background-color: #CCC; padding: 2px 5px; }

@@ -7,6 +7,7 @@ import Control.Category (id)
 import Control.Monad (forM_)
 import Data.Monoid (mempty, mconcat)
 import Data.List (isInfixOf)
+import Data.Maybe (isNothing)
 import Text.Pandoc (Pandoc, HTMLMathMethod(..), WriterOptions(..), 
                     defaultWriterOptions, ParserState)
 import Text.Pandoc.Shared (ObfuscationMethod(..))
@@ -18,7 +19,7 @@ import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.Calendar (toGregorian)
 import System.Locale (defaultTimeLocale)
 import Data.Time.Format (parseTime, formatTime)
-import System.FilePath (joinPath, splitDirectories, takeDirectory)
+import System.FilePath (joinPath, splitDirectories, takeDirectory, replaceExtension)
 import System.Cmd (rawSystem)
 import Data.String.Utils (replace)
 import Text.Blaze.Html.Renderer.String (renderHtml)
@@ -83,28 +84,26 @@ doHakyll = hakyllWith hakyllConf $ do
       compile copyFileCompiler
 
 
+    -- Render posts.
+    match "posts/*/*/*/*.markdown" $ do
+      route   $ setExtension ".html"
+      compile $ postCompiler
+    match "posts/*/*/*/*/text.markdown" $ do
+      route   $ gsubRoute "text.markdown" (const "index.html")
+      compile $ postCompiler
+
+
     -- Extract tags from raw Markdown: extra "raw" group is needed to
     -- break dependency cycle between page rendering and tag
     -- extraction.
     group "raw" $ do
       match "posts/*/*/*/*.markdown" $ do
-        compile $ readPageCompiler
+        compile $ rawPostCompiler
       match "posts/*/*/*/*/text.markdown" $ do
-        compile $ readPageCompiler
+        compile $ rawPostCompiler
     create "tags" $
       requireAll (inGroup $ Just "raw") (\_ ps -> readTags ps :: Tags String)
     
-
-    -- Render simple posts.
-    match "posts/*/*/*/*.markdown" $ do
-      route   $ setExtension ".html"
-      compile $ postCompiler
-
-    -- Render posts with resources.
-    match "posts/*/*/*/*/text.markdown" $ do
-      route   $ gsubRoute "text.markdown" (const "index.html")
-      compile $ postCompiler
-
 
     -- Copy resource files.
     match "posts/*/*/*/*/*" $ do
@@ -119,7 +118,7 @@ doHakyll = hakyllWith hakyllConf $ do
         compile copyFileCompiler
 
     
--- Generate index pages: we need to calculate and pass through the
+    -- Generate index pages: we need to calculate and pass through the
     -- total number of articles to be able to split them across the
     -- right number of index pages.
     match "index*.html" $ route idRoute
@@ -148,8 +147,9 @@ doHakyll = hakyllWith hakyllConf $ do
       >>> renderRss feedConfiguration
   where
     postsPattern :: Pattern (Page String)
-    postsPattern = predicate (\i -> matches "posts/*/*/*/*.markdown" i || 
-                                    matches "posts/*/*/*/*/text.markdown" i)
+    postsPattern = predicate (\i -> isNothing (identifierGroup i) &&
+                                    (matches "posts/*/*/*/*.markdown" i || 
+                                     matches "posts/*/*/*/*/text.markdown" i))
                    
 fixRssResourceUrls :: String -> Compiler (Page String) (Page String)
 fixRssResourceUrls root = 
@@ -178,7 +178,8 @@ msgCompiler = unsafeCompiler $
 -- get at the raw Markdown source to pick out TikZ images.
 --
 postCompiler :: Compiler Resource (Page String)
-postCompiler = readPageCompiler >>> processTikZs
+postCompiler = readPageCompiler 
+  >>> processTikZs
   >>> addDefaultFields >>> arr applySelf
   >>> pageReadPandocWith defaultHakyllParserState
   >>> arr (fmap (writePandocWith articleWriterOptions))
@@ -192,8 +193,25 @@ postCompiler = readPageCompiler >>> processTikZs
   >>> applyTemplateCompilers ["post", "default"]
   >>> relativizeUrlsCompiler
 
--- postsCompiler :: Compiler [Page String] [Page String]
--- postsCompiler = postCompiler
+
+rawPostCompiler :: Compiler Resource (Page String)
+rawPostCompiler = readPageCompiler 
+  >>> addDefaultFields
+  >>> addFakeUrl
+  >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
+  >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
+  >>> renderTagsField "prettytags" (fromCapture "tags/*")
+  >>> addPageTitle
+    where addFakeUrl :: Compiler (Page String) (Page String)
+          addFakeUrl = (arr (getField "path") &&& id)
+                       >>> arr (uncurry $ (setField "url") . toUrl . fixExtension)
+
+fixExtension :: FilePath -> FilePath
+fixExtension f = case last elems of
+  "text.markdown" -> joinPath $ init elems ++ ["index.html"]
+  _ -> replaceExtension f ".html"
+  where elems = splitDirectories f
+  
 
 -- | Pandoc writer options.
 --
