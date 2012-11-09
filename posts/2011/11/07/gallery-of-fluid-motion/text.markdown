@@ -18,14 +18,12 @@ movies.  You can read about it [here](http://arxiv.org/abs/1110.3090).
 On a less explodey note, two other vids from this year's Gallery are
 also pretty outstanding:
 
-<div>
-  <div class="img2-box">
-    ![Bouncing balls](bouncing-balls.png)
-    <p style="text-align: center;"><a href="http://arxiv.org/abs/1110.3989">*Bouncing balls on water!*</a></p>
-  </div>
-  <div class="img2-box">
-    ![Freezing drop](freezing-drop.png)
-    <p style="text-align: center;"><a href="http://arxiv.org/abs/1110.3698">*Freezey trees!*</a></p>
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  ![Bouncing balls](bouncing-balls.png)
+  <p style="text-align: center;"><a href="http://arxiv.org/abs/1110.3989">*Bouncing balls on water!*</a></p>
 </div>
+<div class="img2-right">
+  ![Freezing drop](freezing-drop.png)
+  <p style="text-align: center;"><a href="http://arxiv.org/abs/1110.3698">*Freezey trees!*</a></p>
+</div>
+<div class="img-spacer"/>

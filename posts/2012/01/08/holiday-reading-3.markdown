@@ -10,7 +10,7 @@ series.  I liked them both.
 
 <!--MORE-->
 
-##### *Reamde* by Neal Stephenson
+## *Reamde* by Neal Stephenson
 
 I can't help feeling that, after *Anathem*, Neal Stephenson just
 wanted to write something with lots of guns and stuff blowing up.  He
@@ -35,7 +35,7 @@ Anyway, it's a lot of fun and it whiled away a few happy hours, but
 don't expect another *Cryptonomicon*.
 
 
-##### *Last Call* by Tim Powers
+## *Last Call* by Tim Powers
 
 The first Tim Powers novel I read was *Declare*, which is a hard act
 to follow.  *Last Call* is good, although I enjoyed it less than

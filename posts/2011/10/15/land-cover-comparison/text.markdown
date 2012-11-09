@@ -47,16 +47,14 @@ inventories of the "go out and take a look" kind.  For France, the
 inventory information for forestry applications.  Here's a plot of
 their data for the same region as shown in the aerial photo:
 
-<div>
-  <div class="img2-box">
-    <a href="ifn.png">![IFN example](ifn.png)</a>
-    <p style="text-align: center;">*IFN inventory data*</p>
-  </div>
-  <div class="img2-box">
-    ![IFN legend](ifn-legend.png)
-  </div>
-  <div class="img-spacer"/>
-<div>
+<div class="img2-left">
+  <a href="ifn.png">![IFN example](ifn.png)</a>
+  <p style="text-align: center;">*IFN inventory data*</p>
+</div>
+<div class="img2-right">
+  ![IFN legend](ifn-legend.png)
+</div>
+<div class="img-spacer"/>
 
 There's a pretty good correspondence between the units from the IFN
 data and the units that are visible on the aerial photograph, which
@@ -108,16 +106,15 @@ following classes:
 and here is what the data looks like for the same region as shown in
 the aerial photo and the IFN data above:
 
-<div>
-  <div class="img2-box">
-    <a href="corine.png">![CORINE example](corine.png)</a>    
-    <p style="text-align:center;">*CORINE land cover*</p>
-  </div>
-  <div class="img2-box">
-    <a href="ocsol.png">![OCSOL example](ocsol.png)</a>    
-    <p style="text-align:center;">*OCSOL land cover*</p>
-  </div>
+<div class="img2-left">
+  <a href="corine.png">![CORINE example](corine.png)</a>    
+  <p style="text-align:center;">*CORINE land cover*</p>
 </div>
+<div class="img2-right">
+  <a href="ocsol.png">![OCSOL example](ocsol.png)</a>    
+  <p style="text-align:center;">*OCSOL land cover*</p>
+</div>
+<div class="img-spacer"/>
 
 Hmmm...  Not so awesome.  Land cover units in the data sets don't bear
 a strong resemblance to the land cover units you can see in the aerial
@@ -137,16 +134,14 @@ Spatial resolution is pretty terrible, and classification accuracy is
 patchy.  Here's the MODIS data for 2006 (same year as the CORINE data
 and the aerial photo) for the region we're looking at:
 
-<div>
-  <div class="img2-box">
-    <a href="modis.png">![MODIS example](modis.png)</a>
-    <p style="text-align: center;">*MODIS land cover*</p>
-  </div>
-  <div class="img2-box">
-    ![MODIS legend](igbp-legend.png)
-  </div>
-  <div class="img-spacer"/>
-<div>
+<div class="img2-left">
+  <a href="modis.png">![MODIS example](modis.png)</a>
+  <p style="text-align: center;">*MODIS land cover*</p>
+</div>
+<div class="img2-right">
+  ![MODIS legend](igbp-legend.png)
+</div>
+<div class="img-spacer"/>
 
 The spatial resolution here is about 500 m, compared to about 25 m for
 the IFN data and whatever you want to believe for the CORINE and OCSOL

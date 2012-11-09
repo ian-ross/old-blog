@@ -67,15 +67,13 @@ heuristics.  For each heuristic and each scrambling move count, the
 [box-and-whisker][box] plots show the results of 1000 runs from random
 initial states:
 
-<div>
-  <div class="img2-box">
-    <a href="puzzle-3.png">![](puzzle-3.png)</a>
-  </div>
-  <div class="img2-box">
-    <a href="puzzle-4.png">![](puzzle-4.png)</a>
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  <a href="puzzle-3.png">![](puzzle-3.png)</a>
 </div>
+<div class="img2-right">
+  <a href="puzzle-4.png">![](puzzle-4.png)</a>
+</div>
+<div class="img-spacer"/>
 
 Note the log scale for the number of nodes expanded!  Using heuristics
 really does seem to make a difference.  And the heuristic that we
@@ -103,27 +101,23 @@ expansion costs as a function of the heuristic values will also show
 us how well the heuristics do at measuring how hard it is to solve
 from a given initial state.  Here are results for the 8-puzzle:
 
-<div>
-  <div class="img2-box">
-    <a href="puzzle-3-heur-1.png">![](puzzle-3-heur-1.png)</a>
-  </div>
-  <div class="img2-box">
-    <a href="puzzle-3-heur-2.png">![](puzzle-3-heur-2.png)</a>
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  <a href="puzzle-3-heur-1.png">![](puzzle-3-heur-1.png)</a>
 </div>
+<div class="img2-right">
+  <a href="puzzle-3-heur-2.png">![](puzzle-3-heur-2.png)</a>
+</div>
+<div class="img-spacer"/>
 
 and the for 15-puzzle:
 
-<div>
-  <div class="img2-box">
-    <a href="puzzle-4-heur-1.png">![](puzzle-4-heur-1.png)</a>
-  </div>
-  <div class="img2-box">
-    <a href="puzzle-4-heur-2.png">![](puzzle-4-heur-2.png)</a>
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  <a href="puzzle-4-heur-1.png">![](puzzle-4-heur-1.png)</a>
 </div>
+<div class="img2-right">
+  <a href="puzzle-4-heur-2.png">![](puzzle-4-heur-2.png)</a>
+</div>
+<div class="img-spacer"/>
 
 Although the spread at the top range of the costs is artificially
 compressed because I terminate any solves that expand more than 10,000

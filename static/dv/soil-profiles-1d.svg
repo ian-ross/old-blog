@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg font-family="sans-serif" font-size="32.4" height="1536" width="2048" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs >
+		<linearGradient gradientUnits="userSpaceOnUse" id="tempgrad" x1="-20" x2="20" y1="50%" y2="50%">
+			<stop offset="0.00" stop-color="#0000FF" />
+			<stop offset="0.40" stop-color="#0000FF" />
+			<stop offset="0.50" stop-color="#808080" />
+			<stop offset="0.60" stop-color="#FF0000" />
+			<stop offset="1.00" stop-color="#FF0000" />
+		</linearGradient>
+		<pattern height="150" id="snowpat" patternUnits="userSpaceOnUse" viewBox="0 0 200 200" width="150">
+			<g id="snowpatg">
+				<rect fill="#C8C8C8" height="200" stroke="none" width="200" x="0" y="0" />
+				<path d="M 55.46565,56.1454 L 56.47795,55.5146 L 64.12445,57.40925 L 65.75405,64.8616 L 64.7418,65.4924 L 57.34595,63.85035 L 55.46565,56.1454 z M 47.1264,58.03955 L 48.31605,58.07575 L 50.5109,65.6958 L 44.9207,70.844 L 43.7311,70.80785 L 41.44445,63.5329 L 47.1264,58.03955 z M 58.39365,48.31035 L 58.10755,47.2344 L 63.5592,41.50905 L 70.779,43.81315 L 71.0651,44.8891 L 65.9559,50.522 L 58.39365,48.31035 z M 51.684,41.92425 L 52.87365,41.9605 L 58.5556,36.4672 L 56.26895,29.19225 L 55.0793,29.156 L 49.4891,34.3042 L 51.684,41.92425 z M 43.5221,44.4853 L 44.5344,43.8546 L 42.6541,36.14965 L 35.25825,34.5076 L 34.24595,35.1383 L 35.87555,42.59065 L 43.5221,44.4853 z M 29.22105,56.18695 L 28.9349,55.1108 L 34.0441,49.4779 L 41.60635,51.68955 L 41.8925,52.7657 L 36.44085,58.49105 L 29.22105,56.18695 z M 16.20715,59.70065 L 15.921,58.62455 L 26.10575,47.9226 L 18.5435,45.7109 L 5.2765,57.24505 L 0.4204,54.85755 L 7.9998,42.63985 L 0.68825,39.99065 L 0,37.4025 L 0.40055,35.89615 L 2.28085,34.0015 L 9.9274,35.3909 L 9.426,20.99145 L 14.8162,21.3704 L 20.58245,38.04345 L 28.229,39.9381 L 24.7191,25.53865 L 25.7314,24.90795 L 40.02165,28.44465 L 38.14135,20.7397 L 21.59475,14.9294 L 21.21865,9.498 L 35.50895,10.00325 L 34.13005,2.2983 L 36.01035,0.4036 L 37.50525,0 L 40.0738,0.6935 L 42.7029,8.0609 L 54.82795,0.4236 L 57.19735,5.3168 L 45.7507,18.6852 L 47.94555,26.30525 L 58.56635,16.0426 L 59.756,16.0789 L 63.8615,30.31755 L 69.54345,24.82425 L 66.26385,7.4798 L 70.7439,4.43595 L 77.4548,17.15885 L 83.38745,12.1031 L 85.956,12.7966 L 87.0503,13.8993 L 87.73855,16.48745 L 82.72115,22.46545 L 95.3476,29.22765 L 92.3268,33.74185 L 75.1139,30.4372 L 69.6622,36.1626 L 83.7929,40.29945 L 84.079,41.3754 L 73.89425,52.07735 L 81.4565,54.289 L 94.7235,42.75485 L 99.5796,45.14235 L 92.0002,57.36005 L 99.31175,60.00925 L 100,62.5974 L 99.59945,64.10375 L 97.71915,65.9984 L 90.0726,64.609 L 90.574,79.00845 L 85.1838,78.6295 L 79.41755,61.95645 L 71.771,60.0618 L 75.2809,74.46125 L 74.26865,75.09205 L 59.97835,71.55535 L 61.85865,79.2603 L 78.4053,85.0706 L 78.78135,90.502 L 64.4911,89.99675 L 65.86995,97.7017 L 63.98965,99.5964 L 62.49475,100 L 59.92625,99.3065 L 57.2971,91.9391 L 45.1721,99.57635 L 42.80265,94.6832 L 54.24935,81.3148 L 52.05445,73.69475 L 41.43365,83.95735 L 40.244,83.9212 L 36.13855,69.68255 L 30.4566,75.17585 L 33.73615,92.5203 L 29.25615,95.56415 L 22.54525,82.8412 L 16.6126,87.897 L 14.04405,87.2035 L 12.9497,86.1008 L 12.2615,83.5126 L 17.2789,77.53465 L 4.65245,70.77245 L 7.67325,66.2582 L 24.88615,69.56285 L 30.3378,63.8375 L 16.20715,59.70065 z " fill="white" fill-rule="evenodd" stroke="none" />
+				<path d="M 55.46565,56.1454 L 56.47795,55.5146 L 64.12445,57.40925 L 65.75405,64.8616 L 64.7418,65.4924 L 57.34595,63.85035 L 55.46565,56.1454 z M 47.1264,58.03955 L 48.31605,58.07575 L 50.5109,65.6958 L 44.9207,70.844 L 43.7311,70.80785 L 41.44445,63.5329 L 47.1264,58.03955 z M 58.39365,48.31035 L 58.10755,47.2344 L 63.5592,41.50905 L 70.779,43.81315 L 71.0651,44.8891 L 65.9559,50.522 L 58.39365,48.31035 z M 51.684,41.92425 L 52.87365,41.9605 L 58.5556,36.4672 L 56.26895,29.19225 L 55.0793,29.156 L 49.4891,34.3042 L 51.684,41.92425 z M 43.5221,44.4853 L 44.5344,43.8546 L 42.6541,36.14965 L 35.25825,34.5076 L 34.24595,35.1383 L 35.87555,42.59065 L 43.5221,44.4853 z M 29.22105,56.18695 L 28.9349,55.1108 L 34.0441,49.4779 L 41.60635,51.68955 L 41.8925,52.7657 L 36.44085,58.49105 L 29.22105,56.18695 z M 16.20715,59.70065 L 15.921,58.62455 L 26.10575,47.9226 L 18.5435,45.7109 L 5.2765,57.24505 L 0.4204,54.85755 L 7.9998,42.63985 L 0.68825,39.99065 L 0,37.4025 L 0.40055,35.89615 L 2.28085,34.0015 L 9.9274,35.3909 L 9.426,20.99145 L 14.8162,21.3704 L 20.58245,38.04345 L 28.229,39.9381 L 24.7191,25.53865 L 25.7314,24.90795 L 40.02165,28.44465 L 38.14135,20.7397 L 21.59475,14.9294 L 21.21865,9.498 L 35.50895,10.00325 L 34.13005,2.2983 L 36.01035,0.4036 L 37.50525,0 L 40.0738,0.6935 L 42.7029,8.0609 L 54.82795,0.4236 L 57.19735,5.3168 L 45.7507,18.6852 L 47.94555,26.30525 L 58.56635,16.0426 L 59.756,16.0789 L 63.8615,30.31755 L 69.54345,24.82425 L 66.26385,7.4798 L 70.7439,4.43595 L 77.4548,17.15885 L 83.38745,12.1031 L 85.956,12.7966 L 87.0503,13.8993 L 87.73855,16.48745 L 82.72115,22.46545 L 95.3476,29.22765 L 92.3268,33.74185 L 75.1139,30.4372 L 69.6622,36.1626 L 83.7929,40.29945 L 84.079,41.3754 L 73.89425,52.07735 L 81.4565,54.289 L 94.7235,42.75485 L 99.5796,45.14235 L 92.0002,57.36005 L 99.31175,60.00925 L 100,62.5974 L 99.59945,64.10375 L 97.71915,65.9984 L 90.0726,64.609 L 90.574,79.00845 L 85.1838,78.6295 L 79.41755,61.95645 L 71.771,60.0618 L 75.2809,74.46125 L 74.26865,75.09205 L 59.97835,71.55535 L 61.85865,79.2603 L 78.4053,85.0706 L 78.78135,90.502 L 64.4911,89.99675 L 65.86995,97.7017 L 63.98965,99.5964 L 62.49475,100 L 59.92625,99.3065 L 57.2971,91.9391 L 45.1721,99.57635 L 42.80265,94.6832 L 54.24935,81.3148 L 52.05445,73.69475 L 41.43365,83.95735 L 40.244,83.9212 L 36.13855,69.68255 L 30.4566,75.17585 L 33.73615,92.5203 L 29.25615,95.56415 L 22.54525,82.8412 L 16.6126,87.897 L 14.04405,87.2035 L 12.9497,86.1008 L 12.2615,83.5126 L 17.2789,77.53465 L 4.65245,70.77245 L 7.67325,66.2582 L 24.88615,69.56285 L 30.3378,63.8375 L 16.20715,59.70065 z " fill="white" fill-rule="evenodd" stroke="none" transform="translate(100,90) rotate(15)" />
+			</g>
+		</pattern>
+		<linearGradient id="watergrad0" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.1946" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.1271" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.0981" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.0949" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0918" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0918" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad1" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.1946" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.1271" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.0981" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.0949" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad2" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.1946" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.1271" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.0981" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.0949" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad3" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.1994" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.1333" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.1038" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.0977" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad4" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.7078" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.4418" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.2602" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.1760" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.0918" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad5" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.9986" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.8815" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.7657" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.5044" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.1719" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.0962" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad6" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.9517" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.6312" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.2396" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.1059" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad7" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.9737" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.6483" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.2304" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad8" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="1.0000" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.8889" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.4786" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad9" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.8061" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.9424" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.9844" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.9909" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.9984" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.9657" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.5338" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad10" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.2111" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.2835" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.3790" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.5290" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.7813" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.8527" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.4577" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+		<linearGradient id="watergrad11" x1="50%" x2="50%" y1="0%" y2="100%">
+			<stop offset="0" stop-color="#2EC2F2" stop-opacity="0.1946" />
+			<stop offset="0.1" stop-color="#2EC2F2" stop-opacity="0.1271" />
+			<stop offset="0.2" stop-color="#2EC2F2" stop-opacity="0.0981" />
+			<stop offset="0.3" stop-color="#2EC2F2" stop-opacity="0.0983" />
+			<stop offset="0.4" stop-color="#2EC2F2" stop-opacity="0.1592" />
+			<stop offset="0.5" stop-color="#2EC2F2" stop-opacity="0.2733" />
+			<stop offset="0.6" stop-color="#2EC2F2" stop-opacity="0.2092" />
+			<stop offset="0.7" stop-color="#2EC2F2" stop-opacity="0.0917" />
+			<stop offset="0.8" stop-color="#2EC2F2" stop-opacity="0.0917" />
+		</linearGradient>
+	</defs>
+	<rect fill="white" height="1536" stroke="none" width="2048" x="0" y="0" />
+	<svg height="614.4" id="month_01" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="163.84" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad0)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="170.44727808" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-14.8999,0 -13.37239,61.44 -12.36566,122.88 -11.94958,153.6 -11.54584,184.32 -10.6993,245.76 -9.839894,307.2 -9.038147,368.64 -7.607814,491.52 -6.401449,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="298.59612672" stroke="none" width="152.064" x="163.84" y="515.48387328" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="179.0464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="204.215613793103" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="229.384827586207" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="254.55404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="279.723255172414" y="814.08" />
+	<text baseline-shift="-150%" text-anchor="middle" x="239.872" y="40.96">Jan
+	</text>
+	<svg height="614.4" id="month_02" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="317.44" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad1)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="170.58189312" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-16.0378,0 -15.06956,61.44 -14.39663,122.88 -14.11069,153.6 -13.81936,184.32 -13.19308,245.76 -12.52877,307.2 -11.87746,368.64 -10.62695,491.52 -9.463196,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="369.91254528" stroke="none" width="152.064" x="317.44" y="444.16745472" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="332.6464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="357.815613793103" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="382.984827586207" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="408.15404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="433.323255172414" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="316.672" x2="316.672" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="393.472" y="40.96">Feb
+	</text>
+	<svg height="614.4" id="month_03" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="471.04" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad2)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="170.71927296" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-13.83812,0 -13.50563,61.44 -13.23665,122.88 -13.11235,153.6 -12.97504,184.32 -12.66652,245.76 -12.31478,307.2 -11.94657,368.64 -11.17692,491.52 -10.38631,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="399.50923776" stroke="none" width="152.064" x="471.04" y="414.57076224" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="486.2464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="511.415613793103" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="536.584827586207" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="561.75404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="586.923255172414" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="470.272" x2="470.272" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="547.072" y="40.96">Mar
+	</text>
+	<svg height="614.4" id="month_04" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="624.64" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad3)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="169.02936576" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-7.164408,0 -7.985539,61.44 -8.443386,122.88 -8.61681,153.6 -8.751248,184.32 -8.999571,245.76 -9.190751,307.2 -9.313209,368.64 -9.385292,491.52 -9.27534,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="236.12461056" stroke="none" width="152.064" x="624.64" y="577.95538944" />
+	<rect fill="#FF5000" height="0.1359823104" stroke="none" width="20.9743448275862" x="639.8464" y="813.9440176896" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="665.015613793104" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="690.184827586207" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="715.354041379311" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="740.523255172414" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="623.872" x2="623.872" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="700.672" y="40.96">Apr
+	</text>
+	<svg height="614.4" id="month_05" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="778.24" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad4)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="51.538857984" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="4.462533,0 0.9139286,61.44 -0.825671,122.88 -1.173675,153.6 -1.499208,184.32 -2.181822,245.76 -2.864076,307.2 -3.481716,368.64 -4.525169,491.52 -5.327944,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="32.711841792" stroke="none" width="152.064" x="778.24" y="781.368158208" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="793.4464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="818.615613793104" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="843.784827586207" y="814.08" />
+	<rect fill="#84FF00" height="57.48323328" stroke="none" width="20.9743448275862" x="868.954041379311" y="756.59676672" />
+	<rect fill="#00FFAE" height="16.736150016" stroke="none" width="20.9743448275862" x="894.123255172414" y="797.343849984" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="777.472" x2="777.472" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="854.272" y="40.96">May
+	</text>
+	<svg height="614.4" id="month_06" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="931.84" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad5)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="76.61758464" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="11.36527,0 7.056488,61.44 2.972607,122.88 1.038707,153.6 0.5189293,184.32 -0.09207817,245.76 -0.3803718,307.2 -0.7957173,368.64 -1.63662,491.52 -2.403962,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="947.0464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="972.215613793104" y="814.08" />
+	<rect fill="#FFCB00" height="0.06526176768" stroke="none" width="20.9743448275862" x="997.384827586207" y="814.01473823232" />
+	<rect fill="#84FF00" height="230.42939904" stroke="none" width="20.9743448275862" x="1022.55404137931" y="583.65060096" />
+	<rect fill="#00FFAE" height="32.909202432" stroke="none" width="20.9743448275862" x="1047.72325517241" y="781.170797568" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="931.072" x2="931.072" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1007.872" y="40.96">Jun
+	</text>
+	<svg height="614.4" id="month_07" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1085.44" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad6)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="135.30021888" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="13.86986,0 10.35869,61.44 6.919852,122.88 5.278057,153.6 3.480954,184.32 0.8419251,245.76 -0.02797902,307.2 -0.1666429,368.64 -0.7369086,491.52 -1.325777,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="#FF5000" height="39.52521216" stroke="none" width="20.9743448275862" x="1100.6464" y="774.55478784" />
+	<rect fill="#FF9A00" height="8.622669312" stroke="none" width="20.9743448275862" x="1125.8156137931" y="805.457330688" />
+	<rect fill="#FFCB00" height="19.365912576" stroke="none" width="20.9743448275862" x="1150.98482758621" y="794.714087424" />
+	<rect fill="#84FF00" height="79.123968" stroke="none" width="20.9743448275862" x="1176.15404137931" y="734.956032" />
+	<rect fill="#00FFAE" height="9.160049664" stroke="none" width="20.9743448275862" x="1201.32325517241" y="804.919950336" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1084.672" x2="1084.672" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1161.472" y="40.96">Jul
+	</text>
+	<svg height="614.4" id="month_08" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1239.04" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad7)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="167.93554944" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="11.98893,0 9.780868,61.44 7.477719,122.88 6.348954,153.6 5.152683,184.32 2.582131,245.76 0.603925,307.2 -0.02238912,368.64 -0.3480339,491.52 -0.8168373,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="#FF5000" height="298.95358464" stroke="none" width="20.9743448275862" x="1254.2464" y="515.12641536" />
+	<rect fill="#FF9A00" height="69.535872" stroke="none" width="20.9743448275862" x="1279.4156137931" y="744.544128" />
+	<rect fill="#FFCB00" height="27.003101184" stroke="none" width="20.9743448275862" x="1304.58482758621" y="787.076898816" />
+	<rect fill="#84FF00" height="3.89551104" stroke="none" width="20.9743448275862" x="1329.75404137931" y="810.18448896" />
+	<rect fill="#00FFAE" height="5.33753856" stroke="none" width="20.9743448275862" x="1354.92325517241" y="808.74246144" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1238.272" x2="1238.272" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1315.072" y="40.96">Aug
+	</text>
+	<svg height="614.4" id="month_09" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1392.64" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad8)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="171.70741248" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="6.252523,0 5.528668,61.44 4.596662,122.88 4.099956,153.6 3.509231,184.32 2.22289,245.76 0.7656877,307.2 0.002050767,368.64 -0.2595155,491.52 -0.6218355,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="#FF5000" height="140.87665152" stroke="none" width="20.9743448275862" x="1407.8464" y="673.20334848" />
+	<rect fill="#FF9A00" height="24.692732928" stroke="none" width="20.9743448275862" x="1433.0156137931" y="789.387267072" />
+	<rect fill="#FFCB00" height="12.629173248" stroke="none" width="20.9743448275862" x="1458.18482758621" y="801.450826752" />
+	<rect fill="#84FF00" height="0.6679899648" stroke="none" width="20.9743448275862" x="1483.35404137931" y="813.4120100352" />
+	<rect fill="#00FFAE" height="3.5760771072" stroke="none" width="20.9743448275862" x="1508.52325517241" y="810.5039228928" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1391.872" x2="1391.872" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1468.672" y="40.96">Sep
+	</text>
+	<svg height="614.4" id="month_10" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1546.24" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad9)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="169.94469888" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-1.046865,0 0.1290364,61.44 0.4753636,122.88 0.472068,153.6 0.4269143,184.32 0.3004539,245.76 0.1127504,307.2 -0.02080317,368.64 -0.3404856,491.52 -0.6268862,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="36.542496768" stroke="none" width="152.064" x="1546.24" y="777.537503232" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="1561.4464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="1586.6156137931" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="1611.78482758621" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="1636.95404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="1662.12325517241" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1545.472" x2="1545.472" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1622.272" y="40.96">Oct
+	</text>
+	<svg height="614.4" id="month_11" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1699.84" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad10)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="170.1464064" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-7.133673,0 -4.519247,61.44 -2.407729,122.88 -1.365342,153.6 -0.7713084,184.32 -0.08880178,245.76 -0.0001643547,307.2 -0.1718898,368.64 -0.5071478,491.52 -0.7289877,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="141.83749632" stroke="none" width="152.064" x="1699.84" y="672.24250368" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="1715.0464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="1740.2156137931" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="1765.38482758621" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="1790.55404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="1815.72325517241" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1699.072" x2="1699.072" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1775.872" y="40.96">Nov
+	</text>
+	<svg height="614.4" id="month_12" preserveAspectRatio="none" viewBox="-20 0 40 614.4" width="152.064" x="1853.44" y="814.08">
+		<rect fill="#C8C8C8" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="url(#watergrad11)" height="614.4" stroke="none" width="40" x="-20" y="0" />
+		<rect fill="#D97B27" height="170.30264832" stroke="none" width="40" x="-20" y="0" />
+		<line fill="none" stroke="#6F6F6F" stroke-dasharray="40 20" x1="0" x2="0" y1="0" y2="614.4" />
+		<polyline fill="none" points="-11.05606,0 -8.69568,61.44 -7.12517,122.88 -6.467997,153.6 -5.792884,184.32 -4.174828,245.76 -2.710962,307.2 -2.301102,368.64 -2.054989,491.52 -1.757913,614.4 " stroke="url(#tempgrad)" stroke-width="2" />
+		<line fill="none" stroke="black" stroke-width="8" x1="-20" x2="20" y1="0" y2="0" />
+	</svg>
+	<rect fill="url(#snowpat)" height="226.46489088" stroke="none" width="152.064" x="1853.44" y="587.61510912" />
+	<rect fill="#FF5000" height="0" stroke="none" width="20.9743448275862" x="1868.6464" y="814.08" />
+	<rect fill="#FF9A00" height="0" stroke="none" width="20.9743448275862" x="1893.8156137931" y="814.08" />
+	<rect fill="#FFCB00" height="0" stroke="none" width="20.9743448275862" x="1918.98482758621" y="814.08" />
+	<rect fill="#84FF00" height="0" stroke="none" width="20.9743448275862" x="1944.15404137931" y="814.08" />
+	<rect fill="#00FFAE" height="0" stroke="none" width="20.9743448275862" x="1969.32325517241" y="814.08" />
+	<line fill="none" stroke="#6F6F6F" stroke-width="6" x1="1852.672" x2="1852.672" y1="1428.48" y2="40.96" />
+	<text baseline-shift="-150%" text-anchor="middle" x="1929.472" y="40.96">Dec
+	</text>
+	<rect fill="white" height="194.4" stroke="none" width="792" x="189.533572413793" y="115.68" />
+	<polyline fill="none" opacity="0.75" points="189.533572413793,808.96 189.533572413793,140.88 381.696,140.88 " stroke="#FF5000" stroke-width="6" />
+	<text baseline-shift="-45%" fill="#FF5000" font-weight="bold" stroke="none" x="391.936" y="140.88">Boreal evergreen needleleaf tree
+	</text>
+	<polyline fill="none" opacity="0.75" points="214.702786206897,808.96 214.702786206897,176.88 381.696,176.88 " stroke="#FF9A00" stroke-width="6" />
+	<text baseline-shift="-45%" fill="#FF9A00" font-weight="bold" stroke="none" x="391.936" y="176.88">Boreal summergreen broadleaf tree
+	</text>
+	<polyline fill="none" opacity="0.75" points="239.872,808.96 239.872,212.88 381.696,212.88 " stroke="#FFCB00" stroke-width="6" />
+	<text baseline-shift="-45%" fill="#FFCB00" font-weight="bold" stroke="none" x="391.936" y="212.88">C3 grass
+	</text>
+	<polyline fill="none" opacity="0.75" points="265.041213793103,808.96 265.041213793103,248.88 381.696,248.88 " stroke="#84FF00" stroke-width="6" />
+	<text baseline-shift="-45%" fill="#84FF00" font-weight="bold" stroke="none" x="391.936" y="248.88">Flood-tolerant graminoid
+	</text>
+	<polyline fill="none" opacity="0.75" points="290.210427586207,808.96 290.210427586207,284.88 381.696,284.88 " stroke="#00FFAE" stroke-width="6" />
+	<text baseline-shift="-45%" fill="#00FFAE" font-weight="bold" stroke="none" x="391.936" y="284.88">Peatmoss
+	</text>
+	<g id="temp_scale">
+		<g id="temp_scale_lines" style="fill: none; stroke: black">
+			<line stroke-width="4" x1="239.872" x2="239.872" y1="1438.72" y2="1448.96" />
+		</g>
+		<g id="temp_scale_labels" style="fill: black; stroke: none">
+			<text baseline-shift="-60%" text-anchor="middle" x="163.84" y="1459.2">-20
+			</text>
+			<text baseline-shift="-60%" text-anchor="middle" x="239.872" y="1459.2">0
+			</text>
+			<text baseline-shift="-60%" text-anchor="middle" x="315.904" y="1459.2">20
+			</text>
+		</g>
+	</g>
+	<polyline fill="none" points="163.84,1448.96 163.84,1438.72 315.904,1438.72 315.904,1448.96 " stroke="black" stroke-width="4" />
+	<g id="depth_scale">
+		<g id="depth_scale_lines" style="fill: none; stroke: black">
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="1274.88" y2="1274.88" />
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="1121.28" y2="1121.28" />
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="967.68" y2="967.68" />
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="814.08" y2="814.08" />
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="660.48" y2="660.48" />
+			<line stroke-width="4" x1="153.6" x2="143.36" y1="506.88" y2="506.88" />
+		</g>
+		<g id="depth_scale_labels" style="fill: black; stroke: none">
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="1428.48">-100
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="1274.88">-75
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="1121.28">-50
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="967.68">-25
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="814.08">0
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="660.48">25
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="506.88">50
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="133.12" y="353.28">75
+			</text>
+		</g>
+	</g>
+	<polyline fill="none" points="143.36,1428.48 153.6,1428.48 153.6,353.28 143.36,353.28 " stroke="black" stroke-width="4" />
+	<g id="npp_scale">
+		<g id="npp_scale_lines" style="fill: none; stroke: black">
+			<line stroke-width="4" x1="81.92" x2="71.68" y1="698.88" y2="698.88" />
+			<line stroke-width="4" x1="81.92" x2="71.68" y1="583.68" y2="583.68" />
+			<line stroke-width="4" x1="81.92" x2="71.68" y1="468.48" y2="468.48" />
+			<line stroke-width="4" x1="81.92" x2="71.68" y1="353.28" y2="353.28" />
+			<line stroke-width="4" x1="81.92" x2="71.68" y1="238.08" y2="238.08" />
+		</g>
+		<g id="npp_scale_labels" style="fill: black; stroke: none">
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="814.08">0
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="698.88">25
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="583.68">50
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="468.48">75
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="353.28">100
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="238.08">125
+			</text>
+			<text baseline-shift="-50%" text-anchor="end" x="61.44" y="122.88">150
+			</text>
+		</g>
+	</g>
+	<polyline fill="none" points="71.68,814.08 81.92,814.08 81.92,122.88 71.68,122.88 " stroke="black" stroke-width="4" />
+	<text text-anchor="middle" x="239.872" y="1510.4">Soil temperature (&#176;C)
+	</text>
+	<text x="20.48" y="1182.72">Soil
+	</text>
+	<text x="20.48" y="1218.72">depth
+	</text>
+	<text x="20.48" y="1254.72">(cm)
+	</text>
+	<text x="20.48" y="50.8799999999999">Monthly NPP
+	</text>
+	<text x="20.48" y="86.8799999999999">
+		<tspan >(gC/m
+		</tspan>
+		<tspan dx="-10" dy="-10" font-size="75%">2
+		</tspan>
+		<tspan dx="-5" dy="10">)
+		</tspan>
+	</text>
+	<text font-family="serif" font-size="150%" text-anchor="middle" x="1024" y="1500">(d) Canada, 61.75&#176;N 239.75&#176;E
+	</text><!-- 
+	Generated using the Perl SVG Module V2.33
+	by Ronan Oger
+	Info: http://www.roasp.com/
+ -->
+</svg>

@@ -38,17 +38,15 @@ analysis, since there are definitely still some scene illumination
 artefacts in what we're seeing.  It's encouraging that we can at least
 see something though!
 
-<div>
-  <div class="img2-box">
-    <a href="webcam-image.jpg">![Webcam image](webcam-image.jpg)</a>
-    <p style="text-align: center;">*Webcam image*</p>
-  </div>
-  <div class="img2-box">
-    <a href="gcc.png">![Chromatic green time series](gcc.png)</a>
-    <p style="text-align: center;">*Chromatic green time series*</p>
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  <a href="webcam-image.jpg">![Webcam image](webcam-image.jpg)</a>
+  <p style="text-align: center;">*Webcam image*</p>
 </div>
+<div class="img2-right">
+  <a href="gcc.png">![Chromatic green time series](gcc.png)</a>
+  <p style="text-align: center;">*Chromatic green time series*</p>
+</div>
+<div class="img-spacer"/>
 
 The potential difficulties in data analysis aren't helped much by the
 local criminal low-lives.  We've had four major thefts at Puéchabon in

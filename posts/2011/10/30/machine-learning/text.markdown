@@ -1,6 +1,6 @@
 ---
 author: Ian
-tags: AI,phd,maths
+tags: AI,phd,mathematics
 timestamp: 20:06:15
 title: AI Class: Machine Learning
 ---
@@ -119,15 +119,13 @@ The important thing to note here, particularly in the third example
 Compare the equivalent results from Isomap and from a neural-network
 nonlinear PCA method:
 
-<div>
-  <div class="img2-box">
-    <a href="isomap-hole-swiss-roll.png">![HLLE](isomap-hole-swiss-roll.png)</a>    
-  </div>
-  <div class="img2-box">
-    <a href="nlpca-hole-swiss-roll.png">![HLLE](nlpca-hole-swiss-roll.png)</a>    
-  </div>
-  <div class="img-spacer"/>
+<div class="img2-left">
+  <a href="isomap-hole-swiss-roll.png">![HLLE](isomap-hole-swiss-roll.png)</a>    
 </div>
+<div class="img2-right">
+  <a href="nlpca-hole-swiss-roll.png">![HLLE](nlpca-hole-swiss-roll.png)</a>    
+</div>
+<div class="img-spacer"/>
 
 
 ## Parameter sensitivity ##

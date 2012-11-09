@@ -66,7 +66,7 @@ xformTikZs p tikzs = unlines $ concatMap flattenChunk fixedChunks
         
         tikZHtmlRep :: TikZInfo -> [String]
         tikZHtmlRep (TikZInfo md5 w h style) =
-          ["<object type=\"image/svg+xml\" data=\"/tikzs/" ++ 
+          ["<object type=\"image/svg+xml\" data=\"/blog/tikzs/" ++ 
            (addExtension md5 "svg") ++ 
            "\" width=" ++ (show w) ++ 
            " height=" ++ (show h) ++ 
@@ -86,9 +86,9 @@ generateTikZs p = forM pics renderSVG
 --
 renderSVG :: Chunk -> IO TikZInfo
 renderSVG (Picture attr tikz) = do
-  createDirectoryIfMissing True "_site/tikzs"
+  createDirectoryIfMissing True "_site/blog/tikzs"
   pwd <- getCurrentDirectory
-  setCurrentDirectory "_site/tikzs"
+  setCurrentDirectory "_site/blog/tikzs"
   putStrLn $ "Rendering SVG: " ++ md5 ++ ".svg"
   exists <- doesFileExist svgf
   if exists 

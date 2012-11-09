@@ -77,7 +77,7 @@ enormous ramifications and many applications.
 
 Then, controversially, the liberation from intuition.  The very
 striking example that Kac and Ulam use is the fact that continuous
-functions differentiable at at least one point form set of first
+functions differentiable at at least one point form a set of first
 category in set of continuous functions, i.e. they are infinitesimally
 rare!  In some sense, "most" continuous functions are like the
 [Weierstrass function](http://en.wikipedia.org/wiki/Weierstrass_function),
