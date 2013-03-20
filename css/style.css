@@ -39,6 +39,7 @@ sub { bottom: -0.25em; }
 
 em { font-style: italic; }
 strong { font-weight: bold; }
+small { font-size: 12px; }
 
 a { color: #034; font-weight:bold; text-decoration: none; }
 a:hover { color: #606; }

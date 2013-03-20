@@ -553,9 +553,22 @@ I've been playing with **Yesod**, a Haskell web framework, both as
 Haskell exercise and as a way of learning some more about web
 programming, and it's really great.
 
-In my spare time between paid work, I'm going to try to "Haskellise"
-some of the huge pile of unfinished and nascent ideas that I have
-lying around.  Should be fun!
+I currently have two clients I'm working with.  One is my old research
+group in Bristol, for whom I'm writing data preparation tools (in
+**Fortran**, **C++** and, of all things, **Tcl/Tk**!) for the work
+they do with the UK Met Office Hadley Centre climate model.  The other
+is a start-up company that's developing tools to make Bayesian
+statistical methods (in particular Markov chain Monte Carlo for
+complex models) accessible to more scientists.  This is nominally a
+**Haskell** contract, with a backend based on **Yesod**, but I've also
+been doing a lot of **JavaScript** work for the front end, including a
+data visualisation library that works with **AngularJS** -- that's
+still at a relatively early stage of development, but I think it's
+quite neat and might be something that could be pretty useful.
+
+In my totally inadequate spare time between paid work, I'm going to
+try to "Haskellise" some of the huge pile of unfinished and nascent
+ideas that I have lying around.  Should be fun!
 
 
 [^1]: Computers have got smaller over the years.  Washing machines,

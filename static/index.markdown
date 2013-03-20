@@ -23,12 +23,13 @@ might do.
 
 #### Using:
 
-C, C++, R, Java, Fortran (77 & 95), Lisp (Scheme, AUTOLisp,
-proprietary dialects), APL, SQL, Mathematica, Matlab, ArcGIS, Perl,
-NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray
+Haskell, JavaScript, C, C++, R, Java, Fortran (77 & 95), Lisp (Scheme,
+AUTOLisp, proprietary dialects), APL, SQL, Mathematica, Matlab,
+ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray, Tcl/Tk
 
 #### to do:
 
+ * Web apps
  * Climate & vegetation modelling
  * [Data visualisation](/data-visualisation.html)
  * Applied dynamical systems
@@ -53,7 +54,7 @@ NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray
  * Metalworking & workshop engineering
  * Mechanical design (AutoCAD)
  * Forth, some DSP assembler
- 
+
 ## All the grubby details
 
 I have a sort of programming bio [here](/programming-bio.html).
