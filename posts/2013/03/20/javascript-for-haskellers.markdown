@@ -177,7 +177,7 @@ in Michael's `yesod-js` [repository][yesodjs].
 
 
 [fay]: http://fay-lang.org
-[fayart]: /posts/2012/11/13/fay-ring-oscillator/index.html
+[fayart]: /blog/posts/2012/11/13/fay-ring-oscillator
 [jison]: http://zaach.github.com/jison/
 [snoyberg]: http://www.yesodweb.com/blog/2012/10/yesod-fay-js
 [angular]: http://angularjs.org/

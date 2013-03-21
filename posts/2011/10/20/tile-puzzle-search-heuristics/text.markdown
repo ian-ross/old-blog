@@ -160,5 +160,5 @@ Anyway, the take home lesson is that heuristics are important for
 search!
 
 
-[astar1]: /posts/2011/10/16/a-star-search
+[astar1]: /blog/posts/2011/10/16/a-star-search
 [box]: http://en.wikipedia.org/wiki/Box_and_whisker_plot

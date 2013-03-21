@@ -160,7 +160,7 @@ main = do
 
 Simple!
 
-[part1]: /posts/2010/10/10/haskell-comic-scraper-1
+[part1]: /blog/posts/2010/10/10/haskell-comic-scraper-1
 [julian]: http://en.wikipedia.org/wiki/Julian_day
 [datatime]: http://haskell.org/ghc/docs/7.0-latest/html/libraries/time-1.2.0.3/Data-Time.html
 [haskxml]: http://en.wikibooks.org/wiki/Haskell/XML

@@ -5,12 +5,12 @@ timestamp: 20:18:44
 title: PhD Attempt Number 2
 ---
 My second attempt at a PhD went off rather better than my
-[first](http://www.skybluetrades.net/posts/2012/02/04/oxford-phd-time.html).
-It was all done, dusted and examined in the allotted three years,
-without too much psychic suffering.  Even more remarkable was that, in
-a period of four years, both my partner Rita and myself finished,
-wrote up and graduated.  Without any domestic bickering at all (well,
-more or less).
+[first](/blog/posts/2012/02/04/oxford-phd-time.html).  It was all
+done, dusted and examined in the allotted three years, without too
+much psychic suffering.  Even more remarkable was that, in a period of
+four years, both my partner Rita and myself finished, wrote up and
+graduated.  Without any domestic bickering at all (well, more or
+less).
 
 I put most of this down to the excellent atmosphere in the research
 group I was in in Bristol, founded by Paul Valdes, one of my two

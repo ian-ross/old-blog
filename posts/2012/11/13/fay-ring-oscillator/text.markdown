@@ -10,19 +10,20 @@ there...
 <!--MORE-->
 
 I've been playing a bit with calculating Lyapunov exponents using
-Haskell in the [previous](posts/2012/11/01/lyapunov-exponents-1)
-[two](posts/2012/11/06/lyapunov-exponents-2) articles.  My original
-motivation for looking at these methods was to try to calculate
-Lyapunov exponents for partial differential equations.  That's pretty
-hard though, from both a practical and a theoretical point of view
-(I'm not even 100% sure I know what a Lyapunov exponent means for an
-infinite-dimensional system).  Of course, for computational purposes,
-we always compute using a finite discretisation of a PDE, and there's
-an interest in seeing how Lyapunov exponents calculated for these
-discretisations converge (or not) as the discretisations become finer.
-That's also kind of hard, but we can get started by thinking about
-computational methods by using ODE systems that we can set up with a
-variable number of degrees of freedom.
+Haskell in the [previous](/blog/posts/2012/11/01/lyapunov-exponents-1)
+[two](/blog/posts/2012/11/06/lyapunov-exponents-2) articles.  My
+original motivation for looking at these methods was to try to
+calculate Lyapunov exponents for partial differential equations.
+That's pretty hard though, from both a practical and a theoretical
+point of view (I'm not even 100% sure I know what a Lyapunov exponent
+means for an infinite-dimensional system).  Of course, for
+computational purposes, we always compute using a finite
+discretisation of a PDE, and there's an interest in seeing how
+Lyapunov exponents calculated for these discretisations converge (or
+not) as the discretisations become finer.  That's also kind of hard,
+but we can get started by thinking about computational methods by
+using ODE systems that we can set up with a variable number of degrees
+of freedom.
 
 One system that's been used by a few people[^1] is a driven ring
 oscillator, like this:

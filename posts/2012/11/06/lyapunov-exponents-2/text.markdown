@@ -5,11 +5,11 @@ timestamp: 16:29:40
 title: Lyapunov Exponents in Haskell: Part 2
 ---
 In the
-[previous article](/posts/2012/11/01/lyapunov-exponents-1/index.html),
-we looked at some of the details of a scheme for calculating the
-Lyapunov exponents of a system of differential equations.  In this
-post, we'll see how to implement this scheme in Haskell.  The code we
-describe is available as a Gist [here][gist].
+[previous article](/blog/posts/2012/11/01/lyapunov-exponents-1), we
+looked at some of the details of a scheme for calculating the Lyapunov
+exponents of a system of differential equations.  In this post, we'll
+see how to implement this scheme in Haskell.  The code we describe is
+available as a Gist [here][gist].
 
 <!--MORE-->
 
