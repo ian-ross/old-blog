@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: organisation
-timestamp: 09:17:58
+published: 2013-04-18 09:17:58
 title: The War on Akrasia
 ---
 I learnt a new word yesterday: *akrasia* (rhymes with "aphasia" and

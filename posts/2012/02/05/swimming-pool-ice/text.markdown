@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: photos,montpellier
-timestamp: 18:15:25
+published: 2012-02-05 18:15:25
 title: Mediterranean Climate Blues...
 ---
 To compensate for the psychopathic driving habits of the French, the

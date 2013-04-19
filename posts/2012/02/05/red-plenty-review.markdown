@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 18:39:17
+published: 2012-02-05 18:39:17
 title: Red Plenty
 ---
 *by Francis Spufford*

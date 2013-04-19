@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,yesod
-timestamp: 16:26:06
+published: 2012-10-10 16:26:06
 title: Sliders for Yesod
 ---
 Michael Snoyman recently had a [blog post][snoyman] about

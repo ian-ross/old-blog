@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: past-lives
-timestamp: 20:14:13
+published: 2012-01-10 20:14:13
 title: Past Lives: Part III Maths
 ---
 I've been very lucky so far in my life, and have had many

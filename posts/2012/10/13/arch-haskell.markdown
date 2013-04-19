@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell
-timestamp: 19:57:27
+published: 2012-10-13 19:57:27
 title: Haskell on Arch Linux
 ---
 So, [GHC 7.6.1][ghc] was released last month.  And there was a

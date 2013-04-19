@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: past-lives
-timestamp: 20:18:44
+published: 2012-02-15 20:18:44
 title: PhD Attempt Number 2
 ---
 My second attempt at a PhD went off rather better than my

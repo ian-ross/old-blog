@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 22:01:01
+published: 2011-10-17 22:01:01
 title: The City &amp; The City
 ---
 *by China Miéville*

@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job
-timestamp: 19:54:42
+published: 2012-05-15 19:54:42
 title: Big Plans
 ---
 So, over the weekend Rita and myself made a big step.  We both sent in

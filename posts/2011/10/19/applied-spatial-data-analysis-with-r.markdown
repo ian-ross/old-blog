@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews,day-job,r,gis
-timestamp: 19:20:58
+published: 2011-10-19 19:20:58
 title: Applied Spatial Data Analysis With R
 ---
 *by Roger S. Bivand, Edzer J. Pebesma & Virgilio Gómez-Rubio*

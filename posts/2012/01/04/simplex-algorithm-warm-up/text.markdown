@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: constraints,mathematics
-timestamp: 18:38:49
+published: 2012-01-04 18:38:49
 title: The simplex algorithm: warm-up
 ---
 Pathetically slow in starting work on my little constraints project as

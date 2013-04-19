@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job,science
-timestamp: 20:38:40
+published: 2012-05-10 20:38:40
 title: Technology is weird
 ---
 I was up at our experimental site at Puéchabon the other day,

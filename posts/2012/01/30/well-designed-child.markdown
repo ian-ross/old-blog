@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: AI
-timestamp: 20:06:22
+published: 2012-01-30 20:06:22
 title: Common sense and the well-designed child
 ---
 I recently read an interesting article by John McCarthy that set me

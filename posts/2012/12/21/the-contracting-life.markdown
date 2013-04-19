@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job
-timestamp: 12:06:56
+published: 2012-12-21 12:06:56
 title: The Contracting Life
 ---
 Ah, another involuntary blogging hiatus.  This time, for a good reason

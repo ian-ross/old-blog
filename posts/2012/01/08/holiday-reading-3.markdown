@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 17:26:55
+published: 2012-01-08 17:26:55
 title: Holiday Reading #3
 ---
 A couple of more substantial (in length) books I read over Christmas

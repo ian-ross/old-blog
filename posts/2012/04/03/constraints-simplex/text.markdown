@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: constraints,haskell
-timestamp: 18:22:04
+published: 2012-04-03 18:22:04
 title: Playing with the Simplex Algorithm
 ---
 I was originally planning to write a quick-and-dirty implementation of

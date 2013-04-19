@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 19:11:30
+published: 2012-01-03 19:11:30
 title: Holiday Reading #1
 ---
 I did a spot of reading over the Christmas and New Year holidays.  In

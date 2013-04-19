@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job
-timestamp: 17:21:32
+published: 2012-01-29 17:21:32
 title: Puéchabon webcam
 ---
 <div class="img-right">![Webcam installation](installation.jpg)</div>

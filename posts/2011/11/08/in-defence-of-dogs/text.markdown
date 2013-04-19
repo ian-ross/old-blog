@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews,dogs
-timestamp: 21:24:42
+published: 2011-11-08 21:24:42
 title: In Defence Of Dogs
 ---
 <div class="img-right">

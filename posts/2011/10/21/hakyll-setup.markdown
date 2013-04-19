@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: colophonia,haskell
-timestamp: 20:10:38
+published: 2011-10-21 20:10:38
 title: Hakyll Setup
 ---
 As blogging software, I use the really rather nice [Hakyll][hakyll],

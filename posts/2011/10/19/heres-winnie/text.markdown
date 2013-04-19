@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: dogs
-timestamp: 20:04:50
+published: 2011-10-19 20:04:50
 title: Here's Winnie!
 ---
 <div class="img-right">![Winnie](winnie.jpg)</div>

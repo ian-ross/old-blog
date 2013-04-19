@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,mathematics
-timestamp: 16:29:40
+published: 2012-11-06 16:29:40
 title: Lyapunov Exponents in Haskell: Part 2
 ---
 In the

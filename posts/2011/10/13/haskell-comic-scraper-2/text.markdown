@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,programming
-timestamp: 20:44:02
+published: 2011-10-13 20:44:02
 title: Haskell Comic Scraper: Part 2
 ---
 [Last time][part1], we looked at the basics for a webcomic scraper.

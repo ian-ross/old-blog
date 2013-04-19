@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job
-timestamp: 10:37:46
+published: 2012-10-04 10:37:46
 title: Some recent(ish) papers
 ---
 Some recent-ish papers of mine, that is.  Although I didn't enjoy my

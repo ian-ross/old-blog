@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 19:41:54
+published: 2012-01-17 19:41:54
 title: Eight legs good, two legs bad!
 ---
 Along with a lot of other people, I'm a big fan of cephalopods.  I've

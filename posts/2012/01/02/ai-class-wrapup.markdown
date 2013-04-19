@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: AI
-timestamp: 19:09:22
+published: 2012-01-02 19:09:22
 title: AI Class Wrap-up
 ---
 One thing that came to an end over the Christmas holidays was the

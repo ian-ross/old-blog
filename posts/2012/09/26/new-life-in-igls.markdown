@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 13:22:39
+published: 2012-09-26 13:22:39
 title: New Life In Igls
 ---
 So, we've embarked on a new life here in Igls.  Rita has started

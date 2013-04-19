@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: past-lives
-timestamp: 20:47:59
+published: 2012-01-23 20:47:59
 title: Ping
 ---
 For a brief period some years ago, I worked for an engineering firm

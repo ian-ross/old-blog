@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 16:25:15
+published: 2012-10-16 16:25:15
 title: Winter is here!
 ---
 <div class="img-right"><a href="winter.jpg">![Wintery scene](winter-small.jpg)</a></div>

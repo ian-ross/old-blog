@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 09:50:33
+published: 2011-11-12 09:50:33
 title: Saturday Morning Linkfest
 ---
 #### Haskell ####

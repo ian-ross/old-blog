@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 18:04:27
+published: 2012-01-07 18:04:27
 title: We never dropped a bomb.  We never fired a bullet.  We never went to war.
 ---
 I was born in the UK in 1972.  The "world leaders" who defined my

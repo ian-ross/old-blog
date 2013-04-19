@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: photos,science
-timestamp: 18:44:44
+published: 2012-01-13 18:44:44
 title: Now That's How You Use A Camera...
 ---
 I'm a sucker for nature photos.  One of our annual outings when we

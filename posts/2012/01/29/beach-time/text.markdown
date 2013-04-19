@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: dogs
-timestamp: 17:57:51
+published: 2012-01-29 17:57:51
 title: Beach Time!
 ---
 <div class="img-right"><a href="winnie-on-beach.jpg">![Winnie!](winnie-on-beach-small.jpg)</a></div>

@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 17:41:58
+published: 2012-01-29 17:41:58
 title: Academic publishing
 ---
 After referring to a paper in

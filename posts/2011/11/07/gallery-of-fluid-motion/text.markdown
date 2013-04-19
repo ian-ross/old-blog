@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: science
-timestamp: 07:25:11
+published: 2011-11-07 07:25:11
 title: Blowing Stuff Up!  For SCIENCE!!!
 ---
 *via the MIT Technology Review [Physics arXiv Blog](http://www.technologyreview.com/blog/arxiv/)*

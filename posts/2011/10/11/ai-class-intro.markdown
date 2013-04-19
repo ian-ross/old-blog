@@ -2,6 +2,7 @@
 title: Stanford AI Class
 author: Ian
 tags: AI
+published: 2011-10-11 09:00:00
 ---
 
 Along with about 160,000 other people, I've signed up for the

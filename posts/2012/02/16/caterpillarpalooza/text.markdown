@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: science
-timestamp: 20:09:15
+published: 2012-02-16 20:09:15
 title: Caterpillarpalooza!
 ---
 <div class="img-right"><a href="caterpillar-1.jpg">![Caterpillars!](caterpillar-1-small.jpg)</a></div>

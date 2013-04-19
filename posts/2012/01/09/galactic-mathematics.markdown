@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: mathematics
-timestamp: 20:24:15
+published: 2012-01-09 20:24:15
 title: Minds and mathematics
 ---
 In 1998, the mathematical physicist David Ruelle wrote an odd little

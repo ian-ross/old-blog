@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 13:05:26
+published: 2012-12-25 13:05:26
 title: Lilith's Brood
 ---
 *by Octavia Butler*

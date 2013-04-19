@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: day-job,remote-sensing,science
-timestamp: 21:17:18
+published: 2011-10-15 21:17:18
 title: Land cover datasets
 ---
 In my day job, I work on the ecology of Mediterranean ecosystems in

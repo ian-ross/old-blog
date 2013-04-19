@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: dogs
-timestamp: 13:47:52
+published: 2011-10-31 13:47:52
 title: Calming Signals
 ---
 What does it mean when your dog yawns at you?  She's tired?  She's

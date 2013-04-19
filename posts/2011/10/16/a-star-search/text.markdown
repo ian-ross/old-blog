@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: AI,haskell,programming
-timestamp: 21:34:14
+published: 2011-10-16 21:34:14
 title: AI Class: A* Search
 ---
 The first week of the online [Stanford AI class][ai-class] has gone

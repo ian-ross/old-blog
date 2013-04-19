@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: sleep
-timestamp: 14:03:08
+published: 2012-12-22 14:03:08
 title: Not Enough Hours in the Day?
 ---
 Since I've found some contracting work, my only real problem in life

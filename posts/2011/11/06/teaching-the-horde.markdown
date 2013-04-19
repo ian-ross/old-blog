@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: AI
-timestamp: 21:15:52
+published: 2011-11-06 21:15:52
 title: AI Class: Teaching the horde...
 ---
 Week four of the Stanford Introduction to AI class was about, well,

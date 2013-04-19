@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: photos
-timestamp: 20:16:17
+published: 2012-01-16 20:16:17
 title: Cabins
 ---
 I've been thinking for a long time, mostly privately in my idle

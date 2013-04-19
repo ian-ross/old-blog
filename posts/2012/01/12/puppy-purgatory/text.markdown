@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: dogs
-timestamp: 19:24:17
+published: 2012-01-12 19:24:17
 title: Puppy Purgatory
 ---
 <div class="img-right">

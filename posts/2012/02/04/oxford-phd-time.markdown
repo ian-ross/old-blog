@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: past-lives
-timestamp: 18:48:49
+published: 2012-02-04 18:48:49
 title: PhD Attempt Number 1
 ---
 I spent the period from October 1998 until November 2001 as a graduate

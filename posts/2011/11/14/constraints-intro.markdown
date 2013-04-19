@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: constraints,haskell,programming
-timestamp: 20:04:49
+published: 2011-11-14 20:04:49
 title: A project: Constraints
 ---
 I've recently started making some tiny contributions to Brent Yorgey's

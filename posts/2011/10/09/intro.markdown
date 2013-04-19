@@ -2,6 +2,7 @@
 title: Introduction
 tags: colophonia
 author: Ian
+published: 2011-10-09 09:00:00
 ---
 
 I've been meaning to start a blog for some time, but couldn't settle

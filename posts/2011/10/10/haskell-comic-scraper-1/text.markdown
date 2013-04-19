@@ -1,6 +1,6 @@
 ---
 title: Haskell Comic Scraper: Part 1
-date: 2010-03-10 13:00:00
+published: 2010-03-10 13:00:00
 author: Ian
 tags: haskell,programming
 ---

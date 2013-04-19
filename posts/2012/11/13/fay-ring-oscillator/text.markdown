@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,mathematics
-timestamp: 15:27:01
+published: 2012-11-13 15:27:01
 title: Fun with Fay
 ---
 This won't sound like fun (or Fay!) to start with, but we'll get

@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 21:37:13
+published: 2011-11-04 21:37:13
 title: Hippo in da house...
 ---
 I kept trying to tell Rita that a hippo would make a perfect pet.  She

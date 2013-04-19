@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: regrets
-timestamp: 19:04:59
+published: 2011-11-16 19:04:59
 title: Oh Canada...
 ---
 I miss Canada.

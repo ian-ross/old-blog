@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 14:19:43
+published: 2012-01-23 14:19:43
 title: Link Round-up
 ---
 Some interesting things that passed through my RSS reader recently:

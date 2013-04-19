@@ -1,6 +1,6 @@
 ---
 author: Ian
-timestamp: 12:49:33
+published: 2012-05-12 12:49:33
 title: Holidays in Austria 1: Vorarlberg
 ---
 <div class="img-right">

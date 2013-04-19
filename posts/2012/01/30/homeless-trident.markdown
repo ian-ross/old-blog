@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: nonsense
-timestamp: 18:30:50
+published: 2012-01-30 18:30:50
 title: Trident Homeless?
 ---
 Trident is the UK's *independent nuclear deterrent*.  Except that it

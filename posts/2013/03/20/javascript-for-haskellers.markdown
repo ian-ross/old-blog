@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,web-programming
-timestamp: 21:12:39
+published: 2013-03-20 21:12:39
 title: JavaScript Choices for Haskell Programmers
 ---
 So, I've not done any blogging since the ill-fated Midwinter

@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: AI
-timestamp: 07:15:44
+published: 2011-10-20 07:15:44
 title: AI Class: Tile Puzzle Heuristics
 ---
 In an [earlier post][astar1], I presented some code for solving tile

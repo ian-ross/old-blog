@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: sleep
-timestamp: 13:22:38
+published: 2012-12-25 13:22:38
 title: Polyphasic Sleep: Day 1
 ---
 Right now, it's early afternoon on "Day 2", just about 24 hours after

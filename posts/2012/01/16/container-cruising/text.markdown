@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: past-lives
-timestamp: 20:09:33
+published: 2012-01-16 20:09:33
 title: Container Cruising
 ---
 <div class="img-right">![Container cruising](container-cruising.jpg)</div>

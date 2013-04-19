@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: montpellier
-timestamp: 21:05:10
+published: 2011-10-21 21:05:10
 title: The Zen of Car Ownership
 ---
 "Pour avoir une voiture, sans avoir une voiture"

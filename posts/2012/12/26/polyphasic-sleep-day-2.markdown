@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: sleep
-timestamp: 11:11:08
+published: 2012-12-26 11:11:08
 title: Polyphasic Sleep: Day 2
 ---
 Urgh.  Well, that didn't go quite as I was hoping.  I discovered that

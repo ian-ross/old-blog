@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: colophonia
-timestamp: 14:59:12
+published: 2012-01-01 14:59:12
 title: Thirty Day Challenges
 ---
 Looking for a prod to jolt me out of an (involuntary) 45 day blogging

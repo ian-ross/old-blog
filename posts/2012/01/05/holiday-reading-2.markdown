@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-timestamp: 17:39:39
+published: 2012-01-05 17:39:39
 title: Holiday Reading #2
 ---
 

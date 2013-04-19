@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: haskell,mathematics
-timestamp: 23:21:17
+published: 2012-11-01 23:21:17
 title: Lyapunov Exponents in Haskell: Part 1
 ---
 The archetypal chaotic dynamical system is the Lorentz system, defined

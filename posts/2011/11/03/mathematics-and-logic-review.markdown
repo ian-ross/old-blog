@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews, mathematics
-timestamp: 17:13:14
+published: 2011-11-03 17:13:14
 title: Mathematics and Logic
 ---
 *by Mark Kac & Stanislaw Ulam*
