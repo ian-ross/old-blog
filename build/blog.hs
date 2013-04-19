@@ -1,25 +1,26 @@
 {-# LANGUAGE DeriveDataTypeable, OverloadedStrings, Arrows #-}
 module Main where
 
-import Prelude hiding (id)
-import Control.Arrow ((>>>), arr, (&&&), (>>^))
-import Control.Category (id)
+--import Prelude hiding (id)
+--import Control.Category (id)
+import Control.Applicative ((<$>))
 import Control.Monad (forM_)
-import Data.Monoid (mempty, mconcat)
+import Control.Arrow ((&&&))
+import Data.Monoid (mempty, mappend, mconcat)
 import Data.List (isInfixOf)
+import qualified Data.Map as M
 import Data.Maybe (isNothing)
-import Text.Pandoc (Pandoc, HTMLMathMethod(..), WriterOptions(..), 
-                    defaultWriterOptions, ParserState)
-import Text.Pandoc.Shared (ObfuscationMethod(..))
+import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..),
+                    ObfuscationMethod(..))
 import System.Environment (getArgs)
-import System.Directory (doesFileExist, doesDirectoryExist, 
-                         createDirectoryIfMissing, 
+import System.Directory (doesFileExist, doesDirectoryExist,
+                         createDirectoryIfMissing,
                          renameFile, renameDirectory)
 import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.Calendar (toGregorian)
 import System.Locale (defaultTimeLocale)
 import Data.Time.Format (parseTime, formatTime)
-import System.FilePath ((</>), joinPath, splitDirectories, 
+import System.FilePath ((</>), joinPath, splitDirectories,
                         takeDirectory, takeExtension, replaceExtension)
 import System.Cmd (rawSystem)
 import Data.String.Utils (replace)
@@ -34,11 +35,12 @@ import System.IO (hFlush, stdout)
 
 -- We override some names from Hakyll so we can use a different post
 -- naming convention.
-import Hakyll hiding (chronological, renderDateField, renderDateFieldWith, 
-                      renderTagsField, renderTagCloud, 
-                      relativizeUrlsCompiler, relativizeUrls, withUrls)
+-- import Hakyll hiding (chronological, renderDateField, renderDateFieldWith,
+--                       renderTagsField, renderTagCloud,
+--                       relativizeUrlsCompiler, relativizeUrls, withUrls)
+import Hakyll
 
-import Overrides                -- Overrides of Hakyll functions.
+--import Overrides                -- Overrides of Hakyll functions.
 import TikZ                     -- TikZ image rendering.
 
 
@@ -51,9 +53,11 @@ articlesPerIndexPage = 10
 
 -- | Set up deployment command.
 --
-hakyllConf = defaultHakyllConfiguration {
-  deployCommand = 
-     "rsync -ave ssh _site/ iross@www.skybluetrades.net:/srv/http/skybluetrades.net"
+hakyllConf :: Configuration
+hakyllConf = defaultConfiguration {
+  deployCommand =
+     "rsync -ave ssh _site/ " ++
+     "iross@www.skybluetrades.net:/srv/http/skybluetrades.net"
   }
 
 
@@ -65,15 +69,15 @@ main = do
   args <- getArgs
   case args of
     ["publish", p] -> publishDraft p
-    _              -> doHakyll 
-                   
+    _              -> doHakyll
+
 
 -- | Main Hakyll processing.
 --
 doHakyll = hakyllWith hakyllConf $ do
     -- Read templates.
     match "templates/*" $ compile templateCompiler
-    
+
     -- Compress CSS files.
     match "css/*" $ do
       route $ setExtension "css"
@@ -86,41 +90,43 @@ doHakyll = hakyllWith hakyllConf $ do
 
 
     -- Compile static pages.
-    match staticPagePattern $ do
-      route $ gsubRoute "static/" (const "") `composeRoutes` setExtension ".html"
+    match ("static/*.markdown" .||. "static/**/*.markdown") $ do
+      route $ gsubRoute "static/" (const "") `composeRoutes`
+        setExtension ".html"
       compile staticCompiler
-      
-    -- Copy other static content.
+
+    -- -- Copy other static content.
     match "static/**" $ do
       route $ gsubRoute "static/" (const "")
       compile copyFileCompiler
-      
-    -- Copy image files.
+
+    -- -- Copy image files.
     match "images/*" $ do
       route idRoute
       compile copyFileCompiler
 
 
-    -- Render blog posts.
+    -- -- Render blog posts.
     match "posts/*/*/*/*.markdown" $ do
       route   $ postsRoute `composeRoutes` setExtension ".html"
       compile $ postCompiler
     match "posts/*/*/*/*/text.markdown" $ do
-      route   $ postsRoute `composeRoutes` gsubRoute "text.markdown" (const "index.html")
+      route   $ postsRoute `composeRoutes`
+        gsubRoute "text.markdown" (const "index.html")
       compile $ postCompiler
 
 
-    -- Extract tags from raw Markdown for blog posts: extra "raw"
-    -- group is needed to break dependency cycle between page
-    -- rendering and tag extraction.
-    group "raw" $ do
-      match "posts/*/*/*/*.markdown" $ do
-        compile $ rawPostCompiler
-      match "posts/*/*/*/*/text.markdown" $ do
-        compile $ rawPostCompiler
-    create "tags" $
-      requireAll (inGroup $ Just "raw") (\_ ps -> readTags ps :: Tags String)
-    
+    -- -- Extract tags from raw Markdown for blog posts: extra "raw"
+    -- -- group is needed to break dependency cycle between page
+    -- -- rendering and tag extraction.
+    -- group "raw" $ do
+    --   match "posts/*/*/*/*.markdown" $ do
+    --     compile $ rawPostCompiler
+    --   match "posts/*/*/*/*/text.markdown" $ do
+    --     compile $ rawPostCompiler
+    -- create "tags" $
+    --   requireAll (inGroup $ Just "raw") (\_ ps -> readTags ps :: Tags String)
+
 
     -- Copy resource files for blog posts.
     match "posts/*/*/*/*/*" $ do
@@ -128,59 +134,55 @@ doHakyll = hakyllWith hakyllConf $ do
       compile copyFileCompiler
 
 
-    -- Generate blog index pages: we need to calculate and pass
-    -- through the total number of articles to be able to split them
-    -- across the right number of index pages.
-    match "index*.html" $ route blogRoute
-    metaCompile $ requireAll_ postsPattern
-      >>> arr (chunk articlesPerIndexPage . chronological)
-      >>^ makeIndexPages
-      
+    -- -- Generate blog index pages: we need to calculate and pass
+    -- -- through the total number of articles to be able to split them
+    -- -- across the right number of index pages.
+    -- match "index*.html" $ route blogRoute
+    -- metaCompile $ requireAll_ postsPattern
+    --   >>> arr (chunk articlesPerIndexPage . chronological)
+    --   >>^ makeIndexPages
 
-    -- Add a tag list compiler for every tag used in blog articles.
-    match "tags/*" $ route $ blogRoute `composeRoutes` setExtension ".html"
-    metaCompile $ require_ "tags"
-      >>^ tagsMap
-      >>^ (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
 
-    
-    -- Import blogroll.
-    match "resources/blogroll.html" $ compile getResourceString
+    -- -- Add a tag list compiler for every tag used in blog articles.
+    -- match "tags/*" $ route $ blogRoute `composeRoutes` setExtension ".html"
+    -- metaCompile $ require_ "tags"
+    --   >>^ tagsMap
+    --   >>^ (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
+
+
+    -- -- Import blogroll.
+    -- match "resources/blogroll.html" $ compile getResourceString
 
 
     -- Render RSS feed for blog.
-    match "rss.xml" $ route idRoute
-    create "rss.xml" $
-      requireAll_ postsPattern
-      >>> arr chronological
-      >>> mapCompiler (fixRssResourceUrls (feedRoot feedConfiguration))
-      >>> renderRss feedConfiguration
+    create ["rss.xml"] $ do
+      route idRoute
+      compile $ do
+        let feedCtx = simplePostCtx `mappend` bodyField "description"
+        posts <- fmap (take 10) . recentFirst =<<
+                 loadAllSnapshots postsPattern "content"
+        renderRss feedConfiguration feedCtx posts
+--      >>> mapCompiler (fixRssResourceUrls (feedRoot feedConfiguration))
   where
-    postsPattern :: Pattern (Page String)
-    postsPattern = predicate (\i -> isNothing (identifierGroup i) &&
-                                    (matches "posts/*/*/*/*.markdown" i || 
-                                     matches "posts/*/*/*/*/text.markdown" i))
+    postsPattern = fromGlob "posts/*/*/*/*.markdown" .||.
+                   fromGlob "posts/*/*/*/*/text.markdown"
     postsRoute = gsubRoute "posts/" (const "blog/posts/")
-    blogRoute = customRoute (\i -> "blog" </> toFilePath i)
-    staticPagePattern :: Pattern (Page String)
-    staticPagePattern = 
-      predicate (\i -> let is = splitDirectories $ toFilePath i in
-                  length is >= 2 && head is == "static" && 
-                  takeExtension (last is) == ".markdown")
-                   
-fixRssResourceUrls :: String -> Compiler (Page String) (Page String)
-fixRssResourceUrls root = 
-  (arr $ getField "url" &&& id)
-  >>> arr (\(url, p) -> changeField "description" 
-                        (fixResourceUrls'' (root ++ takeDirectory url)) p)
+  --   blogRoute = customRoute (\i -> "blog" </> toFilePath i)
+
+-- fixRssResourceUrls :: String -> Compiler (Page String) (Page String)
+-- fixRssResourceUrls root =
+--   (arr $ getField "url" &&& id)
+--   >>> arr (\(url, p) -> changeField "description"
+--                         (fixResourceUrls' (root ++ takeDirectory url)) p)
 
 
 
 -- | Process SCSS or CSS.
 --
-sass :: Compiler Resource String
-sass = getResourceString >>> unixFilter "sass" ["-s", "--scss"]
-                         >>^ compressCss
+sass :: Compiler (Item String)
+sass = getResourceString >>=
+       withItemBody (unixFilter "sass" ["-s", "--scss"]) >>=
+       return . fmap compressCss
 
 
 -- | Main post compiler: renders date field, adds tags, page title,
@@ -188,21 +190,31 @@ sass = getResourceString >>> unixFilter "sass" ["-s", "--scss"]
 -- lower level approach than calling pageCompiler because it needs to
 -- get at the raw Markdown source to pick out TikZ images.
 --
-postCompiler :: Compiler Resource (Page String)
-postCompiler = readPageCompiler 
-  >>> processTikZs
-  >>> addDefaultFields
-  >>> pageReadPandocWith defaultHakyllParserState
-  >>> arr (fmap (writePandocWith articleWriterOptions))
-  >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
-  >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
-  >>> renderTagsField "prettytags" (fromCapture "tags/*")
-  >>> addPageTitle >>> addTeaser
-  >>> arr (copyBodyToField "description")
-  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
-  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-  >>> applyTemplateCompilers ["post", "blog", "default"]
-  >>> relativizeUrlsCompiler
+postCompiler :: Compiler (Item String)
+postCompiler = do
+  i <- renderPandocWith defaultHakyllReaderOptions writeOptions <$> processTikZs
+  ctx <- getResourceBody >>= postCtx
+--  >>> renderTagsField "prettytags" (fromCapture "tags/*")
+--  >>> arr (copyBodyToField "description")
+--  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
+--  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
+  loadAndApplyTemplate "templates/post.html" ctx i
+    >>= saveSnapshot "content"
+    >>= loadAndApplyTemplates ["blog", "default"] ctx
+    >>= relativizeUrls
+
+postCtx :: Item String -> Compiler (Context String)
+postCtx b = do
+  m <- getMetadata $ itemIdentifier b
+  let pageTitle = "Sky Blue Trades | " ++ (m M.! "title")
+  return $
+    functionField "teaser" teaserField `mappend`
+    constField "pagetitle" pageTitle `mappend`
+    dateField "date" "%B %e, %Y" `mappend`
+    defaultContext
+
+simplePostCtx :: Context String
+simplePostCtx = dateField "date" "%B %e, %Y" `mappend` defaultContext
 
 
 -- | Slight bodge for processing tags in blog articles: need to have
@@ -212,129 +224,124 @@ postCompiler = readPageCompiler
 -- the obvious way, we get a circular dependency.  This hack breaks
 -- that cycle, although not in a very pretty way.
 --
-rawPostCompiler :: Compiler Resource (Page String)
-rawPostCompiler = readPageCompiler 
-  >>> addDefaultFields
-  >>> addFakeUrl
-  >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
-  >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
-  >>> renderTagsField "prettytags" (fromCapture "tags/*")
-  >>> addPageTitle
-    where addFakeUrl :: Compiler (Page String) (Page String)
-          addFakeUrl = (arr (getField "path") &&& id)
-                       >>> arr (uncurry $ (setField "url") . toUrl . ("/blog" </>) . fixExtension)
-          fixExtension :: FilePath -> FilePath
-          fixExtension f = case last elems of
-            "text.markdown" -> joinPath $ init elems ++ ["index.html"]
-            _ -> replaceExtension f ".html"
-            where elems = splitDirectories f
-  
+-- rawPostCompiler :: Compiler Resource (Page String)
+-- rawPostCompiler = readPageCompiler
+--   >>> addDefaultFields
+--   >>> addFakeUrl
+--   >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
+--   >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
+--   >>> renderTagsField "prettytags" (fromCapture "tags/*")
+--   >>> addPageTitle
+--     where addFakeUrl :: Compiler (Page String) (Page String)
+--           addFakeUrl = (arr (getField "path") &&& id)
+--                        >>> arr (uncurry $ (setField "url") . toUrl .
+--                                 ("/blog" </>) . fixExtension)
+--           fixExtension :: FilePath -> FilePath
+--           fixExtension f = case last elems of
+--             "text.markdown" -> joinPath $ init elems ++ ["index.html"]
+--             _ -> replaceExtension f ".html"
+--             where elems = splitDirectories f
+
 
 -- | Static page compiler: renders date field, adds tags, page title,
 -- extracts teaser, applies templates.  This has to use a slightly
 -- lower level approach than calling pageCompiler because it needs to
 -- get at the raw Markdown source to pick out TikZ images.
 --
-staticCompiler :: Compiler Resource (Page String)
-staticCompiler = pageCompiler 
-  >>> arr (setField "pagetitle" "Sky Blue Trades")
-  >>> applyTemplateCompilers ["default"]
-  >>> relativizeUrlsCompiler
+staticCompiler :: Compiler (Item String)
+staticCompiler = pandocCompiler
+  >>= loadAndApplyTemplate "templates/default.html" staticCtx
+  >>= relativizeUrls
+  where staticCtx = constField "pagetitle" "Sky Blue Trades" `mappend`
+                    defaultContext
 
 
 -- | Pandoc writer options.
 --
-articleWriterOptions :: WriterOptions
-articleWriterOptions = defaultWriterOptions
-    { writerEmailObfuscation = NoObfuscation, 
-      writerHTMLMathMethod   = MathML Nothing, 
-      writerLiterateHaskell  = True }
-
-
--- | Add a page title field.
---
-addPageTitle :: Compiler (Page String) (Page String)
-addPageTitle = (arr (getField "title") &&& id)
-               >>> arr (uncurry $ (setField "pagetitle") . ("Sky Blue Trades | " ++))
+writeOptions :: WriterOptions
+writeOptions = defaultHakyllWriterOptions
+    { writerEmailObfuscation = NoObfuscation,
+      writerHTMLMathMethod   = MathML Nothing }
 
 
 -- | Auxiliary compiler: generate a post list from a list of given posts, and
 -- add it to the current page under @$posts@.
 --
-addPostList :: String -> Compiler (Page String, [Page String]) (Page String)
-addPostList tmp = setFieldA "posts" $
-    arr chronological
-        >>> require (parseIdentifier tmp) (\p t -> map (applyTemplate t) p)
-        >>> arr mconcat >>> arr pageBody
+-- addPostList :: String -> Compiler (Page String, [Page String]) (Page String)
+-- addPostList tmp = setFieldA "posts" $
+--     arr chronological
+--         >>> require (parseIdentifier tmp) (\p t -> map (applyTemplate t) p)
+--         >>> arr mconcat >>> arr pageBody
 
 
 -- | Auxiliary compiler: set up a tag list page.
 --
-makeTagList :: String -> [Page String] -> Compiler () (Page String)
-makeTagList tag posts =
-    constA (mempty, posts)
-        >>> addPostList "templates/tagitem.html"
-        >>> arr (setField "title" ("Posts tagged &#8216;" ++ tag ++ "&#8217;"))
-        >>> arr (setField "pagetitle" 
-                 ("Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"))
-        >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
-        >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-        >>> applyTemplateCompilers ["tags", "blog", "default"]
-        >>> relativizeUrlsCompiler
+-- makeTagList :: String -> [Page String] -> Compiler () (Page String)
+-- makeTagList tag posts =
+--     constA (mempty, posts)
+--         >>> addPostList "templates/tagitem.html"
+--         >>> arr (setField "title" ("Posts tagged &#8216;" ++ tag ++ "&#8217;"))
+--         >>> arr (setField "pagetitle"
+--                  ("Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"))
+--         >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
+--         >>> requireA "resources/blogroll.html"
+--           (setFieldA "blogroll" renderBlogRoll)
+--         >>> applyTemplateCompilers ["tags", "blog", "default"]
+--         >>> relativizeUrlsCompiler
 
 
 -- | Helper function to fix up link categories in blogroll.
 --
-renderBlogRoll :: Compiler String String
-renderBlogRoll = arr (replace "<a" "<a class=\"blogrolllink\"" . 
-                      replace "<div" "<div class=\"blogrollcategory\"")
+-- renderBlogRoll :: Compiler String String
+-- renderBlogRoll = arr (replace "<a" "<a class=\"blogrolllink\"" .
+--                       replace "<div" "<div class=\"blogrollcategory\"")
 
 
 -- | Helper function for index page metacompilation: generate
 -- appropriate number of index pages with correct names and the
 -- appropriate posts on each one.
 --
-makeIndexPages :: [[Page String]] -> 
-                  [(Identifier (Page String), Compiler () (Page String))]
-makeIndexPages ps = map doOne (zip [1..] ps)
-  where doOne (n, ps) = (indexIdentifier n, makeIndexPage n maxn ps)
-        maxn = nposts `div` articlesPerIndexPage +
-               if (nposts `mod` articlesPerIndexPage /= 0) then 1 else 0
-        nposts = sum $ map length ps
-        indexIdentifier n = parseIdentifier url
-          where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html" 
+-- makeIndexPages :: [[Page String]] ->
+--                   [(Identifier (Page String), Compiler () (Page String))]
+-- makeIndexPages ps = map doOne (zip [1..] ps)
+--   where doOne (n, ps) = (indexIdentifier n, makeIndexPage n maxn ps)
+--         maxn = nposts `div` articlesPerIndexPage +
+--                if (nposts `mod` articlesPerIndexPage /= 0) then 1 else 0
+--         nposts = sum $ map length ps
+--         indexIdentifier n = parseIdentifier url
+--           where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html"
 
 
 -- | Make a single index page: inserts posts, sets up navigation links
 -- to older and newer article index pages, applies templates.
 --
-makeIndexPage :: Int -> Int -> [Page String] -> Compiler () (Page String)
-makeIndexPage n maxn posts = 
-  constA (mempty, posts)
-  >>> addPostList "templates/postitem.html"
-  >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
-  >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
-  >>> arr (setField "pagetitle" "Sky Blue Trades")
-  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
-  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
-  >>> applyTemplateCompilers ["posts", "index", "blog", "default"]
-  >>> relativizeUrlsCompiler
+-- makeIndexPage :: Int -> Int -> [Page String] -> Compiler () (Page String)
+-- makeIndexPage n maxn posts =
+--   constA (mempty, posts)
+--   >>> addPostList "templates/postitem.html"
+--   >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
+--   >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
+--   >>> arr (setField "pagetitle" "Sky Blue Trades")
+--   >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
+--   >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
+--   >>> applyTemplateCompilers ["posts", "index", "blog", "default"]
+--   >>> relativizeUrlsCompiler
 
 
 -- | Generate navigation link HTML for stepping between index pages.
 --
-indexNavLink :: Int -> Int -> Int -> String
-indexNavLink n d maxn = renderHtml ref
-  where ref = if (refPage == "") then ""
-              else H.a ! A.href (toValue $ toUrl $ refPage) $ 
-                   (H.preEscapedToMarkup lab)
-        lab :: String
-        lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
-        refPage = if (n + d < 1 || n + d > maxn) then ""
-                  else case (n + d) of
-                    1 -> "blog/index.html"
-                    _ -> "blog/index" ++ (show $ n + d) ++ ".html"
-  
+-- indexNavLink :: Int -> Int -> Int -> String
+-- indexNavLink n d maxn = renderHtml ref
+--   where ref = if (refPage == "") then ""
+--               else H.a ! A.href (toValue $ toUrl $ refPage) $
+--                    (H.preEscapedToMarkup lab)
+--         lab :: String
+--         lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
+--         refPage = if (n + d < 1 || n + d > maxn) then ""
+--                   else case (n + d) of
+--                     1 -> "blog/index.html"
+--                     _ -> "blog/index" ++ (show $ n + d) ++ ".html"
+
 
 -- | RSS feed configuration.
 --
@@ -353,39 +360,31 @@ feedConfiguration = FeedConfiguration
 -- <!--NOTEASERBEGIN--> and <!--NOTEASEREND--> marks (useful for
 -- keeping images out of teasers).
 --
-addTeaser :: Compiler (Page String) (Page String) 
-addTeaser = arr (copyBodyToField "teaser")
-    >>> arr (changeField "teaser" extractTeaser)
-    >>> (arr $ getField "url" &&& id) 
-    >>> fixTeaserResourceUrls
-    >>> (id &&& arr pageBody)
-    >>> arr (\(p, b) -> setField "readmore" 
-                        (if (isInfixOf "<!--MORE-->" (pageBody p)) 
-                         then (readMoreLink p) else "") p)
+teaserField :: [String] -> Item String -> Compiler String
+teaserField _ i = do
+  (b, url) <- (itemBody &&& itemIdentifier) <$> getResourceBody
+  return $ fixResourceUrls' (takeDirectory $ toFilePath url) $ extractTeaser b
+    -- >>> arr (\(p, b) -> setField "readmore"
+    --                     (if (isInfixOf "<!--MORE-->" (pageBody p))
+    --                      then (readMoreLink p) else "") p)
       where
-        extractTeaser = unlines . (noTeaser . extractTeaser') . lines
+        extractTeaser = unlines . (noTeaser . extractTeaser') .
+                        drop 1 . dropWhile (/= "---") . drop 1 . lines
         extractTeaser' = takeWhile (/= "<!--MORE-->")
-        
+
         noTeaser [] = []
-        noTeaser ("<!--NOTEASERBEGIN-->" : xs) = 
+        noTeaser ("<!--NOTEASERBEGIN-->" : xs) =
           drop 1 $ dropWhile (/= "<!--NOTEASEREND-->") xs
         noTeaser (x : xs) = x : (noTeaser xs)
-        
-        readMoreLink :: Page String -> String
-        readMoreLink p = renderHtml $ H.div ! A.class_ "readmore" $ 
-                         H.a ! A.href (toValue $ getField "url" p) $ 
-                         H.preEscapedToMarkup ("Read more &raquo;"::String)
-                         
-        fixTeaserResourceUrls :: Compiler (String, (Page String)) (Page String)
-        fixTeaserResourceUrls = arr $ (\(url, p) -> fixResourceUrls' url p)
-          where fixResourceUrls' url p = 
-                  changeField "teaser" (fixResourceUrls'' (takeDirectory url)) p
 
+        -- readMoreLink :: Page String -> String
+        -- readMoreLink p = renderHtml $ H.div ! A.class_ "readmore" $
+        --                  H.a ! A.href (toValue $ getField "url" p) $
+        --                  H.preEscapedToMarkup ("Read more &raquo;"::String)
 
-fixResourceUrls'' :: String -> String -> String
-fixResourceUrls'' path = withUrls ["src", "href", "data"] 
-                         (\x -> if '/' `elem` x then x 
-                                else path ++ "/" ++ x)
+fixResourceUrls' :: String -> String -> String
+fixResourceUrls' path =
+  withUrls (\x -> if '/' `elem` x then x else path ++ "/" ++ x)
 
 
 -- | Publishing a draft:
@@ -405,15 +404,15 @@ publishDraft :: String -> IO ()
 publishDraft path = do
   fExist <- doesFileExist path
   dExist <- doesDirectoryExist path
-  if (not fExist && not dExist) 
+  if (not fExist && not dExist)
     then error $ "Neither file nor directory exists: " ++ path
     else do
       postDir <- todaysPostDir
       createDirectoryIfMissing True postDir
       let postPath = joinPath [postDir, last $ splitDirectories path]
-      if fExist 
+      if fExist
         then renameFile path postPath
-        else do 
+        else do
         putStrLn (path ++ " -> " ++ postPath)
         renameDirectory path postPath
       err <- rawSystem "touch" [postPath]
@@ -430,14 +429,15 @@ addTimestamp postPath = do
   putStrLn ("Editing " ++ modFile)
   pg <- B.readFile modFile
   t <- getCurrentTime
-  let ts = formatTime defaultTimeLocale "%H:%M:%S" t
-  B.writeFile modFile $ B.pack $ addTimestamp' (B.unpack pg) ts
-    where addTimestamp' pg ts = writePage $ setField "timestamp" ts $ readPage pg
-          writePage :: Page String -> String
-          writePage pg = "---\n" ++ renderMetadata (pageMetadata pg) ++ 
-                         "---\n" ++ (pageBody pg)
-          renderMetadata md = unlines $ map (\(k, d) -> k ++ ": " ++ d) $ M.toList md
-        
+  let ts = formatTime defaultTimeLocale "%Y-%M-%d %H:%M:%S" t
+  let pg' = addTimestamp' ts (B.unpack pg)
+  B.writeFile modFile $ B.pack $ pg'
+    where addTimestamp' :: String -> String -> String
+          addTimestamp' ts i = init $ unlines ["---", md, "---", body]
+            where (m, b) = span (/= "---") . tail . lines $ i
+                  md = init $ unlines $ m ++ ["published: " ++ ts]
+                  body = init $ unlines $ tail b
+
 
 -- | Utility function to generate path to today's posts directory.
 --
@@ -447,15 +447,17 @@ todaysPostDir = do
   let (y, m, d) = toGregorian $ utctDay t
   return $ joinPath ["posts", show y, show0 m, show0 d]
   where show0 n = (if n < 10 then "0" else "") ++ show n
-  
+
 
 -- | String together multiple template compilers.
 --
-applyTemplateCompilers :: [String] -> Compiler (Page String) (Page String)
-applyTemplateCompilers [] = arr id
-applyTemplateCompilers (c:cs) = applyTemplateCompiler ident >>> 
-                                applyTemplateCompilers cs
-  where ident = parseIdentifier ("templates/" ++ c ++ ".html")
+loadAndApplyTemplates :: [String] -> Context String ->
+                         Item String -> Compiler (Item String)
+loadAndApplyTemplates [c] ctx i =
+  loadAndApplyTemplate (fromFilePath $ "templates/" ++ c ++ ".html") ctx i
+loadAndApplyTemplates (c:cs) ctx i = do
+  i' <- loadAndApplyTemplate (fromFilePath $ "templates/" ++ c ++ ".html") ctx i
+  loadAndApplyTemplates cs ctx i'
 
 
 -- | Split list into equal sized sublists.

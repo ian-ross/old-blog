@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+my @posts = `find . -name \\*.markdown`;
+
+foreach my $post (@posts) {
+    chomp $post;
+#    my @parts = split(/\//, $post);
+#    my ($y, $m, $d) = ($parts[1], $parts[2], $parts[3]);
+#    my $newd = "$y-$m-$d";
+    my $cmd = "sed -i -e 's/^timestamp: /published: /' $post";
+    system $cmd;
+}

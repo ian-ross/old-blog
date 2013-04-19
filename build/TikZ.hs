@@ -1,39 +1,31 @@
-{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, Arrows #-}
-module TikZ (processTikZs) where
-
 -- Centre TikZs by including a style of
 --
---   { display: block; margin-left: auto; margin-right: auto; }  
+--   { display: block; margin-left: auto; margin-right: auto; }
 --
 -- Can also use
 --
---   { float: left; margin-right: 10px; } 
+--   { float: left; margin-right: 10px; }
 --
--- or 
+-- or
 --
---   { float: right; margin-left: 10px; } 
+--   { float: right; margin-left: 10px; }
 --
 -- or something to flow text around images.
 
-import Prelude hiding (id)
-import Control.Category (id)
-import Control.Arrow ((>>>), arr, (&&&))
+module TikZ (processTikZs) where
+
 import Control.Monad (forM)
 import Data.List (isPrefixOf)
-import Data.Char (isDigit)
 import System.Directory (doesFileExist, renameFile,
-                         createDirectoryIfMissing, removeDirectoryRecursive, 
+                         createDirectoryIfMissing, removeDirectoryRecursive,
                          getCurrentDirectory, setCurrentDirectory)
-import System.IO (openFile, hPutStrLn, hClose, IOMode(..), withFile, hGetLine)
+import System.IO (openFile, hPutStrLn, hClose, IOMode(..))
 import System.FilePath (addExtension)
 import System.Cmd (system)
 import Data.String.Utils (strip)
 import Data.Digest.Pure.MD5
-import Text.Regex.Posix hiding (match)
 import qualified Text.HTML.TagSoup as TS
 import qualified Data.ByteString.Lazy.Char8 as C8
-import Debug.Trace (trace, traceShow)
-import Safe
 
 import Hakyll
 
@@ -41,18 +33,19 @@ import Hakyll
 -- Markdown text, extracting image bodies and MD5 digests for
 -- processing into SVG files.
 --
-processTikZs :: Compiler (Page String) (Page String)
-processTikZs = (id &&& (arr pageBody 
-                       >>> (id &&& unsafeCompiler generateTikZs)
-                       >>> arr (uncurry xformTikZs)))
-               >>> (arr (\(p, pbnew) -> p{pageBody = pbnew}))
-  
+processTikZs :: Compiler (Item String)
+processTikZs = do
+  b <- fmap itemBody getResourceBody
+  ts <- unsafeCompiler (generateTikZs b)
+  makeItem (xformTikZs b ts)
 
 -- | Simple type for representing information about TikZ images:
 -- includes MD5 digest (used for filename, image width and height in
 -- pixels, plus style information.
 --
-data TikZInfo = TikZInfo { digest :: String, w :: Int, h :: Int, style :: String }
+data TikZInfo = TikZInfo { digest :: String,
+                           w :: Int, h :: Int,
+                           style :: String } deriving Show
 
 
 -- | Replace TikZ images with HTML for getting SVG and PNG rendered
@@ -63,13 +56,13 @@ xformTikZs p tikzs = unlines $ concatMap flattenChunk fixedChunks
   where chunks = extractChunks $ lines p
         fixedChunks = replacePictures chunks htmls
         htmls = map (Text . tikZHtmlRep) tikzs
-        
+
         tikZHtmlRep :: TikZInfo -> [String]
         tikZHtmlRep (TikZInfo md5 w h style) =
-          ["<object type=\"image/svg+xml\" data=\"/blog/tikzs/" ++ 
-           (addExtension md5 "svg") ++ 
-           "\" width=" ++ (show w) ++ 
-           " height=" ++ (show h) ++ 
+          ["<object type=\"image/svg+xml\" data=\"/blog/tikzs/" ++
+           (addExtension md5 "svg") ++
+           "\" width=" ++ (show w) ++
+           " height=" ++ (show h) ++
            (if (style == "") then "" else (" style=\"" ++ style ++ "\"")) ++
            "></object>"]
 
@@ -91,7 +84,7 @@ renderSVG (Picture attr tikz) = do
   setCurrentDirectory "_site/blog/tikzs"
   putStrLn $ "Rendering SVG: " ++ md5 ++ ".svg"
   exists <- doesFileExist svgf
-  if exists 
+  if exists
     then return ()
     else do
     createDirectoryIfMissing True "tmp"
@@ -100,7 +93,7 @@ renderSVG (Picture attr tikz) = do
     system "htlatex tmp.tex 2>&1 > /dev/null"
     status <- doesFileExist "tmp-1.svg"
     setCurrentDirectory ".."
-    if status 
+    if status
       then renameFile "tmp/tmp-1.svg" svgf
       else return ()
     removeDirectoryRecursive "tmp"
@@ -109,7 +102,7 @@ renderSVG (Picture attr tikz) = do
   return (TikZInfo md5 w h attr)
     where svgf = addExtension md5 "svg"
           md5 = makeDigest tikz
-  
+
 
 -- | Extract dimensions from first line of TikZ-rendered SVG file and
 -- convert from points to pixels.
@@ -156,7 +149,7 @@ makeDigest p = show $ md5 $ C8.pack $ strip $ concat p
 
 -- | Simple chunk type used to pick out TikZ images.
 --
-data Chunk = Text [String] | Picture String [String]
+data Chunk = Text [String] | Picture String [String] deriving Show
 
 
 -- | Distinguish between picture (i.e. TikZ) and text chunks.
