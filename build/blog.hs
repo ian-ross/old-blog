@@ -4,12 +4,12 @@ module Main where
 --import Prelude hiding (id)
 --import Control.Category (id)
 import Control.Applicative ((<$>))
-import Control.Monad (forM_)
+import Control.Monad (forM_, forM)
 import Control.Arrow ((&&&))
 import Data.Monoid (mempty, mappend, mconcat)
-import Data.List (isInfixOf)
+import Data.List (isInfixOf, intersperse, intercalate)
 import qualified Data.Map as M
-import Data.Maybe (isNothing)
+import Data.Maybe (isNothing, catMaybes)
 import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..),
                     ObfuscationMethod(..))
 import System.Environment (getArgs)
@@ -24,6 +24,7 @@ import System.FilePath ((</>), joinPath, splitDirectories,
                         takeDirectory, takeExtension, replaceExtension)
 import System.Cmd (rawSystem)
 import Data.String.Utils (replace)
+import Text.Blaze.Html (toHtml)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
@@ -75,93 +76,81 @@ main = do
 -- | Main Hakyll processing.
 --
 doHakyll = hakyllWith hakyllConf $ do
-    -- Read templates.
-    match "templates/*" $ compile templateCompiler
+  -- Build tags.
+  tags <- buildTags postsPattern (fromCapture "blog/tags/*.html")
 
-    -- Compress CSS files.
-    match "css/*" $ do
-      route $ setExtension "css"
-      compile sass
+  -- Read templates.
+  match "templates/*" $ compile templateCompiler
 
-    -- Copy JavaScript files.
-    match "js/*" $ do
-      route idRoute
-      compile copyFileCompiler
+  -- Compress CSS files.
+  match "css/*" $ do
+    route $ setExtension "css"
+    compile sass
 
-
-    -- Compile static pages.
-    match ("static/*.markdown" .||. "static/**/*.markdown") $ do
-      route $ gsubRoute "static/" (const "") `composeRoutes`
-        setExtension ".html"
-      compile staticCompiler
-
-    -- -- Copy other static content.
-    match "static/**" $ do
-      route $ gsubRoute "static/" (const "")
-      compile copyFileCompiler
-
-    -- -- Copy image files.
-    match "images/*" $ do
-      route idRoute
-      compile copyFileCompiler
+  -- Copy JavaScript files.
+  match "js/*" $ do
+    route idRoute
+    compile copyFileCompiler
 
 
-    -- -- Render blog posts.
-    match "posts/*/*/*/*.markdown" $ do
-      route   $ postsRoute `composeRoutes` setExtension ".html"
-      compile $ postCompiler
-    match "posts/*/*/*/*/text.markdown" $ do
-      route   $ postsRoute `composeRoutes`
-        gsubRoute "text.markdown" (const "index.html")
-      compile $ postCompiler
+  -- Compile static pages.
+  match ("static/*.markdown" .||. "static/**/*.markdown") $ do
+    route $ gsubRoute "static/" (const "") `composeRoutes`
+      setExtension ".html"
+    compile staticCompiler
+
+  -- Copy other static content.
+  match "static/**" $ do
+    route $ gsubRoute "static/" (const "")
+    compile copyFileCompiler
+
+  -- Copy image files.
+  match "images/*" $ do
+    route idRoute
+    compile copyFileCompiler
 
 
-    -- -- Extract tags from raw Markdown for blog posts: extra "raw"
-    -- -- group is needed to break dependency cycle between page
-    -- -- rendering and tag extraction.
-    -- group "raw" $ do
-    --   match "posts/*/*/*/*.markdown" $ do
-    --     compile $ rawPostCompiler
-    --   match "posts/*/*/*/*/text.markdown" $ do
-    --     compile $ rawPostCompiler
-    -- create "tags" $
-    --   requireAll (inGroup $ Just "raw") (\_ ps -> readTags ps :: Tags String)
+  -- Render blog posts.
+  match "posts/*/*/*/*.markdown" $ do
+    route   $ postsRoute `composeRoutes` setExtension ".html"
+    compile $ postCompiler (postCtx tags)
+  match "posts/*/*/*/*/text.markdown" $ do
+    route   $ postsRoute `composeRoutes`
+      gsubRoute "text.markdown" (const "index.html")
+    compile $ postCompiler (postCtx tags)
 
 
-    -- Copy resource files for blog posts.
-    match "posts/*/*/*/*/*" $ do
-      route   postsRoute
-      compile copyFileCompiler
+  -- Copy resource files for blog posts.
+  match "posts/*/*/*/*/*" $ do
+    route   postsRoute
+    compile copyFileCompiler
 
 
-    -- -- Generate blog index pages: we need to calculate and pass
-    -- -- through the total number of articles to be able to split them
-    -- -- across the right number of index pages.
-    -- match "index*.html" $ route blogRoute
-    -- metaCompile $ requireAll_ postsPattern
-    --   >>> arr (chunk articlesPerIndexPage . chronological)
-    --   >>^ makeIndexPages
+  -- -- Generate blog index pages: we need to calculate and pass
+  -- -- through the total number of articles to be able to split them
+  -- -- across the right number of index pages.
+  -- match "index*.html" $ route blogRoute
+  -- metaCompile $ requireAll_ postsPattern
+  --   >>> arr (chunk articlesPerIndexPage . chronological)
+  --   >>^ makeIndexPages
 
 
-    -- -- Add a tag list compiler for every tag used in blog articles.
-    -- match "tags/*" $ route $ blogRoute `composeRoutes` setExtension ".html"
-    -- metaCompile $ require_ "tags"
-    --   >>^ tagsMap
-    --   >>^ (map (\(t, p) -> (fromCapture "tags/*" t, makeTagList t p)))
+  -- Add a tag list compiler for every tag used in blog articles.
+  tagsRules tags (makeTagList tags)
 
 
-    -- -- Import blogroll.
-    -- match "resources/blogroll.html" $ compile getResourceString
+  -- Import blogroll.
+  -- match "resources/blogroll.html" $ compile getResourceString
 
 
-    -- Render RSS feed for blog.
-    create ["rss.xml"] $ do
-      route idRoute
-      compile $ do
-        let feedCtx = simplePostCtx `mappend` bodyField "description"
-        posts <- fmap (take 10) . recentFirst =<<
-                 loadAllSnapshots postsPattern "content"
-        renderRss feedConfiguration feedCtx posts
+  -- Render RSS feed for blog.
+  create ["rss.xml"] $ do
+    route idRoute
+    compile $ do
+      let feedCtx = simplePostCtx `mappend` bodyField "description"
+      posts <- fmap (take 10) . recentFirst =<<
+               loadAllSnapshots postsPattern "content"
+      renderRss feedConfiguration feedCtx posts
 --      >>> mapCompiler (fixRssResourceUrls (feedRoot feedConfiguration))
   where
     postsPattern = fromGlob "posts/*/*/*/*.markdown" .||.
@@ -190,12 +179,11 @@ sass = getResourceString >>=
 -- lower level approach than calling pageCompiler because it needs to
 -- get at the raw Markdown source to pick out TikZ images.
 --
-postCompiler :: Compiler (Item String)
-postCompiler = do
+postCompiler :: (Item String -> Compiler (Context String))
+             -> Compiler (Item String)
+postCompiler cctx = do
   i <- renderPandocWith defaultHakyllReaderOptions writeOptions <$> processTikZs
-  ctx <- getResourceBody >>= postCtx
---  >>> renderTagsField "prettytags" (fromCapture "tags/*")
---  >>> arr (copyBodyToField "description")
+  ctx <- getResourceBody >>= cctx
 --  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
 --  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
   loadAndApplyTemplate "templates/post.html" ctx i
@@ -203,44 +191,49 @@ postCompiler = do
     >>= loadAndApplyTemplates ["blog", "default"] ctx
     >>= relativizeUrls
 
-postCtx :: Item String -> Compiler (Context String)
-postCtx b = do
+
+-- | Full context for posts.
+--
+postCtx :: Tags -> Item String -> Compiler (Context String)
+postCtx t b = do
   m <- getMetadata $ itemIdentifier b
   let pageTitle = "Sky Blue Trades | " ++ (m M.! "title")
   return $
+    mapContext prettify
+      (tagsFieldWith getTags render join "prettytags" t) `mappend`
+    tagCloudCtx t `mappend`
     functionField "teaser" teaserField `mappend`
     constField "pagetitle" pageTitle `mappend`
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+  where prettify "" = ""
+        prettify s = "<div class=\"tags\">" ++ s ++ "</div>"
+        render _ Nothing = Nothing
+        render tag (Just filePath) = Just $ H.span ! A.class_ "tag" $
+          H.a ! A.href (toValue $ toUrl filePath) $ H.toHtml tag
+        join = mconcat . intersperse " "
 
+-- | Simplified context for posts.
+--
 simplePostCtx :: Context String
 simplePostCtx = dateField "date" "%B %e, %Y" `mappend` defaultContext
 
-
--- | Slight bodge for processing tags in blog articles: need to have
--- some sort of representation of the articles to extract tags, which
--- we then build into a tagcloud, but we also want to be able to put
--- this tagcloud on the individual article pages, so if we do this in
--- the obvious way, we get a circular dependency.  This hack breaks
--- that cycle, although not in a very pretty way.
+-- | Tag cloud context.
 --
--- rawPostCompiler :: Compiler Resource (Page String)
--- rawPostCompiler = readPageCompiler
---   >>> addDefaultFields
---   >>> addFakeUrl
---   >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
---   >>> arr (renderDateField "published" "%Y-%m-%dT%H:%M:%SZ" "Date unknown")
---   >>> renderTagsField "prettytags" (fromCapture "tags/*")
---   >>> addPageTitle
---     where addFakeUrl :: Compiler (Page String) (Page String)
---           addFakeUrl = (arr (getField "path") &&& id)
---                        >>> arr (uncurry $ (setField "url") . toUrl .
---                                 ("/blog" </>) . fixExtension)
---           fixExtension :: FilePath -> FilePath
---           fixExtension f = case last elems of
---             "text.markdown" -> joinPath $ init elems ++ ["index.html"]
---             _ -> replaceExtension f ".html"
---             where elems = splitDirectories f
+tagCloudCtx :: Tags -> Context String
+tagCloudCtx = tagCloudFieldWith "tagcloud" makeLink (intercalate " ") 100 200
+  where
+    makeLink minSize maxSize tag url count min' max' = renderHtml $
+        H.span ! A.class_ "tagcloud" !
+        A.style (toValue $ "font-size: " ++ size count min' max') $
+        H.a ! A.href (toValue url) $ toHtml tag
+      where
+        -- Show the relative size of one 'count' in percent
+        size count min' max' =
+          let diff = 1 + fromIntegral max' - fromIntegral min'
+              relative = (fromIntegral count - fromIntegral min') / diff
+              size' = floor $ minSize + relative * (maxSize - minSize)
+          in show (size' :: Int) ++ "%"
 
 
 -- | Static page compiler: renders date field, adds tags, page title,
@@ -267,27 +260,34 @@ writeOptions = defaultHakyllWriterOptions
 -- | Auxiliary compiler: generate a post list from a list of given posts, and
 -- add it to the current page under @$posts@.
 --
--- addPostList :: String -> Compiler (Page String, [Page String]) (Page String)
--- addPostList tmp = setFieldA "posts" $
---     arr chronological
---         >>> require (parseIdentifier tmp) (\p t -> map (applyTemplate t) p)
---         >>> arr mconcat >>> arr pageBody
+postList :: Pattern
+         -> ([Item String] -> Compiler [Item String])
+         -> String
+         -> Compiler String
+postList pattern preprocess' tmpl = do
+  postItemTpl <- loadBody $ fromFilePath $ "templates/" ++ tmpl ++ ".html"
+  posts <- loadAll pattern
+  processed <- preprocess' posts
+  applyTemplateList postItemTpl simplePostCtx processed
 
 
 -- | Auxiliary compiler: set up a tag list page.
 --
--- makeTagList :: String -> [Page String] -> Compiler () (Page String)
--- makeTagList tag posts =
---     constA (mempty, posts)
---         >>> addPostList "templates/tagitem.html"
---         >>> arr (setField "title" ("Posts tagged &#8216;" ++ tag ++ "&#8217;"))
---         >>> arr (setField "pagetitle"
---                  ("Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"))
---         >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
---         >>> requireA "resources/blogroll.html"
---           (setFieldA "blogroll" renderBlogRoll)
---         >>> applyTemplateCompilers ["tags", "blog", "default"]
---         >>> relativizeUrlsCompiler
+makeTagList :: Tags -> String -> Pattern -> Rules ()
+makeTagList tags tag pattern = do
+  let title = "Posts tagged &#8216;" ++ tag ++ "&#8217;"
+      pagetitle = "Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"
+  route idRoute
+  compile $ do
+    list <- postList pattern recentFirst "tagitem"
+    makeItem ""
+      >>= loadAndApplyTemplates ["tags", "blog", "default"]
+           (constField "title" title `mappend`
+            constField "pagetitle" pagetitle `mappend`
+            constField "posts" list `mappend`
+            tagCloudCtx tags `mappend`
+            defaultContext)
+      >>= relativizeUrls
 
 
 -- | Helper function to fix up link categories in blogroll.
