@@ -1,15 +1,13 @@
 {-# LANGUAGE DeriveDataTypeable, OverloadedStrings, Arrows #-}
 module Main where
 
---import Prelude hiding (id)
---import Control.Category (id)
 import Control.Applicative ((<$>))
 import Control.Monad (forM_, forM)
 import Control.Arrow ((&&&))
-import Data.Monoid (mempty, mappend, mconcat)
+import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, intersperse, intercalate)
 import qualified Data.Map as M
-import Data.Maybe (isNothing, catMaybes)
+import Data.Maybe (catMaybes)
 import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..),
                     ObfuscationMethod(..))
 import System.Environment (getArgs)
@@ -30,9 +28,7 @@ import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
-import qualified Data.Map as M
 import Debug.Trace (trace, traceShow)
-import System.IO (hFlush, stdout)
 
 -- We override some names from Hakyll so we can use a different post
 -- naming convention.
@@ -126,9 +122,9 @@ doHakyll = hakyllWith hakyllConf $ do
     compile copyFileCompiler
 
 
-  -- -- Generate blog index pages: we need to calculate and pass
-  -- -- through the total number of articles to be able to split them
-  -- -- across the right number of index pages.
+  -- Generate blog index pages: we need to calculate and pass
+  -- through the total number of articles to be able to split them
+  -- across the right number of index pages.
   -- match "index*.html" $ route blogRoute
   -- metaCompile $ requireAll_ postsPattern
   --   >>> arr (chunk articlesPerIndexPage . chronological)
@@ -137,10 +133,6 @@ doHakyll = hakyllWith hakyllConf $ do
 
   -- Add a tag list compiler for every tag used in blog articles.
   tagsRules tags (makeTagList tags)
-
-
-  -- Import blogroll.
-  -- match "resources/blogroll.html" $ compile getResourceString
 
 
   -- Render RSS feed for blog.
@@ -184,8 +176,6 @@ postCompiler :: (Item String -> Compiler (Context String))
 postCompiler cctx = do
   i <- renderPandocWith defaultHakyllReaderOptions writeOptions <$> processTikZs
   ctx <- getResourceBody >>= cctx
---  >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
---  >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
   loadAndApplyTemplate "templates/post.html" ctx i
     >>= saveSnapshot "content"
     >>= loadAndApplyTemplates ["blog", "default"] ctx
@@ -213,10 +203,13 @@ postCtx t b = do
           H.a ! A.href (toValue $ toUrl filePath) $ H.toHtml tag
         join = mconcat . intersperse " "
 
+
+
 -- | Simplified context for posts.
 --
 simplePostCtx :: Context String
 simplePostCtx = dateField "date" "%B %e, %Y" `mappend` defaultContext
+
 
 -- | Tag cloud context.
 --
@@ -290,13 +283,6 @@ makeTagList tags tag pattern = do
       >>= relativizeUrls
 
 
--- | Helper function to fix up link categories in blogroll.
---
--- renderBlogRoll :: Compiler String String
--- renderBlogRoll = arr (replace "<a" "<a class=\"blogrolllink\"" .
---                       replace "<div" "<div class=\"blogrollcategory\"")
-
-
 -- | Helper function for index page metacompilation: generate
 -- appropriate number of index pages with correct names and the
 -- appropriate posts on each one.
@@ -321,9 +307,6 @@ makeTagList tags tag pattern = do
 --   >>> addPostList "templates/postitem.html"
 --   >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
 --   >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
---   >>> arr (setField "pagetitle" "Sky Blue Trades")
---   >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud)
---   >>> requireA "resources/blogroll.html" (setFieldA "blogroll" renderBlogRoll)
 --   >>> applyTemplateCompilers ["posts", "index", "blog", "default"]
 --   >>> relativizeUrlsCompiler
 
