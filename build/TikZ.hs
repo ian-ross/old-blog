@@ -22,7 +22,6 @@ import System.Directory (doesFileExist, renameFile,
 import System.IO (openFile, hPutStrLn, hClose, IOMode(..))
 import System.FilePath (addExtension)
 import System.Cmd (system)
-import Data.String.Utils (strip)
 import Data.Digest.Pure.MD5
 import qualified Text.HTML.TagSoup as TS
 import qualified Data.ByteString.Lazy.Char8 as C8
@@ -168,7 +167,8 @@ extractChunks (l:ls)
   | otherwise            = (Text (l:ls')) : extractChunks rest
     where (ls', rest) = break ("@@@" `isPrefixOf`) ls
           attr = strip . stripBrackets . strip . dropWhile (=='@')
-          stripBrackets = reverse . dropWhile (=='}') . reverse . dropWhile (=='{')
+          stripBrackets =
+            reverse . dropWhile (=='}') . reverse . dropWhile (=='{')
 
 
 -- | Turn chunks back into flat text.
@@ -184,4 +184,11 @@ flattenChunk (Picture a ts) = ts
 replacePictures :: [Chunk] -> [Chunk] -> [Chunk]
 replacePictures [] _ = []
 replacePictures (c@(Text _):cs) tikzs = c : replacePictures cs tikzs
-replacePictures (c@(Picture _ _):cs) (tikz:tikzs) = tikz : replacePictures cs tikzs
+replacePictures (c@(Picture _ _):cs) (tikz:tikzs) =
+  tikz : replacePictures cs tikzs
+
+-- | Strip leading and trailing whitespace.
+--
+strip :: String -> String
+strip = takeWhile (not . isWs) . dropWhile isWs
+  where isWs c = c `elem` " \t\r\n"
