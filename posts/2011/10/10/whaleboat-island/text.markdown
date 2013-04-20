@@ -1,7 +1,7 @@
 ---
 title: Whaleboat Island
 category: kayaking, outdoors
-published: 2010-03-07 22:58:00
+published: 2011-10-10 22:58:00
 author: Ian
 tags: kayaking
 ---

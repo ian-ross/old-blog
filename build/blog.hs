@@ -2,12 +2,10 @@
 module Main where
 
 import Control.Applicative ((<$>))
-import Control.Monad (forM_, forM)
-import Control.Arrow ((&&&))
 import Data.Monoid (mappend, mconcat)
-import Data.List (isInfixOf, intersperse, intercalate)
+import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
 import qualified Data.Map as M
-import Data.Maybe (catMaybes)
+import Data.Function (on)
 import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..),
                     ObfuscationMethod(..))
 import System.Environment (getArgs)
@@ -17,27 +15,17 @@ import System.Directory (doesFileExist, doesDirectoryExist,
 import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.Calendar (toGregorian)
 import System.Locale (defaultTimeLocale)
-import Data.Time.Format (parseTime, formatTime)
+import Data.Time.Format (formatTime)
 import System.FilePath ((</>), joinPath, splitDirectories,
-                        takeDirectory, takeExtension, replaceExtension)
+                        takeDirectory, dropExtension, takeBaseName)
 import System.Cmd (rawSystem)
-import Data.String.Utils (replace)
-import Text.Blaze.Html (toHtml)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
-import Debug.Trace (trace, traceShow)
 
--- We override some names from Hakyll so we can use a different post
--- naming convention.
--- import Hakyll hiding (chronological, renderDateField, renderDateFieldWith,
---                       renderTagsField, renderTagCloud,
---                       relativizeUrlsCompiler, relativizeUrls, withUrls)
 import Hakyll
-
---import Overrides                -- Overrides of Hakyll functions.
 import TikZ                     -- TikZ image rendering.
 
 
@@ -72,8 +60,10 @@ main = do
 -- | Main Hakyll processing.
 --
 doHakyll = hakyllWith hakyllConf $ do
-  -- Build tags.
+  -- Build tags and build post context allowing us to render a tag
+  -- cloud.
   tags <- buildTags postsPattern (fromCapture "blog/tags/*.html")
+  pctx <- postCtx tags
 
   -- Read templates.
   match "templates/*" $ compile templateCompiler
@@ -87,7 +77,6 @@ doHakyll = hakyllWith hakyllConf $ do
   match "js/*" $ do
     route idRoute
     compile copyFileCompiler
-
 
   -- Compile static pages.
   match ("static/*.markdown" .||. "static/**/*.markdown") $ do
@@ -105,57 +94,62 @@ doHakyll = hakyllWith hakyllConf $ do
     route idRoute
     compile copyFileCompiler
 
-
   -- Render blog posts.
   match "posts/*/*/*/*.markdown" $ do
     route   $ postsRoute `composeRoutes` setExtension ".html"
-    compile $ postCompiler (postCtx tags)
+    compile $ postCompiler pctx
   match "posts/*/*/*/*/text.markdown" $ do
     route   $ postsRoute `composeRoutes`
       gsubRoute "text.markdown" (const "index.html")
-    compile $ postCompiler (postCtx tags)
-
+    compile $ postCompiler pctx
 
   -- Copy resource files for blog posts.
   match "posts/*/*/*/*/*" $ do
     route   postsRoute
     compile copyFileCompiler
 
-
-  -- Generate blog index pages: we need to calculate and pass
-  -- through the total number of articles to be able to split them
-  -- across the right number of index pages.
-  -- match "index*.html" $ route blogRoute
-  -- metaCompile $ requireAll_ postsPattern
-  --   >>> arr (chunk articlesPerIndexPage . chronological)
-  --   >>^ makeIndexPages
-
+  -- Generate blog index pages: we need to split the articles, sorted
+  -- by publication date, into groups for display across the right
+  -- number of index pages.
+  mds <- getAllMetadata postsPattern
+  let ids = reverse $ map fst $
+            sortBy (compare `on` ((M.! "published") . snd)) mds
+      pids = chunk articlesPerIndexPage ids
+      indexPages =
+        map (\i -> fromFilePath $ "blog/index" ++
+                   (if i == 1 then "" else show i) ++ ".html")
+        [1..length pids]
+      indexes = zip indexPages pids
+  create (map fst indexes) $ do
+    route idRoute
+    compile $ do
+      indexCompiler tags pctx indexes
 
   -- Add a tag list compiler for every tag used in blog articles.
   tagsRules tags (makeTagList tags)
-
 
   -- Render RSS feed for blog.
   create ["rss.xml"] $ do
     route idRoute
     compile $ do
-      let feedCtx = simplePostCtx `mappend` bodyField "description"
+      let froot = feedRoot feedConfiguration </> "blog"
+          feedCtx = simplePostCtx `mappend`
+                    rssBodyField froot "description"
       posts <- fmap (take 10) . recentFirst =<<
                loadAllSnapshots postsPattern "content"
       renderRss feedConfiguration feedCtx posts
---      >>> mapCompiler (fixRssResourceUrls (feedRoot feedConfiguration))
   where
     postsPattern = fromGlob "posts/*/*/*/*.markdown" .||.
                    fromGlob "posts/*/*/*/*/text.markdown"
     postsRoute = gsubRoute "posts/" (const "blog/posts/")
-  --   blogRoute = customRoute (\i -> "blog" </> toFilePath i)
 
--- fixRssResourceUrls :: String -> Compiler (Page String) (Page String)
--- fixRssResourceUrls root =
---   (arr $ getField "url" &&& id)
---   >>> arr (\(url, p) -> changeField "description"
---                         (fixResourceUrls' (root ++ takeDirectory url)) p)
 
+-- | Set up description field for RSS posts.
+--
+rssBodyField :: String -> String -> Context String
+rssBodyField root key = field key $ \item -> do
+  let dir = takeDirectory . toFilePath . itemIdentifier $ item
+  return $ fixResourceUrls' (root </> dir) (itemBody item)
 
 
 -- | Process SCSS or CSS.
@@ -171,12 +165,11 @@ sass = getResourceString >>=
 -- lower level approach than calling pageCompiler because it needs to
 -- get at the raw Markdown source to pick out TikZ images.
 --
-postCompiler :: (Item String -> Compiler (Context String))
-             -> Compiler (Item String)
-postCompiler cctx = do
+postCompiler :: Context String -> Compiler (Item String)
+postCompiler ctx = do
   i <- renderPandocWith defaultHakyllReaderOptions writeOptions <$> processTikZs
-  ctx <- getResourceBody >>= cctx
-  loadAndApplyTemplate "templates/post.html" ctx i
+  saveSnapshot "post" i
+    >>= loadAndApplyTemplate "templates/post.html" ctx
     >>= saveSnapshot "content"
     >>= loadAndApplyTemplates ["blog", "default"] ctx
     >>= relativizeUrls
@@ -184,16 +177,15 @@ postCompiler cctx = do
 
 -- | Full context for posts.
 --
-postCtx :: Tags -> Item String -> Compiler (Context String)
-postCtx t b = do
-  m <- getMetadata $ itemIdentifier b
-  let pageTitle = "Sky Blue Trades | " ++ (m M.! "title")
+postCtx :: MonadMetadata m => Tags -> m (Context String)
+postCtx t = do
   return $
     mapContext prettify
       (tagsFieldWith getTags render join "prettytags" t) `mappend`
     tagCloudCtx t `mappend`
     functionField "teaser" teaserField `mappend`
-    constField "pagetitle" pageTitle `mappend`
+    functionField "readmore" readMoreField `mappend`
+    functionField "pagetitle" pageTitle `mappend`
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
   where prettify "" = ""
@@ -202,6 +194,9 @@ postCtx t b = do
         render tag (Just filePath) = Just $ H.span ! A.class_ "tag" $
           H.a ! A.href (toValue $ toUrl filePath) $ H.toHtml tag
         join = mconcat . intersperse " "
+        pageTitle _ i = do
+          m <- getMetadata $ itemIdentifier i
+          return $ "Sky Blue Trades | " ++ (m M.! "title")
 
 
 
@@ -219,7 +214,7 @@ tagCloudCtx = tagCloudFieldWith "tagcloud" makeLink (intercalate " ") 100 200
     makeLink minSize maxSize tag url count min' max' = renderHtml $
         H.span ! A.class_ "tagcloud" !
         A.style (toValue $ "font-size: " ++ size count min' max') $
-        H.a ! A.href (toValue url) $ toHtml tag
+        H.a ! A.href (toValue url) $ H.toHtml tag
       where
         -- Show the relative size of one 'count' in percent
         size count min' max' =
@@ -250,18 +245,19 @@ writeOptions = defaultHakyllWriterOptions
       writerHTMLMathMethod   = MathML Nothing }
 
 
--- | Auxiliary compiler: generate a post list from a list of given posts, and
--- add it to the current page under @$posts@.
+-- | Auxiliary compiler: generate a post list from a list of given
+-- posts, using a particular context.
 --
 postList :: Pattern
          -> ([Item String] -> Compiler [Item String])
+         -> Context String
          -> String
          -> Compiler String
-postList pattern preprocess' tmpl = do
+postList pattern preprocess' ctx tmpl = do
   postItemTpl <- loadBody $ fromFilePath $ "templates/" ++ tmpl ++ ".html"
   posts <- loadAll pattern
   processed <- preprocess' posts
-  applyTemplateList postItemTpl simplePostCtx processed
+  applyTemplateList postItemTpl ctx processed
 
 
 -- | Auxiliary compiler: set up a tag list page.
@@ -272,7 +268,7 @@ makeTagList tags tag pattern = do
       pagetitle = "Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"
   route idRoute
   compile $ do
-    list <- postList pattern recentFirst "tagitem"
+    list <- postList pattern recentFirst simplePostCtx "tagitem"
     makeItem ""
       >>= loadAndApplyTemplates ["tags", "blog", "default"]
            (constField "title" title `mappend`
@@ -283,47 +279,43 @@ makeTagList tags tag pattern = do
       >>= relativizeUrls
 
 
--- | Helper function for index page metacompilation: generate
--- appropriate number of index pages with correct names and the
--- appropriate posts on each one.
+-- | Index page compiler: generate a single index page based on
+-- identifier name, with the appropriate posts on each one.
 --
--- makeIndexPages :: [[Page String]] ->
---                   [(Identifier (Page String), Compiler () (Page String))]
--- makeIndexPages ps = map doOne (zip [1..] ps)
---   where doOne (n, ps) = (indexIdentifier n, makeIndexPage n maxn ps)
---         maxn = nposts `div` articlesPerIndexPage +
---                if (nposts `mod` articlesPerIndexPage /= 0) then 1 else 0
---         nposts = sum $ map length ps
---         indexIdentifier n = parseIdentifier url
---           where url = "index" ++ (if (n == 1) then "" else show n) ++ ".html"
-
-
--- | Make a single index page: inserts posts, sets up navigation links
--- to older and newer article index pages, applies templates.
---
--- makeIndexPage :: Int -> Int -> [Page String] -> Compiler () (Page String)
--- makeIndexPage n maxn posts =
---   constA (mempty, posts)
---   >>> addPostList "templates/postitem.html"
---   >>> arr (setField "navlinkolder" (indexNavLink n 1 maxn))
---   >>> arr (setField "navlinknewer" (indexNavLink n (-1) maxn))
---   >>> applyTemplateCompilers ["posts", "index", "blog", "default"]
---   >>> relativizeUrlsCompiler
+indexCompiler :: Tags -> Context String
+                 -> [(Identifier, [Identifier])] -> Compiler (Item String)
+indexCompiler tags ctx ids = do
+  pg <- (drop 5 . dropExtension . takeBaseName . toFilePath) <$> getUnderlying
+  let i = if pg == "" then 1 else (read pg :: Int)
+      n = length ids
+      older = indexNavLink i 1 n
+      newer = indexNavLink i (-1) n
+  list <- postList (fromList $ snd $ ids !! (i - 1)) recentFirst ctx "postitem"
+  makeItem ""
+    >>= loadAndApplyTemplates ["index", "blog", "default"]
+         (constField "title" "Sky Blue Trades" `mappend`
+          constField "pagetitle" "Sky Blue Trades" `mappend`
+          constField "posts" list `mappend`
+          constField "navlinkolder" older `mappend`
+          constField "navlinknewer" newer `mappend`
+          tagCloudCtx tags `mappend`
+          defaultContext)
+    >>= relativizeUrls
 
 
 -- | Generate navigation link HTML for stepping between index pages.
 --
--- indexNavLink :: Int -> Int -> Int -> String
--- indexNavLink n d maxn = renderHtml ref
---   where ref = if (refPage == "") then ""
---               else H.a ! A.href (toValue $ toUrl $ refPage) $
---                    (H.preEscapedToMarkup lab)
---         lab :: String
---         lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
---         refPage = if (n + d < 1 || n + d > maxn) then ""
---                   else case (n + d) of
---                     1 -> "blog/index.html"
---                     _ -> "blog/index" ++ (show $ n + d) ++ ".html"
+indexNavLink :: Int -> Int -> Int -> String
+indexNavLink n d maxn = renderHtml ref
+  where ref = if (refPage == "") then ""
+              else H.a ! A.href (toValue $ toUrl $ refPage) $
+                   (H.preEscapedToMarkup lab)
+        lab :: String
+        lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
+        refPage = if (n + d < 1 || n + d > maxn) then ""
+                  else case (n + d) of
+                    1 -> "/blog/index.html"
+                    _ -> "/blog/index" ++ (show $ n + d) ++ ".html"
 
 
 -- | RSS feed configuration.
@@ -345,26 +337,37 @@ feedConfiguration = FeedConfiguration
 --
 teaserField :: [String] -> Item String -> Compiler String
 teaserField _ i = do
-  (b, url) <- (itemBody &&& itemIdentifier) <$> getResourceBody
-  return $ fixResourceUrls' (takeDirectory $ toFilePath url) $ extractTeaser b
-    -- >>> arr (\(p, b) -> setField "readmore"
-    --                     (if (isInfixOf "<!--MORE-->" (pageBody p))
-    --                      then (readMoreLink p) else "") p)
-      where
-        extractTeaser = unlines . (noTeaser . extractTeaser') .
-                        drop 1 . dropWhile (/= "---") . drop 1 . lines
-        extractTeaser' = takeWhile (/= "<!--MORE-->")
+  let url = itemIdentifier i
+  b <- itemBody<$> loadSnapshot url "post"
+  return $ fixResourceUrls' (takeDirectory $ toFilePath url) (extractTeaser b)
+    where
+      extractTeaser = unlines . (noTeaser . extractTeaser') . lines
+      extractTeaser' = takeWhile (/= "<!--MORE-->")
 
-        noTeaser [] = []
-        noTeaser ("<!--NOTEASERBEGIN-->" : xs) =
-          drop 1 $ dropWhile (/= "<!--NOTEASEREND-->") xs
-        noTeaser (x : xs) = x : (noTeaser xs)
+      noTeaser [] = []
+      noTeaser ("<!--NOTEASERBEGIN-->" : xs) =
+        drop 1 $ dropWhile (/= "<!--NOTEASEREND-->") xs
+      noTeaser (x : xs) = x : (noTeaser xs)
 
-        -- readMoreLink :: Page String -> String
-        -- readMoreLink p = renderHtml $ H.div ! A.class_ "readmore" $
-        --                  H.a ! A.href (toValue $ getField "url" p) $
-        --                  H.preEscapedToMarkup ("Read more &raquo;"::String)
 
+-- | Generate "Read more" link for an index entry.
+--
+readMoreField :: [String] -> Item String -> Compiler String
+readMoreField _ i = do
+  rte <- getRoute $ itemIdentifier i
+  return $ case rte of
+    Nothing -> ""
+    Just r -> if isInfixOf "<!--MORE-->" (itemBody i)
+              then readMoreLink r
+              else ""
+    where readMoreLink r' =
+            renderHtml $ H.div ! A.class_ "readmore" $
+            H.a ! A.href (toValue $ "/" ++ r') $
+            H.preEscapedToMarkup ("Read more &raquo;"::String)
+
+
+-- | Fix up resource URLs for index page teasers and RSS feed entries.
+--
 fixResourceUrls' :: String -> String -> String
 fixResourceUrls' path =
   withUrls (\x -> if '/' `elem` x then x else path ++ "/" ++ x)

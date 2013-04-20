@@ -82,7 +82,6 @@ renderSVG (Picture attr tikz) = do
   createDirectoryIfMissing True "_site/blog/tikzs"
   pwd <- getCurrentDirectory
   setCurrentDirectory "_site/blog/tikzs"
-  putStrLn $ "Rendering SVG: " ++ md5 ++ ".svg"
   exists <- doesFileExist svgf
   if exists
     then return ()
