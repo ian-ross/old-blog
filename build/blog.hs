@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable, OverloadedStrings, Arrows #-}
 module Main where
 
-import Control.Applicative ((<$>))
+import Control.Applicative ((<$>), (<*>))
 import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
 import qualified Data.Map as M
@@ -13,6 +13,7 @@ import System.Directory (doesFileExist, doesDirectoryExist,
                          createDirectoryIfMissing,
                          renameFile, renameDirectory)
 import Data.Time.Clock (utctDay, getCurrentTime)
+import Data.Time.LocalTime (utcToLocalTime, getCurrentTimeZone)
 import Data.Time.Calendar (toGregorian)
 import System.Locale (defaultTimeLocale)
 import Data.Time.Format (formatTime)
@@ -414,9 +415,12 @@ addTimestamp postPath = do
   let modFile = if fExist then postPath else postPath ++ "/text.markdown"
   putStrLn ("Editing " ++ modFile)
   pg <- B.readFile modFile
-  t <- getCurrentTime
-  let ts = formatTime defaultTimeLocale "%Y-%M-%d %H:%M:%S" t
-  let pg' = addTimestamp' ts (B.unpack pg)
+  t <- utcToLocalTime <$> getCurrentTimeZone <*> getCurrentTime
+--  utct <- getCurrentTime
+--  tz <- getCurrentTimeZone
+--  let t = utcToLocalTime tz utct
+  let ts = formatTime defaultTimeLocale "%F %T" t
+      pg' = addTimestamp' ts (B.unpack pg)
   B.writeFile modFile $ B.pack $ pg'
     where addTimestamp' :: String -> String -> String
           addTimestamp' ts i = init $ unlines ["---", md, "---", body]

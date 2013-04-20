@@ -1,8 +1,8 @@
 ---
 author: Ian
 tags: organisation
-published: 2013-04-18 09:17:58
 title: The War on Akrasia
+published: 2013-04-20 16:26:33
 ---
 I learnt a new word yesterday: *akrasia* (rhymes with "aphasia" and
 "Malaysia").  It means not doing the things you want to do and know
