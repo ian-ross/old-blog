@@ -21,4 +21,4 @@ executable blog
   build-depends:       base < 5 && >= 3, containers, directory, process,
                        filepath, hakyll, bytestring, pureMD5,
                        blaze-html, tagsoup, blaze-markup, time, old-locale,
-                       pandoc
+                       pandoc, syb, regex-posix

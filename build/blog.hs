@@ -1,30 +1,34 @@
-{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, Arrows #-}
+{-# LANGUAGE DeriveDataTypeable, OverloadedStrings #-}
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
+import Control.Monad (when, filterM)
 import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
 import qualified Data.Map as M
 import Data.Function (on)
-import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..),
+import Data.Generics (everywhereM, mkM)
+import Text.Pandoc (Pandoc, Inline(..), HTMLMathMethod(..), WriterOptions(..),
                     ObfuscationMethod(..))
 import System.Environment (getArgs)
 import System.Directory (doesFileExist, doesDirectoryExist,
-                         createDirectoryIfMissing,
+                         getDirectoryContents, createDirectoryIfMissing,
                          renameFile, renameDirectory)
 import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.LocalTime (utcToLocalTime, getCurrentTimeZone)
 import Data.Time.Calendar (toGregorian)
 import System.Locale (defaultTimeLocale)
 import Data.Time.Format (formatTime)
-import System.FilePath ((</>), joinPath, splitDirectories,
-                        takeDirectory, dropExtension, takeBaseName)
+import System.FilePath ((</>), joinPath, splitDirectories, addExtension,
+                        takeDirectory, dropExtension, takeBaseName,
+                        replaceExtension, hasExtension)
 import System.Cmd (rawSystem)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
+import Text.Regex.Posix hiding (match)
 
 import Hakyll
 import TikZ                     -- TikZ image rendering.
@@ -168,12 +172,61 @@ sass = getResourceString >>=
 --
 postCompiler :: Context String -> Compiler (Item String)
 postCompiler ctx = do
-  i <- renderPandocWith defaultHakyllReaderOptions writeOptions <$> processTikZs
+  p <- readPandocWith defaultHakyllReaderOptions <$> processTikZs
+  p' <- unsafeCompiler $ fixPostLinks $ itemBody p
+  let i = writePandocWith writeOptions (itemSetBody p' p)
   saveSnapshot "post" i
     >>= loadAndApplyTemplate "templates/post.html" ctx
     >>= saveSnapshot "content"
     >>= loadAndApplyTemplates ["blog", "default"] ctx
     >>= relativizeUrls
+
+
+-- | Fix up links to posts that use abbreviated forms
+-- (e.g. yyyy/mm/dd/post-name or just post-name).
+--
+fixPostLinks :: Pandoc -> IO Pandoc
+fixPostLinks = everywhereM (mkM fixPostLink)
+fixPostLink l@(Link s (url, title))
+  | url =~ ("^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/[^/]+$" :: String) = do
+    let mdd = "posts" </> url
+        mdf = addExtension mdd "markdown"
+    fexist <- doesFileExist mdf
+    dexist <- doesDirectoryExist mdd
+    case (fexist, dexist) of
+      (True, _) ->
+        return $ Link s (addExtension ("/blog/posts" </> url) "html", title)
+      (_, True) ->
+        return $ Link s ("/blog/posts" </> url </> "index.html", title)
+      (_, _) -> return l
+  | url =~ ("^[^/]+$" :: String) = do
+    mp <- findPosts url
+    case mp of
+      Nothing -> return l
+      Just p -> let url' = if hasExtension p
+                           then replaceExtension ("/blog" </> p) "html"
+                           else "/blog" </> p </> "index.html"
+                in return $ Link s (url', title)
+  | otherwise = return l
+fixPostLink x = return x
+
+
+-- | Locate post Markdown files or directories by name.
+--
+findPosts :: FilePath -> IO (Maybe FilePath)
+findPosts f = do
+  days <- dir "posts" >>= dirs >>= dirs
+  let ds = map (</> f) days
+      fs = map (\f -> addExtension f "markdown") ds
+  existds <- filterM doesDirectoryExist ds
+  existfs <- filterM doesFileExist fs
+  case (existds, existfs) of
+    ([], []) -> return Nothing
+    (d:_, _) -> return $ Just d
+    (_, f:_) -> return $ Just f
+  where notdot i = i /= "." && i /= ".."
+        dir d = map (d </>) <$> filter notdot <$> getDirectoryContents d
+        dirs ds = concat <$> mapM dir ds
 
 
 -- | Full context for posts.
