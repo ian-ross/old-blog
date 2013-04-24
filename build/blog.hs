@@ -7,6 +7,7 @@ import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
 import qualified Data.Map as M
 import Data.Function (on)
+import Data.Char (isSpace)
 import Data.Generics (everywhereM, mkM)
 import Text.Pandoc (Pandoc, Inline(..), HTMLMathMethod(..), WriterOptions(..),
                     ObfuscationMethod(..))
@@ -180,6 +181,47 @@ postCompiler ctx = do
     >>= saveSnapshot "content"
     >>= loadAndApplyTemplates ["blog", "default"] ctx
     >>= relativizeUrls
+    >>= doSpecials
+
+
+-- | Process special post-processing steps.
+--
+doSpecials :: Item String -> Compiler (Item String)
+doSpecials item = do
+  md <- getMetadata $ itemIdentifier item
+  case "specials" `M.lookup` md of
+    Nothing -> return item
+    Just ss -> do
+      let specials = map parseSpecial $ words ss
+      return $ foldSpecials item specials
+      where foldSpecials i [] = i
+            foldSpecials i ((f,as):ss) = case f of
+              "angular" -> foldSpecials (angularSpecial i as) ss
+              _ -> foldSpecials i ss
+
+
+-- | Special processing for articles using Angular.
+--
+angularSpecial :: Item String -> [String] -> Item String
+angularSpecial i [app] =
+  itemSetBody (unlines . map xform . lines . itemBody $ i) i
+  where xform l = if l =~ ("<html([^>]*)>" :: String)
+                  then init l ++ " ng-app=\"" ++ app ++ "\">"
+                  else l
+
+
+-- | Parse post-processing metadata.
+--
+parseSpecial :: String -> (String, [String])
+parseSpecial s = (f, as)
+  where (f, s') = span (/= '(') s
+        s'' = drop 1 . take (length s' - 1) $ s'
+        as = map trim $ commaSplit s''
+        trim = takeWhile (not . isSpace) . dropWhile isSpace
+        commaSplit s = case dropWhile (==',') s of
+          "" -> []
+          s' -> w : commaSplit s''
+            where (w, s'') = break (==',') s'
 
 
 -- | Fix up links to posts that use abbreviated forms
