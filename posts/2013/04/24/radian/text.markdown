@@ -5,6 +5,9 @@ title: AngularJS + D3.js = Radian
 specials: angular(myApp)
 published: 2013-04-24 19:30:39
 ---
+*Courtesy of Hideharu Sakai, this article is also available in
+ [Japanese](http://ja.d3js.info/skybluetrades/).*
+
 One of the things we needed to be able to do for the [BayesHive][bh]
 software I'm working on with Tom Nielsen of OpenBrain is easily
 produce plots within our front-end web app.  There are lots of
@@ -143,9 +146,9 @@ The upshot of all this is that you can do things like this:
 ~~~~ {.html}
 <div class="form-inline">
   <label>Mean</label>
-  <input type="text" ng-model="mu" ng-init="mu=5">
+  <input type="range" min=0 max=10 step=0.01 ng-model="mu" ng-init="mu=5">
   <label>&nbsp;&nbsp;Standard deviation</label>
-  <input type="text" ng-model="sigma" ng-init="sigma=1">
+  <input type="range" min=0 max=10 step=0.01 ng-model="sigma" ng-init="sigma=1">
 </div>
 <br>
 
@@ -158,9 +161,9 @@ to get the following:
 
 <div class="form-inline">
   <label>Mean</label>
-  <input type="text" ng-model="mu" ng-init="mu=5">
+  <input type="range" min=0 max=10 step=0.01 ng-model="mu" ng-init="mu=5">
   <label>&nbsp;&nbsp;Standard deviation</label>
-  <input type="text" ng-model="sigma" ng-init="sigma=1">
+  <input type="range" min=0.01 max=10 step=0.01 ng-model="sigma" ng-init="sigma=1">
 </div>
 <br>
 
