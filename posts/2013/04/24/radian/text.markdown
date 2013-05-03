@@ -231,6 +231,7 @@ interested in learning more, contact
 <script src="/radian/js/d3.v2.js"></script>
 <script src="/radian/js/angular.min.js"></script>
 <script src="/radian/js/radian.js"></script>
+<script src="/radian/js/html5slider.js"></script>
 <script>
 angular.module('myApp', ['radian']);
 </script>
