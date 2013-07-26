@@ -5,6 +5,10 @@ title: AngularJS + D3.js = Radian
 specials: angular(myApp)
 published: 2013-04-24 19:30:39
 ---
+
+**UPDATE: Radian is now open source.  Read about it on the
+[BayesHive website here](http://bayeshive.com/blog/5/radian--free-declarative-plotting-for-the-web).**
+
 *Courtesy of Hideharu Sakai, this article is also available in
  [Japanese](http://ja.d3js.info/skybluetrades/).*
 
