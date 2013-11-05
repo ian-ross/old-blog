@@ -6,11 +6,22 @@ $body$
 $prettytags$
 
 <!-- START: Livefyre Embed -->
-<script type='text/javascript' src='http://www.livefyre.com/wjs/v1.0/javascripts/livefyre_init.js'></script>
-<script type='text/javascript'>
-    var fyre = LF({
-        site_id: 290329,
-        version: '1.0'
-    });
+<div id="livefyre-comments"></div>
+<script type="text/javascript" src="http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js"></script>
+<script type="text/javascript">
+(function () {
+    var articleId = fyre.conv.load.makeArticleId(null);
+    fyre.conv.load({}, [{
+        el: 'livefyre-comments',
+        network: "livefyre.com",
+        siteId: "290329",
+        articleId: articleId,
+        signed: false,
+        collectionMeta: {
+            articleId: articleId,
+            url: fyre.conv.load.makeCollectionUrl(),
+        }
+    }], function() {});
+}());
 </script>
 <!-- END: Livefyre Embed -->

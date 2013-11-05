@@ -22,6 +22,7 @@ import System.Directory (doesFileExist, renameFile,
 import System.IO (openFile, hPutStrLn, hClose, IOMode(..))
 import System.FilePath (addExtension)
 import System.Cmd (system)
+import System.Exit
 import Data.Digest.Pure.MD5
 import qualified Text.HTML.TagSoup as TS
 import qualified Data.ByteString.Lazy.Char8 as C8
