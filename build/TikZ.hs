@@ -82,6 +82,8 @@ renderSVG (Picture attr tikz) = do
   createDirectoryIfMissing True "_site/blog/tikzs"
   pwd <- getCurrentDirectory
   setCurrentDirectory "_site/blog/tikzs"
+  let md5 = makeDigest tikz
+      svgf = addExtension md5 "svg"
   exists <- doesFileExist svgf
   if exists
     then return ()
@@ -99,8 +101,6 @@ renderSVG (Picture attr tikz) = do
   (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd
   return (TikZInfo md5 w h attr)
-    where svgf = addExtension md5 "svg"
-          md5 = makeDigest tikz
 
 
 -- | Extract dimensions from first line of TikZ-rendered SVG file and
@@ -191,5 +191,6 @@ replacePictures (c@(Picture _ _):cs) (tikz:tikzs) =
 -- | Strip leading and trailing whitespace.
 --
 strip :: String -> String
-strip = takeWhile (not . isWs) . dropWhile isWs
-  where isWs c = c `elem` " \t\r\n"
+strip = trim1 . trim1
+  where trim1 = dropWhile isWs . reverse
+        isWs c = c `elem` " \t\r\n"

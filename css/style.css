@@ -77,9 +77,13 @@ div.tags span.tag { background-color: #CCC; padding: 2px 5px; }
 .img-box { float: left; margin-bottom: 0; }
 .img-box img { width: 90%; margin-left: auto; margin-right: auto; }
 .img-center { width: 100%; }
-.img-center img { margin-left: auto; margin-right: auto; width:45%;  }
+.img-center img { display: block; margin-left: auto; margin-right: auto; width:45%;  }
 .img-center2 { width: 100%; }
 .img-center2 img { margin-left: auto; margin-right: auto; }
+.img-center3 { width: 100%; }
+.img-center3 img { display: block; margin-left: auto; margin-right: auto; width: 75%; }
+.img-center-small { width: 100%; }
+.img-center-small img { display: block; margin-left: auto; margin-right: auto; width:25%;  }
 
 .idxlinkold, .idxlinknew { font-size: 125%; }
 .idxlinkold { float:left; }
