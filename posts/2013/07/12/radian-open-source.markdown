@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: web-programming
-title: Radian -- Now Open Source
+title: Radian &mdash; Now Open Source
 published: 2013-07-12 15:10:52
 ---
 

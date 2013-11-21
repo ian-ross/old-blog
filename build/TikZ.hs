@@ -131,7 +131,7 @@ writeTikzTmp f tikz = do
   hPutStrLn h "\\documentclass{minimal}"
   hPutStrLn h "\\def\\pgfsysdriver{pgfsys-tex4ht.def}"
   hPutStrLn h "\\usepackage{tikz}"
-  hPutStrLn h "\\usetikzlibrary{arrows}"
+  hPutStrLn h "\\usetikzlibrary{arrows,positioning}"
   hPutStrLn h "\\begin{document}"
   hPutStrLn h "\\begin{tikzpicture}"
   hPutStrLn h tikz

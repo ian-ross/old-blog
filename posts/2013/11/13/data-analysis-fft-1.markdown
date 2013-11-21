@@ -41,6 +41,8 @@ to more complicated problems.  (There are Haskell bindings for FFTW --
 the [`vector-fftw`](http://hackage.haskell.org/package/vector-fftw)
 package is a good choice.)
 
+<!--MORE-->
+
 ## The Discrete Fourier Transform
 
 According to the
