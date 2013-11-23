@@ -97,7 +97,7 @@ renderSVG p@(Picture wrap attr tikz) = do
     if status
       then renameFile "tmp/tmp-1.svg" svgf
       else return ()
-    --removeDirectoryRecursive "tmp"
+    removeDirectoryRecursive "tmp"
   (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd
   return (TikZInfo md5 w h attr)
