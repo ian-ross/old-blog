@@ -14,7 +14,7 @@
 
 module TikZ (processTikZs) where
 
-import Control.Monad (forM)
+import Control.Monad (forM, when)
 import Data.List (isPrefixOf)
 import System.Directory (doesFileExist, renameFile,
                          createDirectoryIfMissing, removeDirectoryRecursive,
@@ -78,7 +78,7 @@ generateTikZs p = forM pics renderSVG
 -- | Render a TikZ to an SVG file.
 --
 renderSVG :: Chunk -> IO TikZInfo
-renderSVG (Picture attr tikz) = do
+renderSVG p@(Picture wrap attr tikz) = do
   createDirectoryIfMissing True "_site/blog/tikzs"
   pwd <- getCurrentDirectory
   setCurrentDirectory "_site/blog/tikzs"
@@ -90,14 +90,14 @@ renderSVG (Picture attr tikz) = do
     else do
     createDirectoryIfMissing True "tmp"
     setCurrentDirectory "tmp"
-    writeTikzTmp "tmp.tex" $ unlines tikz
+    writeTikzTmp wrap "tmp.tex" $ unlines tikz
     system "htlatex tmp.tex 2>&1 > /dev/null"
     status <- doesFileExist "tmp-1.svg"
     setCurrentDirectory ".."
     if status
       then renameFile "tmp/tmp-1.svg" svgf
       else return ()
-    removeDirectoryRecursive "tmp"
+    --removeDirectoryRecursive "tmp"
   (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd
   return (TikZInfo md5 w h attr)
@@ -124,18 +124,20 @@ getSVGDimensions svgf = do
 
 -- | Write temporary LaTeX file for TikZ SVG rendering.
 --
-writeTikzTmp :: String -> String -> IO ()
-writeTikzTmp f tikz = do
+writeTikzTmp :: Bool -> String -> String -> IO ()
+writeTikzTmp wrap f tikz = do
   h <- openFile f WriteMode
   hPutStrLn h "\\nonstopmode"
   hPutStrLn h "\\documentclass{minimal}"
   hPutStrLn h "\\def\\pgfsysdriver{pgfsys-tex4ht.def}"
   hPutStrLn h "\\usepackage{tikz}"
-  hPutStrLn h "\\usetikzlibrary{arrows,positioning}"
+  hPutStrLn h "\\usetikzlibrary{arrows}"
+  hPutStrLn h "\\usetikzlibrary{positioning}"
+  hPutStrLn h "\\usetikzlibrary{snakes}"
   hPutStrLn h "\\begin{document}"
-  hPutStrLn h "\\begin{tikzpicture}"
+  when wrap $ hPutStrLn h "\\begin{tikzpicture}"
   hPutStrLn h tikz
-  hPutStrLn h "\\end{tikzpicture}"
+  when wrap $ hPutStrLn h "\\end{tikzpicture}"
   hPutStrLn h "\\end{document}"
   hClose h
 
@@ -148,14 +150,14 @@ makeDigest p = show $ md5 $ C8.pack $ strip $ concat p
 
 -- | Simple chunk type used to pick out TikZ images.
 --
-data Chunk = Text [String] | Picture String [String] deriving Show
+data Chunk = Text [String] | Picture Bool String [String] deriving Show
 
 
 -- | Distinguish between picture (i.e. TikZ) and text chunks.
 --
 isPicture :: Chunk -> Bool
 isPicture (Text _) = False
-isPicture (Picture _ _) = True
+isPicture (Picture _ _ _) = True
 
 
 -- | Chunk a Markdown input with possible embedded TikZ images
@@ -164,10 +166,14 @@ isPicture (Picture _ _) = True
 extractChunks :: [String] -> [Chunk]
 extractChunks [] = []
 extractChunks (l:ls)
-  | "@@@" `isPrefixOf` l = (Picture (attr l) ls') : extractChunks (tail rest)
+  | "@@@" `isPrefixOf` l =
+    (Picture True (attr l) ls') : extractChunks (tail rest)
+  | "@@!" `isPrefixOf` l =
+    (Picture False (attr l) ls') : extractChunks (tail rest)
   | otherwise            = (Text (l:ls')) : extractChunks rest
-    where (ls', rest) = break ("@@@" `isPrefixOf`) ls
-          attr = strip . stripBrackets . strip . dropWhile (=='@')
+    where (ls', rest) = break chk ls
+          chk s = "@@@" `isPrefixOf` s || "@@!" `isPrefixOf` s
+          attr = strip . stripBrackets . strip . dropWhile (`elem` "@!")
           stripBrackets =
             reverse . dropWhile (=='}') . reverse . dropWhile (=='{')
 
@@ -176,7 +182,7 @@ extractChunks (l:ls)
 --
 flattenChunk :: Chunk -> [String]
 flattenChunk (Text ts) = ts
-flattenChunk (Picture a ts) = ts
+flattenChunk (Picture _ a ts) = ts
 
 
 -- | Replace Picture chunks for TikZ images with object and image tag
@@ -185,7 +191,7 @@ flattenChunk (Picture a ts) = ts
 replacePictures :: [Chunk] -> [Chunk] -> [Chunk]
 replacePictures [] _ = []
 replacePictures (c@(Text _):cs) tikzs = c : replacePictures cs tikzs
-replacePictures (c@(Picture _ _):cs) (tikz:tikzs) =
+replacePictures (c@(Picture _ _ _):cs) (tikz:tikzs) =
   tikz : replacePictures cs tikzs
 
 -- | Strip leading and trailing whitespace.
