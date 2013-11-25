@@ -136,7 +136,8 @@ Here are some examples taken straight from the TikZ manual:
 
 Personally, I think that's kind of fun, although I agree that it won't
 be to everyone's taste.  If you want to play with it, you can find the
-code in [my blog repository](https://github.com/ian-ross/blog).
+code in [my blog repository](https://github.com/ian-ross/blog).  You
+can see the raw Markdown code for this post [here](https://raw.github.com/ian-ross/blog/master/posts/2013/11/25/the-teeny-tiny-happy-hakyll-tikz-pixie.markdown).
 
 [^1]: *TikZ ist kein Zeichenprogramm* -- "TikZ is not a drawing
       program".  It's based on a lower-level package called PGF.
