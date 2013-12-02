@@ -2,7 +2,7 @@
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
-import Control.Monad (when, filterM)
+import Control.Monad (when, filterM, void)
 import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
 import qualified Data.Map as M
@@ -144,6 +144,18 @@ doHakyll = hakyllWith hakyllConf $ do
       posts <- fmap (take 10) . recentFirst =<<
                loadAllSnapshots postsPattern "content"
       renderRss feedConfiguration feedCtx posts
+
+  -- Render Haskell-only RSS feed for Planet Haskll.
+  create ["haskell-rss.xml"] $ do
+    route idRoute
+    compile $ do
+      let froot = feedRoot feedConfiguration </> "blog"
+          feedCtx = simplePostCtx `mappend`
+                    rssBodyField froot "description"
+      posts <- fmap (take 10 . filter (not . null . itemBody)) . recentFirst =<<
+               loadAllSnapshots postsPattern "haskell-content"
+      renderRss feedConfiguration feedCtx posts
+
   where
     postsPattern = fromGlob "posts/*/*/*/*.markdown" .||.
                    fromGlob "posts/*/*/*/*/text.markdown"
@@ -176,9 +188,12 @@ postCompiler ctx = do
   p <- readPandocWith defaultHakyllReaderOptions <$> processTikZs
   p' <- unsafeCompiler $ fixPostLinks $ itemBody p
   let i = writePandocWith writeOptions (itemSetBody p' p)
-  saveSnapshot "post" i
+  post <- saveSnapshot "post" i
     >>= loadAndApplyTemplate "templates/post.html" ctx
-    >>= saveSnapshot "content"
+  ts <- getUnderlying >>= getTags
+  saveSnapshot "haskell-content" $
+    if "haskell" `elem` ts then post else post { itemBody = "" }
+  saveSnapshot "content" post
     >>= loadAndApplyTemplates ["blog", "default"] ctx
     >>= relativizeUrls
     >>= doSpecials
