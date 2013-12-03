@@ -2,7 +2,7 @@
 author: Ian
 tags: web-programming
 title: AngularJS + D3.js = Radian
-specials: angular(myApp)
+specials: angular(myApp,['radian'])
 published: 2013-04-24 19:30:39
 ---
 
@@ -205,38 +205,3 @@ interested in learning more, contact
 [angular]: http://angularjs.org/
 [d3]: http://d3js.org/
 [acorn]: http://marijnhaverbeke.nl/blog/acorn.html
-
-<style type="text/css">
-.radian svg {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: block;
-  width:100%;
-  height:100%;
-}
-.radian svg text{font:normal 12px Arial;}
-.radian svg .title{font:bold 14px Arial;}
-.radian .no-data{font-size:18px;font-weight:bold;}
-.radian .background{fill:white;fill-opacity:0;}
-.radian div.radian-ui{margin:5px;}
-.radian div.radian-ui .var-select{width:50px;}
-.radian .axis path{fill:none;stroke:#000;stroke-opacity:.75;shape-rendering:crispEdges;}
-.radian .axis line{fill:none;stroke:#000;stroke-opacity:.25;shape-rendering: crispEdges;}
-.radian .axis path.domain{stroke-opacity:.75;}
-.radian .axis line.zero{stroke-opacity:.75;}
-.radian .axis .axisMaxMin text{font-weight:bold;}
-.radian .brush .extent{stroke:#fff;fill-opacity:.125;shape-rendering:crispEdges;}
-</style>
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/d3.v2.js"></script>
-<script src="/js/angular.min.js"></script>
-<script src="/js/radian.js"></script>
-<script src="/js/html5slider.js"></script>
-<script>
-angular.module('myApp', ['radian']);
-</script>
