@@ -218,11 +218,15 @@ doSpecials item = do
 -- | Special processing for articles using Angular.
 --
 angularSpecial :: Item String -> [String] -> Item String
-angularSpecial i [app] =
-  itemSetBody (unlines . map xform . lines . itemBody $ i) i
+angularSpecial i (app:injects) =
+  itemSetBody (unlines . addScript . map xform . lines . itemBody $ i) i
   where xform l = if l =~ ("<html([^>]*)>" :: String)
                   then init l ++ " ng-app=\"" ++ app ++ "\">"
                   else l
+        addScript ls = let (before, after) = break (=~ ("</body>" :: String)) ls
+                       in before ++ ["<script>", script, "</script>"] ++ after
+        script = "angular.module('" ++ app ++ "'" ++
+                 if null injects then "" else (", " ++ head injects) ++ ");"
 
 
 -- | Parse post-processing metadata.
