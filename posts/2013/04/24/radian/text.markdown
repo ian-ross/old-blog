@@ -30,9 +30,10 @@ data binding features of Angular.
 
 Thus was Radian born: a declarative extension to HTML for rendering
 data and functional plots as SVG graphics.  You can go straight to a
-gallery of examples [here](/radian).  Details and some more examples
-below the fold.  (Note that, since Radian uses SVG graphics, you'll
-need a fairly recent browser to see anything...)
+gallery of examples
+[here](http://openbrainsrc.github.io/Radian/gallery).  Details and
+some more examples below the fold.  (Note that, since Radian uses SVG
+graphics, you'll need a fairly recent browser to see anything...)
 
 <!--MORE-->
 
@@ -230,12 +231,12 @@ interested in learning more, contact
 .radian .axis .axisMaxMin text{font-weight:bold;}
 .radian .brush .extent{stroke:#fff;fill-opacity:.125;shape-rendering:crispEdges;}
 </style>
-<script src="/radian/js/jquery.js"></script>
-<script src="/radian/js/bootstrap.js"></script>
-<script src="/radian/js/d3.v2.js"></script>
-<script src="/radian/js/angular.min.js"></script>
-<script src="/radian/js/radian.js"></script>
-<script src="/radian/js/html5slider.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/d3.v2.js"></script>
+<script src="/js/angular.min.js"></script>
+<script src="/js/radian.js"></script>
+<script src="/js/html5slider.js"></script>
 <script>
 angular.module('myApp', ['radian']);
 </script>
