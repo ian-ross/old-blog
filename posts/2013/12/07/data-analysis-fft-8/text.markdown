@@ -8,7 +8,7 @@ published: 2013-12-07 14:19:39
 ---
 
 We're going to do a number of different things to optimise the code
-developed in the previous section, but before we do that, we need to
+developed in the previous article, but before we do that, we need to
 do some baseline performance measurements, so that we know that our
 "improvements" really are improving things.  The performance results
 we see will also help to guide us a little in the optimisations that
@@ -23,10 +23,11 @@ time round the loop, then reuses the computed result for all the other
 999 times round.
 
 We can bypass these worries quite effectively using Bryan O'Sullivan's
-Criterion library.  As well as providing a clean framework for
-ensuring that pure calculations really do get rerun for timing
-purposes, Criterion gives us a nice API for setting up benchmarks,
-running them and collecting results.
+[Criterion](http://hackage.haskell.org/package/criterion) library.  As
+well as providing a clean framework for ensuring that pure
+calculations really do get rerun for timing purposes, Criterion gives
+us a nice API for setting up benchmarks, running them and collecting
+results.
 
 <!--MORE-->
 
