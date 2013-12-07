@@ -221,7 +221,7 @@ radian.directive('plot',
     };
     scope.addPlot = function(s) {
       ++scope.nplots;
-      if (scope.hasOwnProperty('legendSwitches')) scope.switchable.push(s);
+      if (s.hasOwnProperty('legendSwitch')) scope.switchable.push(s);
       s.enabled = true;
       scope.$emit('dataChange');
       s.$on('$destroy', function(e) {
@@ -380,13 +380,13 @@ radian.directive('plot',
     }
     if (scope.hasOwnProperty('strokeSwitch'))
       scope.strokeSwitchEnabled = true;
-    if (scope.hasOwnProperty('legendSwitches'))
-      scope.legendEnabled = true;
 
     $timeout(function() {
-      // Draw plots and legend.
+      // Draw plots.
       init(true);
       reset();
+
+      // Set up interactivity.
       if (scope.hasOwnProperty('uiAxisYTransform'))
         scope.$on('yAxisChange', yAxisSwitch);
       if (scope.hasOwnProperty('uiAxisXTransform'))
@@ -413,11 +413,6 @@ radian.directive('plot',
         if (n != undefined && n != o) reset();
       });
     }, 0);
-
-    // Set up interactivity.
-    // ===> TODO: zoom and pan
-    // ===> TODO: "layer" visibility
-    // ===> TODO: styling changes
   };
 
   function processRanges(scope, rangea, rangexa, rangeya,
@@ -643,6 +638,14 @@ radian.directive('plot',
   };
 
   function setup(scope, viewgroup, idx, nviews, suppressProcessRanges) {
+    scope.getTextSize = function(t) {
+      var g = scope.sizeviewgroup.append('g').attr('visibility', 'hidden');
+      var tstel = g.append('text').attr('x', 0).attr('y', 0)
+        .style('font-size', scope.fontSize).text(tst);
+      var bbox = tstel[0][0].getBBox();
+      g.remove();
+      return bbox;
+    };
     var plotgroup = viewgroup.append('g').classed('radian-plot', true);
     var v = { group: viewgroup, plotgroup: plotgroup };
     if (viewgroup.hasOwnProperty('zoomer'))
@@ -898,11 +901,8 @@ radian.directive('plot',
         if (s.length > tst.length) tst = s;
       });
       tst = tst.replace(/[0-9]/g, '0');
-      var g = scope.sizeviewgroup.append('g').attr('visibility', 'hidden');
-      var tstel = g.append('text').attr('x', 0).attr('y', 0)
-        .style('font-size', scope.fontSize).text(tst);
-      yoffset = Math.max(del3, axisspace + tstel[0][0].getBBox().width);
-      g.remove();
+      var tstsz = scope.getTextSize(tst);
+      yoffset = Math.max(del3, axisspace + tstsz.width);
     }
     if (v.y2axis && v.y2) {
       var tmp = v.y2.copy();
@@ -922,13 +922,8 @@ radian.directive('plot',
         if (s.length > tst.length) tst = s;
       });
       tst = tst.replace(/[0-9]/g, '0');
-      var tstel = scope.sizeviewgroup.append('g').attr('visibility', 'hidden')
-        .append('text')
-        .attr('x', 0).attr('y', 0)
-        .style('font-size', scope.fontSize)
-        .text(tst);
-      y2offset = Math.max(del3, axisspace + tstel[0][0].getBBox().width);
-      tstel.remove();
+      var tstsz = scope.getTextSize(tst);
+      y2offset = Math.max(del3, axisspace + tstsz.width);
     }
     if (v.yaxis) v.margin.left += yoffset + (showYAxisLabel ? del2 : 0);
     if (v.y2axis) v.margin.right += y2offset + (showY2AxisLabel ? del2 : 0);
@@ -1336,7 +1331,6 @@ radian.directive('plot',
          '<div ng-show="uivisible">',
            '<radian-histogram-switch ng-show="histogramSwitchEnabled">',
            '</radian-histogram-switch>',
-           '<radian-legend ng-show="legendEnabled"></radian-legend>',
            '<radian-axis-switch axis="y" ng-show="yAxisSwitchEnabled">',
            '</radian-axis-switch>',
            '<radian-axis-switch axis="x" ng-show="xAxisSwitchEnabled">',
@@ -1369,10 +1363,11 @@ radian.factory('plotTypeLink',
                   'marker', 'markerSize', 'stroke', 'strokeOpacity',
                   'strokeWidth' ];
 
-  return function(scope, elm, as, draw) {
+  return function(typ, scope, elm, as, draw) {
     processAttrs(scope, as);
     elm.hide();
     scope.draw = draw;
+    scope.plotType = typ;
     scope.$parent.addPlot(scope);
 
     scope.xchange = scope.ychange = false;
@@ -4538,7 +4533,7 @@ radian.directive('lines',
           }) : (Number(scope.strokeWidth) || 1);
         scope.rangeExtendPixels([width/2, width/2], [width/2, width/2]);
       });
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('lines', scope, elm, as, draw);
     }
   };
 }]);
@@ -4604,7 +4599,7 @@ radian.directive('points',
         var delta = (width + Math.sqrt(size)) / 2;
         scope.rangeExtendPixels([delta, delta], [delta, delta]);
       });
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('points', scope, elm, as, draw);
     }
   };
 }]);
@@ -4798,7 +4793,7 @@ radian.directive('bars',
         if (s.y2range) s.y2range[0] = 0;
         else           s.y2range = [0, null];
       });
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('bars', scope, elm, as, draw);
     }
   };
 }]);
@@ -4986,7 +4981,7 @@ radian.directive('boxes',
           }) : (Number(scope.strokeWidth) || 1);
         scope.rangeExtendPixels([2*width, 2*width], [20, 20]);
       });
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('boxes', scope, elm, as, draw);
     }
   };
 }]);
@@ -5030,7 +5025,7 @@ radian.directive('area',
     restrict: 'E',
     scope: true,
     link: function(scope, elm, as) {
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('area', scope, elm, as, draw);
     }
   };
 }]);
@@ -5079,7 +5074,7 @@ radian.directive('rug',
     scope: true,
     link: function(scope, elm, as) {
       scope.checkPlottable = function(xvar, yvar) { return xvar || yvar; };
-      plotTypeLink(scope, elm, as, draw);
+      plotTypeLink('rug', scope, elm, as, draw);
     }
   };
 }]);
@@ -5700,104 +5695,289 @@ radian.factory('plotLib', function()
            rad$$pal: {}
          };
 });
-// radian.directive('radianUi', ['$timeout', function($timeout)
-// {
-//   'use strict';
-
-//   return {
-//     restrict: 'E',
-//     scope: true,
-//     template:
-//     ['<div class="radian-ui" ng-show="uivisible">',
-//        // '<span class="form-inline">',
-//        //   '<span ng-show="xvs">',
-//        //     '<span>{{xlab}}</span>',
-//        //     '<select ng-model="xidx" class="var-select" ',
-//        //             'ng-options="v[0] as v[1] for v in xvs">',
-//        //     '</select>',
-//        //   '</span>',
-//        //   '<span ng-show="xvs && yvs">',
-//        //     '&nbsp;&nbsp;vs&nbsp;&nbsp;',
-//        //   '</span>',
-//        //   '<span ng-show="yvs">',
-//        //     '<span>{{ylab}}</span>',
-//        //     '<select ng-model="yidx" class="var-select" ',
-//        //             'ng-options="v[0] as v[1] for v in yvs">',
-//        //     '</select>',
-//        //   '</span>',
-//        //   '<span ng-show="yvs && (swbut || swsel)">',
-//        //     '&nbsp;&nbsp;',
-//        //   '</span>',
-//        // '</span>',
-//      '</div>'].join(""),
-//     replace: true,
-//     link: function(scope, elm, as) {
-//       // // Deal with selection of X and Y variables.
-//       // if (scope.selectX !== undefined) {
-//       //   scope.uivisible = true;
-//       //   var xvars = scope.selectX.split(',');
-//       //   if (xvars.length > 1) {
-//       //     // Selector UI.
-//       //     scope.xidx = 0;
-//       //     scope.xvs = xvars.map(function(v, i) { return [i, v]; });
-//       //     scope.xlab = scope.selectXLabel;
-//       //     if (scope.selectX == scope.selectY)
-//       //       scope.$watch('xidx',
-//       //                    function(n, o) {
-//       //                      if (n == scope.yidx) scope.yidx = o;
-//       //                      scope.yvs = [].concat(scope.xvs);
-//       //                      scope.yvs.splice(n, 1);
-//       //                    });
-//       //   }
-//       // }
-//       // if (scope.selectY !== undefined) {
-//       //   scope.uivisible = true;
-//       //   var yvars = scope.selectY.split(',');
-//       //   if (yvars.length > 1) {
-//       //     // Selector UI.
-//       //     scope.yidx = 0;
-//       //     scope.yvs = yvars.map(function(v, i) { return [i, v]; });
-//       //     scope.ylab = scope.selectYLabel;
-//       //     if (scope.selectX == scope.selectY) {
-//       //       scope.yvs.splice(1);
-//       //       scope.yidx = 1;
-//       //     }
-//       //   }
-//       // }
-//     }
-//   };
-// }]);
-
-
-radian.directive('radianLegend', function()
-{
-  return {
-    restrict: 'E',
-    template:
-    ['<div class="radian-legend">',
-       '<span ng-style="colour(v)" ng-repeat="v in switchable">',
-         '{{v.label}}&nbsp;',
-         '<input type="checkbox" ng-model="v.enabled" ',
-                'ng-change="$emit(\'paintChange\')">',
-         '&nbsp;&nbsp;&nbsp;',
-       '</span>',
-     '</div>'].join(""),
-    replace: true,
-    scope: true,
-    link: function(scope, elm, as) {
-      scope.colour = function(v) {
-        var c = (v.stroke instanceof Array ? v.stroke[0] : v.stroke) || '#000';
-        return { color: c };
-      };
-      scope.$on('setupExtraAfter', function() {
-        var m = scope.views[0].margin;
-        elm.css('top', (m.top+3)+'px').css('right', (m.right+3)+'px');
-      });
+radian.factory('paintAttrsFromPlotType', [function() {
+  return function(t) {
+    switch (t) {
+    case 'lines':  return ['stroke', 'strokeWidth', 'strokeOpacity' ];
+    case 'area':   return ['fill', 'fillOpacity' ];
+    case 'points': return ['stroke', 'strokeWidth', 'strokeOpacity',
+                           'fill', 'fillOpacity', 'marker' ];
+    case 'bars':
+    case 'boxes':  return ['stroke', 'strokeWidth', 'strokeOpacity',
+                           'fill', 'fillOpacity' ];
+    default: throw Error('invalid TYPE in <legend-entry>');
     }
   };
-});
+}]);
 
 
+radian.directive('legend',
+ ['processAttrs', 'dft', 'paintAttrsFromPlotType',
+  function(processAttrs, dft, paintAttrsFromPlotType)
+{
+  function legendSizeAndPos(sc) {
+    // Get all size and position attributes.
+    var position = sc.position || 'left,top';
+    var posspl = position.split(/,/);
+    sc.posx = posspl[0];
+    sc.posy = posspl[1];
+    if (sc.posx == 'left') sc.posx = 10;
+    else if (sc.posx == 'right') sc.posx = -10;
+    if (sc.posy == 'top') sc.posy = 10;
+    else if (sc.posy == 'bottom') sc.posy = -10;
+    sc.posx = Number(sc.posx);
+    sc.posy = Number(sc.posy);
+    if (isNaN(sc.posx) || isNaN(sc.posy))
+      throw Error("invalid position for legend");
+    var orientation = sc.orientation || 'vertical';
+    var norientation = 1;
+    var orspl = orientation.split(/:/);
+    if (orspl.length > 1) {
+      orientation = orspl[0];
+      norientation = orspl[1];
+    }
+    sc.rowSpacing = sc.rowSpacing || 2;
+    sc.columnSpacing = sc.columnSpacing || 4;
+    sc.segmentLength = sc.segmentLength || 30;
+    sc.segmentGap = sc.segmentGap || 5;
+    sc.margin = sc.margin || 5;
+    sc.hmargin = sc.horizontalMargin || sc.margin;
+    sc.vmargin = sc.verticalMargin || sc.margin;
+
+    // Determine label text sizes.
+    sc.eh = 0;
+    sc.ew = 0;
+    sc.explicitEntries.forEach(function(e) {
+      var sz = sc.getTextSize(e.label);
+      e.width = sz.width;    sc.ew = Math.max(sz.width, sc.ew);
+      e.height = sz.height;  sc.eh = Math.max(sz.height, sc.eh);
+    });
+    sc.implicitEntries.forEach(function(e) {
+      var sz = sc.getTextSize(e.label);
+      e.width = sz.width;    sc.ew = Math.max(sz.width, sc.ew);
+      e.height = sz.height;  sc.eh = Math.max(sz.height, sc.eh);
+    });
+    sc.labelx = sc.segmentLength + sc.segmentGap;
+    sc.ew += sc.labelx;
+
+    // Order entries.
+    var order = [];
+    if (sc.order) order = sc.order.split(/\|/);
+    var ex = {}, im = {};
+    sc.explicitEntries.forEach(function(e) { ex[e.label] = e; });
+    sc.implicitEntries.forEach(function(e) { im[e.label] = e; });
+    sc.entries = [];
+    order.forEach(function(l) {
+      if (ex[l])      { sc.entries.push(ex[l]);  delete ex[l]; }
+      else if (im[l]) { sc.entries.push(im[l]);  delete im[l]; }
+    });
+    sc.implicitEntries.forEach(function(e) {
+      if (im[e.label]) sc.entries.push(e);
+    });
+    sc.explicitEntries.forEach(function(e) {
+      if (ex[e.label]) sc.entries.push(e);
+    });
+
+    // Allocate entries to rows/columns.
+    var major = orientation == 'vertical' ? 'col' : 'row';
+    var minor = orientation == 'vertical' ? 'row' : 'col';
+    var nentries = sc.entries.length;
+    var minorpermajor = Math.ceil(nentries / norientation);
+    var ientry = 0;
+    for (var imaj = 0; imaj < norientation; ++imaj)
+      for (var imin = 0; imin < minorpermajor && ientry < nentries; ++imin) {
+        sc.entries[ientry][major] = imaj;
+        sc.entries[ientry][minor] = imin;
+        ++ientry;
+      }
+    var ncols = orientation == 'vertical' ? norientation : minorpermajor;
+    var nrows = orientation == 'vertical' ? minorpermajor : norientation;
+    sc.entries.forEach(function(e) {
+      e.inx = sc.hmargin + e.col * (sc.ew + sc.columnSpacing);
+      e.iny = sc.vmargin + e.row * (sc.eh + sc.rowSpacing);
+    });
+    sc.legw = ncols * sc.ew + (ncols - 1) * sc.columnSpacing + 2 * sc.hmargin;
+    sc.legh = nrows * sc.eh + (nrows - 1) * sc.rowSpacing + 2 * sc.vmargin;
+  };
+
+  function drawLegend(sc, plotgroup) {
+    // Remove any existing legend SVG group.
+    plotgroup.selectAll('.radian-legend').remove();
+
+    // Set up new legend group.
+    var lg = plotgroup.append('g').attr('class', 'radian-legend');
+
+    // Text size calculation function.
+    sc.getTextSize = function(t) {
+      var g = lg.append('g').attr('visibility', 'hidden');
+      var tstel = g.append('text').attr('x', 0).attr('y', 0)
+        .style('font-size', sc.fontSize).text(t);
+      var bbox = tstel[0][0].getBBox();
+      g.remove();
+      return bbox;
+    };
+
+    // Calculate legend size and position.
+    legendSizeAndPos(sc);
+    var lx = sc.posx >= 0 ? sc.posx :
+      sc.plotScope.views[0].realwidth + sc.posx - sc.legw;
+    var ly = sc.posy >= 0 ? sc.posy :
+      sc.plotScope.views[0].realheight + sc.posy - sc.legh;
+    lg.attr('transform', 'translate(' + lx + ',' + ly + ')');
+
+    // Draw background rectangle.
+    var bg = sc.backgroundColor || 'white';
+    if (bg != 'none')
+      lg.append('rect').
+        attr('height', sc.legh).attr('width', sc.legw).
+        attr('stroke', 'none').attr('fill', bg);
+
+    // Draw frame.
+    if (sc.hasOwnProperty('frameThickness') ||
+        sc.hasOwnProperty('frameColor')) {
+      var thickness = sc.frameThickness || 1;
+      var colour = sc.frameColor || 'black';
+      lg.append('rect').
+        attr('height', sc.legh).attr('width', sc.legw).
+        attr('stroke', colour).attr('stroke-thickness', thickness).
+        attr('fill', 'none');
+    }
+
+    sc.entries.forEach(function(e) {
+      // Make group for entry translated to appropriate position.
+      var eg = lg.append('g').attr('class', 'radian-legend-entry').
+        attr('transform', 'translate(' + e.inx + ',' + e.iny + ')');
+
+      // Draw entry label.
+      // eg.append('rect').attr('x', 0).attr('y', 0).
+      //   attr('width', sc.ew).attr('height', sc.eh).attr('fill', '#DDD');
+      eg.append('text').attr('x', sc.labelx).attr('y', sc.eh/2).
+        style('dominant-baseline', 'middle').
+        style('font-size', sc.plotScope.fontSize).text(e.label);
+
+      // Draw entry segment.
+      switch (e.type) {
+      case 'lines':
+        eg.append('path').
+          datum([[0, sc.eh/2], [sc.segmentLength, sc.eh/2]]).
+          attr('d', d3.svg.line()).
+          style('stroke', e.stroke).
+          style('stroke-width', e.strokeWidth).
+          style('stroke-opacity', e.strokeOpacity || 1);
+        break;
+      case 'points':
+        eg.append('path').
+          attr('transform',
+               'translate(' + sc.segmentLength / 2 + ',' + sc.eh / 2 + ')').
+          attr('d', d3.svg.symbol().type(e.marker).size(0.75 * sc.eh * sc.eh)).
+          style('fill', e.fill || 'none').
+          style('fill-opacity', e.fillOpacity || 1).
+          style('stroke-width', e.strokeWidth || 1).
+          style('stroke-opacity', e.strokeOpacity || 1).
+          style('stroke', e.stroke || 'none');
+        break;
+      case 'area':
+        eg.append('rect').
+          attr('x', 0).attr('y', 0).
+          attr('width', sc.segmentLength).attr('height', sc.eh).
+          style('fill', e.fill).
+          style('fill-opacity', e.fillOpacity || 1);
+        break;
+      case 'bars':
+      case 'boxes':
+        eg.append('rect').
+          attr('x', sc.segmentLength / 2 - sc.eh / 2).attr('y', 0).
+          attr('width', sc.eh).attr('height', sc.eh).
+          style('stroke', e.stroke || 'none').
+          style('stroke-opacity', e.strokeOpacity || 1).
+          style('stroke-width', e.strokeWidth || 1).
+          style('fill', e.fill || 'none').
+          style('fill-opacity', e.fillOpacity || 1);
+        break;
+      }
+    });
+  };
+
+  function preLink(sc, elm, as) {
+    sc.explicitEntries = [ ];
+  };
+  function postLink(sc, elm, as) {
+    processAttrs(sc, as);
+    sc.colour = function(v) {
+      var c = (v.stroke instanceof Array ? v.stroke[0] : v.stroke) || '#000';
+      return { color: c };
+    };
+    sc.$on('setupExtraAfter', function() {
+      var psc = sc;
+      while (psc.hasOwnProperty('$parent') && !psc.hasOwnProperty('addPlot'))
+        psc = psc.$parent;
+      sc.plotScope = psc;
+      sc.implicitEntries = [ ];
+      dft(psc, function(s) {
+        if (s.hasOwnProperty('label') && s.hasOwnProperty('plotType')) {
+          var attrs = paintAttrsFromPlotType(s.plotType);
+          var entry = { label: s.label, type: s.plotType };
+          attrs.forEach(function(a) { if (s[a]) entry[a] = s[a]; });
+          sc.implicitEntries.push(entry);
+        }
+      });
+      sc.plotScope.views[0].post = function(svg) { drawLegend(sc, svg); };
+      var m = sc.views[0].margin;
+      elm.css('top', (m.top+3)+'px').css('right', (m.right+3)+'px');
+    });
+  };
+
+  return {
+    restrict: 'E',
+    // template:
+    // ['<div class="radian-legend">',
+    //    '<span ng-style="colour(v)" ng-repeat="v in switchable">',
+    //      '{{v.label}}&nbsp;',
+    //      '<input type="checkbox" ng-model="v.enabled" ',
+    //             'ng-change="$emit(\'paintChange\')">',
+    //      '&nbsp;&nbsp;&nbsp;',
+    //    '</span>',
+    //  '</div>'].join(""),
+    scope: true,
+    compile: function(elm, as, trans) {
+      return { pre: preLink, post: postLink };
+    },
+  };
+}]);
+
+
+radian.directive('legendEntry',
+ ['paintAttrsFromPlotType',
+  function(paintAttrsFromPlotType)
+{
+  'use strict';
+
+  return {
+    restrict: 'E',
+    scope: false,
+    link: function(sc, elm, as) {
+      // Identify the legend element.
+      if (!elm[0].parentNode || elm[0].parentNode.tagName != 'LEGEND')
+        throw Error('<legend-entry> not properly nested inside <legend>');
+      var legend = $(elm[0].parentNode);
+
+      // Copy metadata attributes into a new object.
+      if (!as.label) throw Error('<legend-entry> without LABEL attribute');
+      if (!as.type) throw Error('<legend-entry> without TYPE attribute');
+      var attrs = paintAttrsFromPlotType(as.type);
+      var entry = { label: as.label, type: as.type };
+      attrs.forEach(function(a) {
+        if (as.hasOwnProperty(a))
+          entry[a] = as[a];
+        else if (sc[a])
+          entry[a] = sc[a];
+      });
+
+      // Set up explicit entry in parent legend.
+      sc.explicitEntries.push(entry);
+    }
+  };
+}]);
 radian.directive('radianAxisSwitch', function()
 {
   return {
