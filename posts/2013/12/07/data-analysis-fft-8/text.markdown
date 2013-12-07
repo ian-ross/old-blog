@@ -28,6 +28,8 @@ ensuring that pure calculations really do get rerun for timing
 purposes, Criterion gives us a nice API for setting up benchmarks,
 running them and collecting results.
 
+<!--MORE-->
+
 Here's an example of the most basic use of Criterion:
 
 ~~~~ {.haskell}
