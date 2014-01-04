@@ -40,7 +40,7 @@ ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray, Tcl/Tk
  * Naval sonar performance analysis
  * Scientific sonar data analysis and interfacing
  * Distributed applications & low-level network programming
- * GUI programming
+ * [GUI programming](/gui-programming.html)
  * Programming language tools
  * Atmospheric radiative transfer
 </div>

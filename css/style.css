@@ -109,3 +109,18 @@ span.arr-down-right { background-image: url(/images/arr-down-right.png); backgro
 span.arr-down-left { background-image: url(/images/arr-down-left.png); background-repeat: no-repeat; margin:0; padding: 0; }
 
 .eq { text-align: center; }
+
+table.group-multiplication { border-collapse: collapse; }
+table.group-multiplication tr.top-row { border-bottom: 1px solid; }
+table.group-multiplication col.left-col { border-right: 1px solid; }
+table.group-multiplication td {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+}
+
+table.lines { border-collapse: collapse; }
+table.lines tr.top-row { border-bottom: 1px solid; }
+table.lines col.left-col { border-right: 1px solid; }
+table.lines td { text-align: center; }

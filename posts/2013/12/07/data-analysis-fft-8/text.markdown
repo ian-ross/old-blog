@@ -3,7 +3,6 @@ author: Ian
 tags: data-analysis,haskell
 specials: angular(myApp,['radian'])
 title: Haskell FFT 8: Benchmarking Experiments
-published: 2013-12-03 12:47:23
 published: 2013-12-07 14:19:39
 ---
 
@@ -232,17 +231,17 @@ And here are some results:
 This plot shows results (as time for a single transform for a given
 input vector length) for input vector lengths in the range
 $[8, 1024]$.  Note that the plot is on a log-log scale.  The thin
-black lines show $C N \log N$ (solid) and $C N^2$ (dotted) for a few
-choices of constant $C$ to give some idea of the scaling of the
-different results.  Let's look at the DFT results first (the red
-line).  After a slightly faster than $O(N^2)$ rise for small values of
-$N$, the scaling seems to settle down to something like an $O(N^2)$
-increase with input vector length, which is what we expect.  Next, the
-results for FFTW are show in blue.  The times here scale more or less
-as $O(N \log N)$ (and perhaps even a little better than that!) with
-relatively little variability.  It's definitely the case that some
-input vector lengths do better and some worse in terms of scaling, but
-there are no gross discrepancies in performance as $N$ varies.
+lines show $C N \log N$ (black) and $C N^2$ (grey) for a few choices
+of constant $C$ to give some idea of the scaling of the different
+results.  Let's look at the DFT results first (the red line).  After a
+slightly faster than $O(N^2)$ rise for small values of $N$, the
+scaling seems to settle down to something like an $O(N^2)$ increase
+with input vector length, which is what we expect.  Next, the results
+for FFTW are show in blue.  The times here scale more or less as $O(N
+\log N)$ (and perhaps even a little better than that!) with relatively
+little variability.  It's definitely the case that some input vector
+lengths do better and some worse in terms of scaling, but there are no
+gross discrepancies in performance as $N$ varies.
 
 The results for our mixed-radix Haskell FFT code are shown in green.
 There are two main things we can draw from this:
