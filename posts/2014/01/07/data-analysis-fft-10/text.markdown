@@ -3,7 +3,6 @@ author: Ian
 tags: data-analysis,haskell
 specials: angular(myApp,['radian'])
 title: Haskell FFT 10: Building a package
-published: 2014-01-04 20:36:00
 published: 2014-01-07 20:06:57
 ---
 
@@ -219,7 +218,7 @@ doit env sz = do
 Here are some results (compare with the plot [here][benchmark-1]):
 
 <plot-data name="dat" format="csv" separator=" "
-           src="/blog/posts/2014/01/04/data-analysis-fft-10/benchmark-2.dat">
+           src="/blog/posts/2014/01/07/data-analysis-fft-10/benchmark-2.dat">
 </plot-data>
 
 <plot width=800 aspect=1.6 font-size=16 range-x="8,1100"

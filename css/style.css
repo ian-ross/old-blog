@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 { line-height:1.2em; margin-bottom:.3em; }
 h2 { margin-top:1em; }
 
 .container_16 .grid_16.branding { margin-left: 0; margin-right: 0; width: 100%; }
-.container_16 .grid_16.nav { margin-left: 0; margin-right: 0; width: 100%; }
+.container_16 .grid_16.topnav { margin-left: 0; margin-right: 0; width: 100%; }
 .container_16 .grid_16.branding { background-image: url(../images/banner.png); background-repeat: no-repeat; margin:0; padding: 0; width: 100%; }
 h1#branding { font-size: 4em; font-weight:bold; text-align:left;
               padding:.2em .5em; margin-bottom:0; }
@@ -124,3 +124,10 @@ table.lines { border-collapse: collapse; }
 table.lines tr.top-row { border-bottom: 1px solid; }
 table.lines col.left-col { border-right: 1px solid; }
 table.lines td { text-align: center; }
+
+table.packed {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 24px;
+}
