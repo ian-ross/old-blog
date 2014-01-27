@@ -29,7 +29,7 @@ ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray, Tcl/Tk
 
 #### to do:
 
- * Web apps
+ * [Web apps](/web-apps.html)
  * Climate & vegetation modelling
  * [Data visualisation](/data-visualisation.html)
  * Applied dynamical systems
