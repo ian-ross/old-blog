@@ -3,7 +3,6 @@ author: Ian
 tags: data-analysis,haskell
 title: Haskell FFT 14: Wrap-up
 published: 2014-01-26 09:26:43
-published: 2014-01-27 07:22:07
 ---
 
 After thirteen blog articles and about two-and-a-half weeks'
