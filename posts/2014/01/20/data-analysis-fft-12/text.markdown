@@ -2883,7 +2883,7 @@ need to divide this overall factorial by the factorials of the
 individual multiplicities.  The total number of distinct orderings of
 factors is thus
 
-$$N_D! \Bigg/ \prod_{i=1}^D m_i!.$$
+$$\frac{N_D!}{\prod_{i=1}^D m_i!}.$$
 
 Having chosen an ordering for the factors, we then need to compute the
 number of distinct ways to compose adjacent prime factors to give

@@ -1,4 +1,8 @@
-body { font: 16px/2 Philosopher, sans-serif; }
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
+
+body { font: 16px/2 Lato, sans-serif; }
 h1, h2, h3, h4, h5, h6 { font-family: 'Yanone Kaffeesatz', sans-serif; }
 pre, code { font: 13px/1.5 'Oxygen Mono', monospace; }
 
@@ -17,7 +21,11 @@ h1, h2, h3, h4, h5, h6 { line-height:1.2em; margin-bottom:.3em; }
 h2 { margin-top:1em; }
 
 .container_16 .grid_16.branding { margin-left: 0; margin-right: 0; width: 100%; }
-.container_16 .grid_16.topnav { margin-left: 0; margin-right: 0; width: 100%; }
+.container_16 .grid_16.topnav {
+    font-family: 'Yanone Kaffeesatz';
+    font-size: 21px;
+    margin-left: 0; margin-right: 0; width: 100%;
+}
 .container_16 .grid_16.branding { background-image: url(../images/banner.png); background-repeat: no-repeat; margin:0; padding: 0; width: 100%; }
 h1#branding { font-size: 4em; font-weight:bold; text-align:left;
               padding:.2em .5em; margin-bottom:0; }
@@ -101,12 +109,72 @@ div.tags span.tag { background-color: #CCC; padding: 2px 5px; }
 #toc a:link, #toc a:visited { color: #aaa; text-decoration: none; }
 #toc a:hover { color: #222; }
 
-span.arr-right { background-image: url(/images/arr-right.png); background-repeat: no-repeat; margin:0; padding: 0; }
-span.arr-left { background-image: url(/images/arr-left.png); background-repeat: no-repeat; margin:0; padding: 0; }
-span.arr-down { background-image: url(/images/arr-down.png); background-repeat: no-repeat; margin:0; padding: 0; }
-span.arr-up { background-image: url(/images/arr-up.png); background-repeat: no-repeat; margin:0; padding: 0; }
-span.arr-down-right { background-image: url(/images/arr-down-right.png); background-repeat: no-repeat; margin:0; padding: 0; }
-span.arr-down-left { background-image: url(/images/arr-down-left.png); background-repeat: no-repeat; margin:0; padding: 0; }
+i.arr-right {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-right.png);
+}
+i.arr-left {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-left.png);
+}
+i.arr-down {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-down.png);
+}
+i.arr-up {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-up.png);
+}
+i.arr-down-right {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-down-right.png);
+}
+i.arr-down-left {
+    display: inline-block;
+    width:16px;
+    height:16px;
+    line-height:16px;
+    vertical-align:text-top;
+    background-position:0px 0px;
+    background-repeat:no-repeat;
+    margin-top:3px;
+    background-image: url(/images/arr-down-left.png);
+}
 
 .eq { text-align: center; }
 

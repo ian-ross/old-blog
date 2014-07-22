@@ -23,35 +23,33 @@ class="img-right">![Simple regression plots](dv/precip-regression-plots-small.pn
 When I say "standard" plots, I mean the kind of thing that you can see
 in more or less any journal article: regression plots, simple maps,
 contour plots, and so on.  Of course, even the most standard of
-standard plots can be enhanced by small extras.  This plot <span
-class="arr-right">&nbsp;&nbsp;&nbsp;</span> is a simple regression
-plot (for [this paper][precip-paper]) showing the relationship between
+standard plots can be enhanced by small extras.  This plot <i
+class="arr-right"/> is a simple regression plot (for
+[this paper][precip-paper]) showing the relationship between
 standardised scores of precipitation intensity and ecosystem fluxes
 (GPP, gross primary productivity and RE, ecosystem respiration), all
-taken from the [FLUXNET][fluxnet] data set, after
-taking into account ecosystem flux variations caused by variations in
-total rainfall amount.  The data set I used consists of data for
-multiple sites, with different numbers of data years for each site.
-Each point on each plot shows the results for a single site-year,
-coloured according to the ecosystem type of the site, and using
-different symbols for predominantly dry sites and predominantly wet
-sites.  The grey and black lines show linear regressions at different
-levels of significance (line width) and different data subsets (line
-colour and style).  So far, so standard.  The main extra feature here
-is the boxes, which encompass the range of variability of values seen
-for each site (i.e., there is one box per site).  This gives an
-immediate visual representation of the range of intra-site variability
-(caused by differences from year to year at the same site) and
-inter-site variability (caused by intrinsic differences between
-sites).
+taken from the [FLUXNET][fluxnet] data set, after taking into account
+ecosystem flux variations caused by variations in total rainfall
+amount.  The data set I used consists of data for multiple sites, with
+different numbers of data years for each site.  Each point on each
+plot shows the results for a single site-year, coloured according to
+the ecosystem type of the site, and using different symbols for
+predominantly dry sites and predominantly wet sites.  The grey and
+black lines show linear regressions at different levels of
+significance (line width) and different data subsets (line colour and
+style).  So far, so standard.  The main extra feature here is the
+boxes, which encompass the range of variability of values seen for
+each site (i.e., there is one box per site).  This gives an immediate
+visual representation of the range of intra-site variability (caused
+by differences from year to year at the same site) and inter-site
+variability (caused by intrinsic differences between sites).
 
 [precip-paper]: http://www.biogeosciences.net/9/1007/2012/bg-9-1007-2012.html
 [fluxnet]: http://www.fluxdata.org/DataInfo/default.aspx
 
 <a href="dv/lpj-whyme-climate-sensitivity.png"><div class="img-left">![LPJ-WHyMe climate sensitivity](dv/lpj-whyme-climate-sensitivity-small.png)</div></a>
 
-Another example is this <span
-class="arr-left">&nbsp;&nbsp;&nbsp;</span> composite image (from
+Another example is this <i class="arr-left"/> composite image (from
 [this paper][lpj-whyme]), which shows, for the LPJ-WHyMe permafrost
 vegetation model, the sensitivity of three important soil parameters
 (soil temperature at 25 cm depth, active layer depth, ALD, and water
@@ -78,49 +76,48 @@ between different variables or different conditions.
 <a href="dv/lpj-whyme-regression.png"><div class="img-left">![LPJ-WHyMe regression results](dv/lpj-whyme-regression-small.png)</div></a>
 
 In some cases, it can be better to invent a new kind of plot, not
-quite fitting into the standard categories.  This plot <span
-class="arr-left">&nbsp;&nbsp;&nbsp;</span> shows an example.  It's
-very common in modelling studies that we perform parameter sensitivity
-experiments, to try to determine which parameters in our models are
-most influential.  With several parameters and several model outputs
-to consider, the amount of data produced by such sensitivity
-experiments can be large.  Here, we consider methane fluxes simulated
-by a permafrost vegetation methane emission model.  We have four types
-of fluxes (total, plant-mediated, diffusion and ebullition), we are
-interested in the effects of varying seven different parameters, and
-we consider seven representative sites (numbers 1--7).  This leads to
-a lot of model output.  We can visualise the effect of varying
-different model parameters by considering linear regressions between
-model outputs (methane fluxes) and parameter values.  Here, we display
-both the regression slope (using colour) and the correlation
-coefficient (using the size of the blobs) for all of these
-relationships.  The most important relationships (big blobs, saturated
-colours) jump right out at you.  Detecting which are the important
-parameters in a page-full of normal regression plots is much more
-difficult.
+quite fitting into the standard categories.  This plot <i
+class="arr-left"/> shows an example.  It's very common in modelling
+studies that we perform parameter sensitivity experiments, to try to
+determine which parameters in our models are most influential.  With
+several parameters and several model outputs to consider, the amount
+of data produced by such sensitivity experiments can be large.  Here,
+we consider methane fluxes simulated by a permafrost vegetation
+methane emission model.  We have four types of fluxes (total,
+plant-mediated, diffusion and ebullition), we are interested in the
+effects of varying seven different parameters, and we consider seven
+representative sites (numbers 1--7).  This leads to a lot of model
+output.  We can visualise the effect of varying different model
+parameters by considering linear regressions between model outputs
+(methane fluxes) and parameter values.  Here, we display both the
+regression slope (using colour) and the correlation coefficient (using
+the size of the blobs) for all of these relationships.  The most
+important relationships (big blobs, saturated colours) jump right out
+at you.  Detecting which are the important parameters in a page-full
+of normal regression plots is much more difficult.
 
 Another way to display large amounts of information in a
 comprehensible way is to follow [Ed Tufte's][tufte] "small multiples"
-principle.  Here <span class="arr-down">&nbsp;&nbsp;&nbsp;</span> is
-an extreme example.  These images show sensitivity tests for a
-nonlinear dimensionality reduction method called Hessian locally
-linear embedding (HLLE) on a simple geometric test data set.  The test
-data is a cloud of three-dimensional points (labelled by colour)
-representing a rectangular strip rolled up into a "Swiss roll" with a
-square hole in the middle.  The HLLE method aims to recover the
-intrinsic two-dimensional structure of the dataset from the
-3-dimensional point cloud -- a good result in the images below is a
-square with a square hole, with the points arranged in "rainbow" order
-from one end of the square to the other, with as little distortion of
-the square as possible.  The "small multiples" show the results of
-running the HLLE algorithm for different numbers of data points
-(vertical axis) and different values of a neighbourhood size parameter
-used by the algorithm (horizontal axis).  The left-hand image shows
-the results with perfect data (no noise) and the right-hand image with
-a small amount of Gaussian noise added to the positions of the points
-in the 3-dimensional point cloud.  Without going into details (if
-you're interested, you can read [this blog post][hlle-blog] or if
-you're feeling particularly masochistic, Chapter 8 of my
+principle.  Here <i class="arr-down"/> is an extreme example.  These
+images show sensitivity tests for a nonlinear dimensionality reduction
+method called Hessian locally linear embedding (HLLE) on a simple
+geometric test data set.  The test data is a cloud of
+three-dimensional points (labelled by colour) representing a
+rectangular strip rolled up into a "Swiss roll" with a square hole in
+the middle.  The HLLE method aims to recover the intrinsic
+two-dimensional structure of the dataset from the 3-dimensional point
+cloud -- a good result in the images below is a square with a square
+hole, with the points arranged in "rainbow" order from one end of the
+square to the other, with as little distortion of the square as
+possible.  The "small multiples" show the results of running the HLLE
+algorithm for different numbers of data points (vertical axis) and
+different values of a neighbourhood size parameter used by the
+algorithm (horizontal axis).  The left-hand image shows the results
+with perfect data (no noise) and the right-hand image with a small
+amount of Gaussian noise added to the positions of the points in the
+3-dimensional point cloud.  Without going into details (if you're
+interested, you can read [this blog post][hlle-blog] or if you're
+feeling particularly masochistic, Chapter 8 of my
 [PhD thesis][thesis]), it's clear from the overview that the small
 multiples approach gives that there are systematic variations in the
 performance of the HLLE algorithm as the number of data points and the
@@ -204,15 +201,14 @@ rather more complex.
 I also discovered that POV-Ray is great for making simple visuals --
 the geometric language used by POV-Ray is really easy to use for
 building small models, and using a ray tracer means that support for
-transparency is built-in.  A simple schematic picture <span
-class="arr-down-left">&nbsp;&nbsp;&nbsp;</span> of the El Niño cycle
-demonstrates this.  More complex things I've done like this include
-representations of interesting bathymetric features in the
-Mediterranean <span class="arr-down-right">&nbsp;&nbsp;&nbsp;</span>
-that we used for a proposal about the application of a new type of
-ocean model to flows in complex bathymetry.  I used the same
-triangulation methods for the earth views on the paleogeography poster
-at the bottom of the page.
+transparency is built-in.  A simple schematic picture <i
+class="arr-down-left"/> of the El Niño cycle demonstrates this.  More
+complex things I've done like this include representations of
+interesting bathymetric features in the Mediterranean <i
+class="arr-down-right"/> that we used for a proposal about the
+application of a new type of ocean model to flows in complex
+bathymetry.  I used the same triangulation methods for the earth views
+on the paleogeography poster at the bottom of the page.
 
 <div class="img2-left">
   <a href="dv/enso-cartoons.png">![ENSO cartoons](dv/enso-cartoons-small.png)</a>
@@ -227,11 +223,11 @@ at the bottom of the page.
 ## Posters
 
 And sometimes, you need to put a whole bunch of images together into a
-poster.  Here are a couple of examples, one <span
-class="arr-down-right">&nbsp;&nbsp;&nbsp;</span> about paleogeography
-and paleoclimate for a public outreach event, and the other <span
-class="arr-down-left">&nbsp;&nbsp;&nbsp;</span> about El Niño
-behaviour in the [PMIP2][pmip2] models for a scientific meeting.
+poster.  Here are a couple of examples, one <i
+class="arr-down-right"/> about paleogeography and paleoclimate for a
+public outreach event, and the other <i class="arr-down-left"/> about
+El Niño behaviour in the [PMIP2][pmip2] models for a scientific
+meeting.
 
 [pmip2]: http://pmip2.lsce.ipsl.fr/
 
@@ -251,4 +247,3 @@ behaviour in the [PMIP2][pmip2] models for a scientific meeting.
 <p><a class="toc_a" target="_self" href="#posters">Posters</a></p>
 </div>
 </div>
-
