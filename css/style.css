@@ -86,6 +86,7 @@ div.tags span.tag { background-color: #CCC; padding: 2px 5px; }
 .img-box img { width: 90%; margin-left: auto; margin-right: auto; }
 .img-center-noscale { width: 100%; }
 .img-center-noscale img { display: block; margin-left: auto; margin-right: auto;  }
+.img-center-noscale iframe { display: block; margin-left: auto; margin-right: auto;  }
 .img-center { width: 100%; }
 .img-center img { display: block; margin-left: auto; margin-right: auto; width:45%;  }
 .img-center2 { width: 100%; }
