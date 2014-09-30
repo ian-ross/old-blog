@@ -16,6 +16,13 @@ articles.**
 
 *The code for this post is available in a [Gist][gist].*
 
+**Update: I missed a bit out of the pre-processing calculation here
+first time round.  I've updated this post to reflect this now.
+Specifically, I forgot to do the running mean smoothing of the mean
+annual cycle in the anomaly calculation -- doesn't make much
+difference to the final results, but it's worth doing just for the
+data manipulation practice...**
+
 Before we can get into the "main analysis", we need to do some
 pre-processing of the $Z_{500}$ data.  In particular, we are
 interested in large-scale spatial structures, so we want to subsample
@@ -69,9 +76,12 @@ use for processing these multi-dimensional datasets and it's kind of
 unavoidable.  The trick is to try to restrict this inconvenient stuff
 to the pre-processing phase by using a consistent organisation of your
 data for the later analyses.  We're going to do that here by storing
-all of our $Z_{500}$ anomaly data in a single NetCDF file, with 181-day
-long winter seasons back-to-back for each year.  This will make time
-and date processing trivial.
+all of our $Z_{500}$ anomaly data in a single NetCDF file, with
+151-day long winter seasons back-to-back for each year (151 days
+rather than 181 because we're going to lose 15 days at either end of
+each year of data due to some smoothing that we're going to do in the
+seasonal cycle removal).  This will make time and date processing
+trivial.
 
 The code for the data subsetting is in the [subset.hs][subset-code]
 program in the Gist.  We'll deal with it in a few bites.
@@ -349,6 +359,44 @@ three-dimensional array with one entry for each day in our 181-day
 winter season and for each latitude and longitude in the grid we're
 using.
 
+We're also going to use a 31-day running mean to smooth the annual
+cycle at each spatial point.  This only makes a little difference to
+the results, but we do it to follow the analysis in the paper.  The
+`runmean` function we use to do this is shown here:
+
+``` haskell
+runmean :: FArray3 CShort -> Int -> FArray3 CShort
+runmean x d = computeS $ traverse x (const smshape) doone
+  where (Z :. nz :. ny :. nx) = extent x
+        -- ^ Extent of input array.
+        smshape = Z :. nz - 2 * d :. ny :. nx
+        -- ^ Extent of smoothed output array: spatial dimensions are
+        -- the same as the input, and just the time dimension is
+        -- reduced by the averaging.
+        sz = Z :. (2 * d + 1) :. 1 :. 1
+        -- ^ Slice extent for averaging.
+        len = fromIntegral (2 * d + 1) :: Double
+        -- ^ Averaging length.
+        dem x = fromIntegral (truncate x :: Int)
+        -- ^ Type demotion from Double to CShort for output.
+        pro :: Array U DIM3 Double
+        pro = computeS $ map (\x -> fromIntegral (fromIntegral x :: Int)) x
+        -- ^ Type promotion of input from CShort to Double.
+        doone _ i = dem $ (sumAllS (extract i sz pro)) / len
+        -- ^ Calculate a single averaged value.
+```
+
+It uses the Repa `traverse` function to calculate a 31-day box-car
+average at each relevant space and time point.  There's a little bit
+of tricky type conversion going on to make sure that we can do the
+averaging and to make sure that we get back a `CShort` array as
+output, but other than that it's not too complicated.  (We do the
+promotion from `CShort` to `Double` once, into the value I've called
+`pro` to avoid repeated conversion from short integer values to
+floating point values.)  The running mean calculation means that we
+lose 15 days at either end of each year of data, so that each year of
+anomalies is 151 days.
+
 Once we have the mean annual cycle with which we want to calculate
 anomalies, determining the anomalies is simply a matter of subtracting
 the mean annual cycle from each year's data, matching up longitude,
@@ -359,27 +407,41 @@ produce anomaly values (Repa's `slice` function is handy here) and
 writing these to an output NetCDF file:
 
 ``` haskell
+      -- Process one input year at a time, accumulating all relevant
+      -- time-steps into a single output file.
+      itoutref <- newIORef 0 :: IO (IORef Int)
       let count = [1, nlat, nlon]
       forM_ [0..ntime-1] $ \it -> do
-        -- Read time slice.
-        Right slice <- getA innc z500var [it, 0, 0] count :: RepaRet2 CShort
+        -- If "it" is within the 151 day winter block...
+        when (it `mod` 181 >= 15 && it `mod` 181 <= 165) $ do
+          -- Read time slice.
+          Right sli <- getA innc z500var [it, 0, 0] count :: RepaRet2 CShort
 
-        -- Calculate anomalies and write out.
-        let sl = Repa.Z Repa.:. (it `mod` 181) Repa.:. Repa.All Repa.:. Repa.All
-            anom = Repa.computeS $
-                   slice Repa.-^ (Repa.slice mean sl) :: FArray2 CShort
-        putA outnc outz500var [it, 0, 0] count anom
+          -- Calculate anomalies and write out.
+          let isl = it `mod` 181 - 15
+              sl = Z :. isl :. All :. All
+              anom = computeS $ sli -^ (slice smoothmean sl) :: FArray2 CShort
+          itout <- readIORef itoutref
+          putStrLn $ show it ++ " -> " ++ show itout
+          modifyIORef itoutref (+1)
+          putA outnc outtimevar [itout] [1] (SV.slice it 1 time)
+          putA outnc outz500var [itout, 0, 0] count anom
+          return ()
 ```
 
-The only thing we have to be a little bit careful about when we create
-the final anomaly output file is that we need to remove some of the
-attributes from the $Z_{500}$ variable: because we're now working with
-differences between actual values and our "typical" annual cycle, we
-no longer need the `add_offset` and `scale_factor` attributes that are
-used to convert from the stored short integer values to floating point
-geopotential height values.  Instead, the values that we store in the
-anomaly file are the actual geopotential height anomaly values in
-metres.
+There are only two things we have to be a little bit careful about
+here.  First, when we create the final anomaly output file is that we
+need to remove some of the attributes from the $Z_{500}$ variable:
+because we're now working with differences between actual values and
+our "typical" annual cycle, we no longer need the `add_offset` and
+`scale_factor` attributes that are used to convert from the stored
+short integer values to floating point geopotential height values.
+Instead, the values that we store in the anomaly file are the actual
+geopotential height anomaly values in metres.  Second, we're going
+from seasons of 181 days of data to seasons of 151 days (because we
+only calculate anomalies for days for which we have a smoothed
+seasonal cycle), so we need to do a little work to keep track of the
+different indexes we're using.
 
 After doing all this pre-processing, what we end up with is a single
 NetCDF file containing 66 winter seasons of daily $Z_{500}$ anomalies
@@ -392,7 +454,7 @@ more complicated than that).  This kind of thing is unavoidable, and
 the best that you can really do is to try to organise things so that
 you do the pre-processing once and end up with data in a format that's
 then easy to deal with for further processing.  That's definitely the
-case here, where we have fixed-length time series (181 days per
+case here, where we have fixed-length time series (151 days per
 winter) for each year, so we don't need to do any messing around with
 dates.
 
