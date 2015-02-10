@@ -155,7 +155,7 @@ about 100 copies of the square stacked up to make a cube.  If each
 cube is a single year, we have one million years stacked up in front
 of us.  A million years isn't such a long time geologically speaking
 -- the dinosaurs became extinct about 65 million years ago, and the
-earth has been around for about 14.5 *billion* years, 14,500 times one
+earth has been around for about 4.5 *billion* years, 4,500 times one
 million years.  And yet, an individual human life rarely makes it to
 the end of the first of one hundred rows in the first of one hundred
 layers of our million year cube[^3].

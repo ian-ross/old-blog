@@ -2,9 +2,10 @@
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
-import Control.Monad (when, filterM, void)
+import Control.Monad (when, filterM, void, forM_)
 import Data.Monoid (mappend, mconcat)
-import Data.List (isInfixOf, intersperse, intercalate, sortBy, reverse)
+import Data.List (isInfixOf, isPrefixOf, intersperse, intercalate,
+                  sortBy, reverse)
 import qualified Data.Map as M
 import Data.Function (on)
 import Data.Char (isSpace)
@@ -23,7 +24,7 @@ import Data.Time.Format (formatTime)
 import System.FilePath ((</>), joinPath, splitDirectories, addExtension,
                         takeDirectory, dropExtension, takeBaseName,
                         replaceExtension, hasExtension)
-import System.Cmd (rawSystem)
+import System.Process (system, rawSystem)
 import Text.Blaze.Html.Renderer.String (renderHtml)
 import Text.Blaze ((!), toValue)
 import qualified Text.Blaze.Html5 as H
@@ -31,9 +32,8 @@ import qualified Text.Blaze.Html5.Attributes as A
 import qualified Data.ByteString.Char8 as B
 import Text.Regex.Posix hiding (match)
 
-import Hakyll
+import Hakyll hiding (teaserField)
 import TikZ                     -- TikZ image rendering.
-
 
 
 -- | Number of article teasers displayed per sorted index page.
@@ -52,15 +52,16 @@ hakyllConf = defaultConfiguration {
   }
 
 
--- | Main program: adds a "publish" option to copy a draft out to the
--- main posts area.
+-- | Main program: adds "publish" and "unpublish" options for managing
+-- drafts.
 --
 main :: IO ()
 main = do
   args <- getArgs
   case args of
-    ["publish", p] -> publishDraft p
-    _              -> doHakyll
+    ["publish", p]   -> publishDraft p
+    ["unpublish", p] -> unpublishDraft p
+    _                -> doHakyll
 
 
 -- | Main Hakyll processing.
@@ -117,6 +118,10 @@ doHakyll = hakyllWith hakyllConf $ do
   -- Generate blog index pages: we need to split the articles, sorted
   -- by publication date, into groups for display across the right
   -- number of index pages.
+  match "posts/post-list" $ do
+    route   postsRoute
+    compile copyFileCompiler
+  let pldep = [IdentifierDependency (fromFilePath "posts/post-list")]
   mds <- getAllMetadata postsPattern
   let ids = reverse $ map fst $
             sortBy (compare `on` ((M.! "published") . snd)) mds
@@ -126,10 +131,11 @@ doHakyll = hakyllWith hakyllConf $ do
                    (if i == 1 then "" else show i) ++ ".html")
         [1..length pids]
       indexes = zip indexPages pids
-  create (map fst indexes) $ do
-    route idRoute
-    compile $ do
-      indexCompiler tags pctx indexes
+      nindexes = length indexes
+  rulesExtraDependencies pldep $ forM_ indexes $ \(idx, pages) ->
+    create [idx] $ do
+      route idRoute
+      compile $ indexCompiler nindexes tags pctx pages
 
   -- Add a tag list compiler for every tag used in blog articles.
   tagsRules tags (makeTagList tags)
@@ -397,15 +403,14 @@ makeTagList tags tag pattern = do
 -- | Index page compiler: generate a single index page based on
 -- identifier name, with the appropriate posts on each one.
 --
-indexCompiler :: Tags -> Context String
-                 -> [(Identifier, [Identifier])] -> Compiler (Item String)
-indexCompiler tags ctx ids = do
+indexCompiler :: Int -> Tags -> Context String -> [Identifier]
+              -> Compiler (Item String)
+indexCompiler n tags ctx ids = do
   pg <- (drop 5 . dropExtension . takeBaseName . toFilePath) <$> getUnderlying
   let i = if pg == "" then 1 else (read pg :: Int)
-      n = length ids
       older = indexNavLink i 1 n
       newer = indexNavLink i (-1) n
-  list <- postList (fromList $ snd $ ids !! (i - 1)) recentFirst ctx "postitem"
+  list <- postList (fromList ids) recentFirst ctx "postitem"
   makeItem ""
     >>= loadAndApplyTemplates ["index", "blog", "default"]
          (constField "title" "Sky Blue Trades" `mappend`
@@ -518,7 +523,30 @@ publishDraft path = do
         renameDirectory path postPath
       err <- rawSystem "touch" [postPath]
       addTimestamp postPath
+      updatePostList
       putStrLn $ "Published to " ++ postPath
+
+
+-- | Unpublishing a draft:
+--
+unpublishDraft :: String -> IO ()
+unpublishDraft path = do
+  fExist <- doesFileExist path
+  dExist <- doesDirectoryExist path
+  if (not fExist && not dExist)
+    then error $ "Neither file nor directory exists: " ++ path
+    else do
+      let unpubDir = "drafts/unpublished"
+      createDirectoryIfMissing True unpubDir
+      let unpubPath = joinPath [unpubDir, last $ splitDirectories path]
+      if fExist
+        then renameFile path unpubPath
+        else do
+        putStrLn (path ++ " -> " ++ unpubPath)
+        renameDirectory path unpubPath
+      removeTimestamp unpubPath
+      updatePostList
+      putStrLn $ "Unpublished to " ++ unpubPath
 
 
 -- | Add a timestamp as metadata for ordering purposes.
@@ -541,6 +569,29 @@ addTimestamp postPath = do
             where (m, b) = span (/= "---") . tail . lines $ i
                   md = init $ unlines $ m ++ ["published: " ++ ts]
                   body = init $ unlines $ tail b
+
+
+-- | Remove a timestamp from metadata.
+--
+removeTimestamp :: String -> IO ()
+removeTimestamp postPath = do
+  fExist <- doesFileExist postPath
+  let modFile = if fExist then postPath else postPath ++ "/text.markdown"
+  putStrLn ("Editing " ++ modFile)
+  pg <- B.readFile modFile
+  B.writeFile modFile $ B.pack $ removeTimestamp' $ B.unpack pg
+    where removeTimestamp' :: String -> String
+          removeTimestamp' i = init $ unlines ["---", md, "---", body]
+            where (m, b) = span (/= "---") . tail . lines $ i
+                  md = init $ unlines $
+                       filter (not . ("published: " `isPrefixOf`)) m
+                  body = init $ unlines $ tail b
+
+
+-- | Update post list file (used for managing index dependencies).
+--
+updatePostList :: IO ()
+updatePostList = void $ system "find posts -name \\*.markdown > posts/post-list"
 
 
 -- | Utility function to generate path to today's posts directory.
