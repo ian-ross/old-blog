@@ -80,7 +80,7 @@ main = do
   Right innc <- openFile $ workdir </> "z500-pca.nc"
   let Just ntime = ncDimLength <$> ncDim innc "time"
   let (Just projvar) = ncVar innc "proj"
-  Right (HRowMajorMatrix projsin) <-
+  Right (HMatrix projsin) <-
     getA innc projvar [0, 0] [ntime, npcs] :: HMatrixRet CDouble
 
   -- Split projections into one-year segments.
@@ -116,7 +116,7 @@ main = do
         (SV.fromList [0..fromIntegral npcs-1] :: SV.Vector CInt)
       put outnc outlagvar $
         (SV.fromList [0..fromIntegral nday-2] :: SV.Vector CInt)
-      put outnc outautovar $ HRowMajorMatrix $
+      put outnc outautovar $ HMatrix $
         (cmap realToFrac autocorrs :: Matrix CDouble)
       return ()
 ~~~~
@@ -164,40 +164,40 @@ we have data without significant temporal autocorrelation.
 
 <a name="figs"></a>
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active">
-    <a href="#fig1" role="tab" data-toggle="tab">
-      Projected points
-    </a>
-  </li>
-  <li>
-    <a href="#fig2" role="tab" data-toggle="tab">
-      Spherical PDF
-    </a>
-  </li>
-  <li>
-    <a href="#fig3" role="tab" data-toggle="tab">
-      Significance
-    </a>
-  </li>
-  <li>
-    <a href="#fig4" role="tab" data-toggle="tab">
-      Bump patterns
-    </a>
-  </li>
+<li class="active">
+<a href="#fig1" role="tab" data-toggle="tab">
+Projected points
+</a>
+</li>
+<li>
+<a href="#fig2" role="tab" data-toggle="tab">
+Spherical PDF
+</a>
+</li>
+<li>
+<a href="#fig3" role="tab" data-toggle="tab">
+Significance
+</a>
+</li>
+<li>
+<a href="#fig4" role="tab" data-toggle="tab">
+Bump patterns
+</a>
+</li>
 </ul>
 
 <div class="tab-content">
 <div class="tab-pane active" id="fig1">
-  <img src="proj-points.png">
+<img src="proj-points.png">
 </div>
 <div class="tab-pane" id="fig2">
-  <img src="spherical-pdf.png">
+<img src="spherical-pdf.png">
 </div>
 <div class="tab-pane" id="fig3">
-  <img src="spherical-pdf-significance.png">
+<img src="spherical-pdf-significance.png">
 </div>
 <div class="tab-pane" id="fig4">
-  <img src="pdf-bump-pattern-blog.png">
+<img src="pdf-bump-pattern-blog.png">
 </div>
 </div>
 

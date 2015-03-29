@@ -96,21 +96,21 @@ usual spherical coordinates in this three-dimensional space.
 
 <a name="figs"></a>
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active">
-    <a href="#fig1" role="tab" data-toggle="tab">
-      Figure 1
-    </a>
-  </li>
-  <li>
-    <a href="#fig2" role="tab" data-toggle="tab">
-      Figure 2
-    </a>
-  </li>
-  <li>
-    <a href="#fig3" role="tab" data-toggle="tab">
-      Figure 3
-    </a>
-  </li>
+<li class="active">
+<a href="#fig1" role="tab" data-toggle="tab">
+Figure 1
+</a>
+</li>
+<li>
+<a href="#fig2" role="tab" data-toggle="tab">
+Figure 2
+</a>
+</li>
+<li>
+<a href="#fig3" role="tab" data-toggle="tab">
+Figure 3
+</a>
+</li>
 </ul>
 
 <div class="tab-content">

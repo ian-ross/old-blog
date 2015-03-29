@@ -118,10 +118,10 @@ doHakyll = hakyllWith hakyllConf $ do
   -- Generate blog index pages: we need to split the articles, sorted
   -- by publication date, into groups for display across the right
   -- number of index pages.
-  match "posts/post-list" $ do
+  match "post-list" $ do
     route   postsRoute
     compile copyFileCompiler
-  let pldep = [IdentifierDependency (fromFilePath "posts/post-list")]
+  let pldep = [IdentifierDependency (fromFilePath "post-list")]
   mds <- getAllMetadata postsPattern
   let ids = reverse $ map fst $
             sortBy (compare `on` ((M.! "published") . snd)) mds
@@ -591,7 +591,7 @@ removeTimestamp postPath = do
 -- | Update post list file (used for managing index dependencies).
 --
 updatePostList :: IO ()
-updatePostList = void $ system "find posts -name \\*.markdown > posts/post-list"
+updatePostList = void $ system "find posts -name \\*.markdown > post-list"
 
 
 -- | Utility function to generate path to today's posts directory.

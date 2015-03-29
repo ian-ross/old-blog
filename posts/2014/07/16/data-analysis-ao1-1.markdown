@@ -240,7 +240,7 @@ import Data.NetCDF
 import Data.NetCDF.HMatrix
 
 type VRet a = IO (Either NcError (HVector a))
-type MRet a = IO (Either NcError (HRowMajorMatrix a))
+type MRet a = IO (Either NcError (HMatrix a))
 ```
 
 As well as a few utility imports and the `Numeric.Container` module
@@ -366,7 +366,7 @@ The next listing shows how we read the $Z_{500}$ data into a row-major
 let (Just zvar) = ncVar nc "z500"
 putStrLn $ "z500 dims: " ++ show (map ncDimName $ ncVarDims zvar)
 Right slice1tmp <- getA nc zvar [0, 0, 0] [1, nlat, nlon] :: MRet CShort
-let (HRowMajorMatrix slice1tmp2) =
+let (HMatrix slice1tmp2) =
       coardsScale zvar slice1tmp :: HRowMajorMatrix CDouble
     slice1 = cmap ((/ 9.8) . realToFrac) slice1tmp2 :: Matrix Double
 putStrLn $ "size slice1 = " ++

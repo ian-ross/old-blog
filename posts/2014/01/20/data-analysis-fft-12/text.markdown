@@ -1453,24 +1453,24 @@ Danielson-Lanczos step of size 8):
 In total, there are 126 possiblities:
 
 <table class="packed">
-  <thead>
-    <tr>
-      <th align="center">*Base*</th>
-      <th>&nbsp;&nbsp;&nbsp;</th>
-      <th align="center">$m$</th>
-      <th>&nbsp;&nbsp;&nbsp;</th>
-      <th align="center">$2^{m-1}$</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr> <td align="center">64</td> <td></td> <td align="center">2</td> <td></td>  <td align="center">2</td> </tr>
-    <tr> <td align="center">32</td> <td></td> <td align="center">3</td> <td></td>  <td align="center">4</td> </tr>
-    <tr> <td align="center">16</td> <td></td> <td align="center">4</td> <td></td>  <td align="center">8</td> </tr>
-    <tr>  <td align="center">8</td> <td></td> <td align="center">5</td> <td></td> <td align="center">16</td> </tr>
-    <tr>  <td align="center">4</td> <td></td> <td align="center">6</td> <td></td> <td align="center">32</td> </tr>
-    <tr>  <td align="center">2</td> <td></td> <td align="center">7</td> <td></td> <td align="center">64</td> </tr>
-    <tr>   <td></td> <td></td>  <td></td> <td></td> <td align="center">**126**</td> </tr>
-  </tbody>
+<thead>
+<tr>
+<th align="center">*Base*</th>
+<th>&nbsp;&nbsp;&nbsp;</th>
+<th align="center">$m$</th>
+<th>&nbsp;&nbsp;&nbsp;</th>
+<th align="center">$2^{m-1}$</th>
+</tr>
+</thead>
+<tbody>
+<tr> <td align="center">64</td> <td></td> <td align="center">2</td> <td></td>  <td align="center">2</td> </tr>
+<tr> <td align="center">32</td> <td></td> <td align="center">3</td> <td></td>  <td align="center">4</td> </tr>
+<tr> <td align="center">16</td> <td></td> <td align="center">4</td> <td></td>  <td align="center">8</td> </tr>
+<tr>  <td align="center">8</td> <td></td> <td align="center">5</td> <td></td> <td align="center">16</td> </tr>
+<tr>  <td align="center">4</td> <td></td> <td align="center">6</td> <td></td> <td align="center">32</td> </tr>
+<tr>  <td align="center">2</td> <td></td> <td align="center">7</td> <td></td> <td align="center">64</td> </tr>
+<tr>   <td></td> <td></td>  <td></td> <td></td> <td align="center">**126**</td> </tr>
+</tbody>
 </table>
 
 It's not too hard to derive the number of plans for an arbitrary
@@ -3010,65 +3010,65 @@ lengths that have lots of possible plans, some that have only a few
 possible plans and some that lie in the middle range:
 
 <table class="packed">
-  <thead>
-    <tr>
-      <th align="center">**Size**</th>
-      <th>&nbsp;&nbsp;&nbsp;</th>
-      <th align="center">**Factors**</th>
-      <th>&nbsp;&nbsp;&nbsp;</th>
-      <th align="center">**No. of plans**</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center">960</td> <td></td>
-      <td align="center">2<sup>6</sup> &times; 3 &times; 5</td> <td></td>
-      <td align="center">2400</td> </tr>
-    <tr>
-      <td align="center">800</td> <td></td>
-      <td align="center">2<sup>5</sup> &times; 5<sup>2</sup></td> <td></td>
-      <td align="center">516</td> </tr>
-    <tr>
-      <td align="center">512</td> <td></td>
-      <td align="center">2<sup>9</sup></td> <td></td>
-      <td align="center">252</td> </tr>
-    <tr>
-      <td align="center">216</td> <td></td>
-      <td align="center">2<sup>3</sup> &times; 3<sup>3</sup></td> <td></td>
-      <td align="center">230</td> </tr>
-    <tr>
-      <td align="center">378</td> <td></td>
-      <td align="center">2 &times; 3<sup>3</sup> &times; 7</td> <td></td>
-      <td align="center">109</td> </tr>
-    <tr>
-      <td align="center">208</td> <td></td>
-      <td align="center">2<sup>4</sup> &times; 13</td> <td></td>
-      <td align="center">40</td> </tr>
-    <tr>
-      <td align="center">232</td> <td></td>
-      <td align="center">2<sup>3</sup> &times; 29</td> <td></td>
-      <td align="center">16</td> </tr>
-    <tr>
-      <td align="center">238</td> <td></td>
-      <td align="center">2 &times; 7 &times; 17</td> <td></td>
-      <td align="center">10</td> </tr>
-    <tr>
-      <td align="center">92</td> <td></td>
-      <td align="center">2<sup>2</sup> &times; 23</td> <td></td>
-      <td align="center">6</td> </tr>
-    <tr>
-      <td align="center">338</td> <td></td>
-      <td align="center">2 &times; 13<sup>2</sup></td> <td></td>
-      <td align="center">5</td> </tr>
-    <tr>
-      <td align="center">1003</td> <td></td>
-      <td align="center">17 &times; 59</td> <td></td>
-      <td align="center">2</td> </tr>
-    <tr>
-      <td align="center">115</td> <td></td>
-      <td align="center">5 &times; 23</td> <td></td>
-      <td align="center">2</td> </tr>
-  </tbody>
+<thead>
+<tr>
+<th align="center">**Size**</th>
+<th>&nbsp;&nbsp;&nbsp;</th>
+<th align="center">**Factors**</th>
+<th>&nbsp;&nbsp;&nbsp;</th>
+<th align="center">**No. of plans**</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">960</td> <td></td>
+<td align="center">2<sup>6</sup> &times; 3 &times; 5</td> <td></td>
+<td align="center">2400</td> </tr>
+<tr>
+<td align="center">800</td> <td></td>
+<td align="center">2<sup>5</sup> &times; 5<sup>2</sup></td> <td></td>
+<td align="center">516</td> </tr>
+<tr>
+<td align="center">512</td> <td></td>
+<td align="center">2<sup>9</sup></td> <td></td>
+<td align="center">252</td> </tr>
+<tr>
+<td align="center">216</td> <td></td>
+<td align="center">2<sup>3</sup> &times; 3<sup>3</sup></td> <td></td>
+<td align="center">230</td> </tr>
+<tr>
+<td align="center">378</td> <td></td>
+<td align="center">2 &times; 3<sup>3</sup> &times; 7</td> <td></td>
+<td align="center">109</td> </tr>
+<tr>
+<td align="center">208</td> <td></td>
+<td align="center">2<sup>4</sup> &times; 13</td> <td></td>
+<td align="center">40</td> </tr>
+<tr>
+<td align="center">232</td> <td></td>
+<td align="center">2<sup>3</sup> &times; 29</td> <td></td>
+<td align="center">16</td> </tr>
+<tr>
+<td align="center">238</td> <td></td>
+<td align="center">2 &times; 7 &times; 17</td> <td></td>
+<td align="center">10</td> </tr>
+<tr>
+<td align="center">92</td> <td></td>
+<td align="center">2<sup>2</sup> &times; 23</td> <td></td>
+<td align="center">6</td> </tr>
+<tr>
+<td align="center">338</td> <td></td>
+<td align="center">2 &times; 13<sup>2</sup></td> <td></td>
+<td align="center">5</td> </tr>
+<tr>
+<td align="center">1003</td> <td></td>
+<td align="center">17 &times; 59</td> <td></td>
+<td align="center">2</td> </tr>
+<tr>
+<td align="center">115</td> <td></td>
+<td align="center">5 &times; 23</td> <td></td>
+<td align="center">2</td> </tr>
+</tbody>
 </table>
 
 For each of these problem sizes, the table below shows the execution
@@ -3077,464 +3077,464 @@ there are less than ten (the base transform sizes are highlighted in
 bold):
 
 <table class="packed">
-  <tr>
-    <td colspan=2 align="center">$N=960$ (235.25&thinsp;&mu;s)</td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan=2 align="center">$N=378$ (71.52&thinsp;&mu;s)</td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan=2 align="center">$N=92$ (285.60&thinsp;&mu;s)</td>
-  </tr>
-  <tr>
-    <td>3 &times; 2 &times; 5:**32**</td>
-    <td>115.13&thinsp;&mu;s</td>
-    <td></td>
-    <td>3 &times; 3 &times; 3:**14**</td>
-    <td>52.16&thinsp;&mu;s</td>
-    <td></td>
-    <td>23:**4**</td>
-    <td>43.65&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>3 &times; 5:**64**</td>
-    <td>116.19&thinsp;&mu;s</td>
-    <td></td>
-    <td>9 &times; 3:**14**</td>
-    <td>59.54&thinsp;&mu;s</td>
-    <td></td>
-    <td>23 &times; 2:**2**</td>
-    <td>65.04&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>3 &times; 5 &times; 2:**32**</td>
-    <td>117.68&thinsp;&mu;s</td>
-    <td></td>
-    <td>3 &times; 9:**14**</td>
-    <td>60.95&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 23:**2**</td>
-    <td>76.00&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 5 &times; 3:**32**</td>
-    <td>117.89&thinsp;&mu;s</td>
-    <td></td>
-    <td>3 &times; 2 &times; 7:**9**</td>
-    <td>68.10&thinsp;&mu;s</td>
-    <td></td>
-    <td>46:**2**</td>
-    <td>125.16&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>5 &times; 3:**64**</td>
-    <td>118.49&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 3 &times; 7:**9**</td>
-    <td>68.44&thinsp;&mu;s</td>
-    <td></td>
-    <td>4:**23**</td>
-    <td>295.37&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 3 &times; 5:**32**</td>
-    <td>118.99&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 7 &times; 3:**9**</td>
-    <td>68.74&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 2:**23**
-    <td>299.11&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>5 &times; 2 &times; 3:**32**</td>
-    <td>119.04&thinsp;&mu;s</td>
-    <td></td>
-    <td>7 &times; 6:**9**</td>
-    <td>69.49&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>5 &times; 3 &times; 2:**32**</td>
-    <td>119.29&thinsp;&mu;s</td>
-    <td></td>
-    <td>6 &times; 7:**9**</td>
-    <td>69.73&thinsp;&mu;s</td>
-    <td></td>
-    <td colspan=2 align="center">$N=338$ (67.50&thinsp;&mu;s)</td>
-  </tr>
-  <tr>
-    <td>6 &times; 5:**32**</td>
-    <td>121.05&thinsp;&mu;s</td>
-    <td></td>
-    <td>7 &times; 2 &times; 3:**9**</td>
-    <td>69.83&thinsp;&mu;s</td>
-    <td></td>
-    <td>13 &times; 2:**13**</td>
-    <td>66.91&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>5 &times; 6:**32**</td>
-    <td>124.21&thinsp;&mu;s</td>
-    <td></td>
-    <td>7 &times; 3 &times; 2:**9**</td>
-    <td>70.76&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 13:**13**</td>
-    <td>67.30&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>26:**13**</td>
-    <td>106.41&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">$N=800$ (192.05&thinsp;&mu;s)</td>
-    <td></td>
-    <td colspan=2 align="center">$N=208$ (32.85&thinsp;&mu;s)</td>
-    <td></td>
-    <td>13 &times; 13:**2**</td>
-    <td>212.18&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>5 &times; 5:**32**</td>
-    <td>94.64&thinsp;&mu;s</td>
-    <td></td>
-    <td>4 &times; 4:**13**</td>
-    <td>28.97&thinsp;&mu;s</td>
-    <td></td>
-    <td>169:**2**</td>
-    <td>1701.35&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 4 &times; 4:**25**</td>
-    <td>101.56&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 2 &times; 4:**13**</td>
-    <td>30.31&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4 &times; 2 &times; 4:**25**</td>
-    <td>101.67&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 4 &times; 2:**13**</td>
-    <td>31.70&thinsp;&mu;s</td>
-    <td></td>
-    <td colspan=2 align="center">$N=1003$ (2413.41&thinsp;&mu;s)</td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 2 &times; 4:**25**</td>
-    <td>104.10&thinsp;&mu;s</td>
-    <td></td>
-    <td>4 &times; 2 &times; 2:**13**</td>
-    <td>32.04&thinsp;&mu;s</td>
-    <td></td>
-    <td>59:**17**</td>
-    <td>1843.99&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>4 &times; 4 &times; 2:**25**</td>
-    <td>104.20&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 8:**13**</td>
-    <td>33.21&thinsp;&mu;s</td>
-    <td></td>
-    <td>17:**59**</td>
-    <td>2538.96&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 4 &times; 2:**25**</td>
-    <td>104.56&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 2 &times; 2 &times; 2:**13**</td>
-    <td>33.58&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 4 &times; 2 &times; 2:**25**</td>
-    <td>106.56&thinsp;&mu;s</td>
-    <td></td>
-    <td>8 &times; 2:**13**</td>
-    <td>34.26&thinsp;&mu;s</td>
-    <td></td>
-    <td colspan=2 align="center">$N=115$ (362.84&thinsp;&mu;s)</td>
-  </tr>
-  <tr>
-    <td>4 &times; 2 &times; 2 &times; 2:**25**</td>
-    <td>106.61&thinsp;&mu;s</td>
-    <td></td>
-    <td>13:**16**</td>
-    <td>35.31&thinsp;&mu;s</td>
-    <td></td>
-    <td>23:**5**</td>
-    <td>46.50&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 2 &times; 2 &times; 2:**25**</td>
-    <td>107.50&thinsp;&mu;s</td>
-    <td></td>
-    <td>16:**13**</td>
-    <td>45.04&thinsp;&mu;s</td>
-    <td></td>
-    <td>5:**23**</td>
-    <td>373.16&thinsp;&mu;s</td>
-  </tr>
-  <tr>
-    <td>2 &times; 5 &times; 4:**20**</td>
-    <td>108.47&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 13:**8**</td>
-    <td>47.74&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">$N=512$ (278.94&thinsp;&mu;s)</td>
-    <td></td>
-    <td colspan=2 align="center">$N=232$ (584.14&thinsp;&mu;s)</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4 &times; 4:**32**</td>
-    <td>55.10&thinsp;&mu;s</td>
-    <td></td>
-    <td>29:**8**</td>
-    <td>87.52&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 4:**64**</td>
-    <td>55.63&thinsp;&mu;s</td>
-    <td></td>
-    <td>29 &times; 2:**4**</td>
-    <td>113.47&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4 &times; 2:**64**</td>
-    <td>55.66&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 29:**4**</td>
-    <td>136.21&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 4:**32**</td>
-    <td>56.01&thinsp;&mu;s</td>
-    <td></td>
-    <td>29 &times; 4:**2**</td>
-    <td>142.41&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 2:**64**</td>
-    <td>56.65&thinsp;&mu;s</td>
-    <td></td>
-    <td>29 &times; 2 &times; 2:**2**</td>
-    <td>159.00&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4 &times; 2 &times; 2:**32**</td>
-    <td>57.00&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 29 &times; 2:**2**</td>
-    <td>185.15&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 4 &times; 2:**32**</td>
-    <td>57.34&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 2 &times; 29:**2**</td>
-    <td>229.41&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 2 &times; 2 &times; 2:**32**</td>
-    <td>58.71&thinsp;&mu;s</td>
-    <td></td>
-    <td>4 &times; 29:**2**</td>
-    <td>231.43&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>8:**64**</td>
-    <td>60.27&thinsp;&mu;s</td>
-    <td></td>
-    <td>58:**4**</td>
-    <td>254.22&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 8:**32**</td>
-    <td>62.38&thinsp;&mu;s</td>
-    <td></td>
-    <td>58 &times; 2:**2**</td>
-    <td>294.84&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">$N=216$ (69.19&thinsp;&mu;s)</td>
-    <td></td>
-    <td colspan=2 align="center">$N=238$ (316.93&thinsp;&mu;s)</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3 &times; 6:**12**</td>
-    <td>31.10&thinsp;&mu;s</td>
-    <td></td>
-    <td>17:**14**</td>
-    <td>51.85&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 3 &times; 3:**12**</td>
-    <td>31.18&thinsp;&mu;s</td>
-    <td></td>
-    <td>17 &times; 2:**7**</td>
-    <td>69.44&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3 &times; 2 &times; 3:**12**</td>
-    <td>31.51&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 17:**7**</td>
-    <td>69.68&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6 &times; 3:**12**</td>
-    <td>31.63&thinsp;&mu;s</td>
-    <td></td>
-    <td>34:**7**</td>
-    <td>109.80&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3 &times; 3 &times; 2:**12**</td>
-    <td>32.60&thinsp;&mu;s</td>
-    <td></td>
-    <td>17 &times; 7:**2**</td>
-    <td>127.19&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 9:**12**</td>
-    <td>35.79&thinsp;&mu;s</td>
-    <td></td>
-    <td>7 &times; 17:**2**</td>
-    <td>160.65&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3 &times; 2 &times; 4:**9**</td>
-    <td>36.03&thinsp;&mu;s</td>
-    <td></td>
-    <td>2 &times; 7:**17**</td>
-    <td>327.17&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6 &times; 4:**9**</td>
-    <td>36.67&thinsp;&mu;s</td>
-    <td></td>
-    <td>7 &times; 2:**17**</td>
-    <td>329.79&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2 &times; 3 &times; 4:**9**</td>
-    <td>37.00&thinsp;&mu;s</td>
-    <td></td>
-    <td>14:**17**</td>
-    <td>339.61&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>9 &times; 2:**12**</td>
-    <td>37.04&thinsp;&mu;s</td>
-    <td></td>
-    <td>119:**2**</td>
-    <td>823.30&thinsp;&mu;s</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
+<tr>
+<td colspan=2 align="center">$N=960$ (235.25&thinsp;&mu;s)</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td colspan=2 align="center">$N=378$ (71.52&thinsp;&mu;s)</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td colspan=2 align="center">$N=92$ (285.60&thinsp;&mu;s)</td>
+</tr>
+<tr>
+<td>3 &times; 2 &times; 5:**32**</td>
+<td>115.13&thinsp;&mu;s</td>
+<td></td>
+<td>3 &times; 3 &times; 3:**14**</td>
+<td>52.16&thinsp;&mu;s</td>
+<td></td>
+<td>23:**4**</td>
+<td>43.65&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>3 &times; 5:**64**</td>
+<td>116.19&thinsp;&mu;s</td>
+<td></td>
+<td>9 &times; 3:**14**</td>
+<td>59.54&thinsp;&mu;s</td>
+<td></td>
+<td>23 &times; 2:**2**</td>
+<td>65.04&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>3 &times; 5 &times; 2:**32**</td>
+<td>117.68&thinsp;&mu;s</td>
+<td></td>
+<td>3 &times; 9:**14**</td>
+<td>60.95&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 23:**2**</td>
+<td>76.00&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 5 &times; 3:**32**</td>
+<td>117.89&thinsp;&mu;s</td>
+<td></td>
+<td>3 &times; 2 &times; 7:**9**</td>
+<td>68.10&thinsp;&mu;s</td>
+<td></td>
+<td>46:**2**</td>
+<td>125.16&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>5 &times; 3:**64**</td>
+<td>118.49&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 3 &times; 7:**9**</td>
+<td>68.44&thinsp;&mu;s</td>
+<td></td>
+<td>4:**23**</td>
+<td>295.37&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 3 &times; 5:**32**</td>
+<td>118.99&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 7 &times; 3:**9**</td>
+<td>68.74&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 2:**23**
+<td>299.11&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>5 &times; 2 &times; 3:**32**</td>
+<td>119.04&thinsp;&mu;s</td>
+<td></td>
+<td>7 &times; 6:**9**</td>
+<td>69.49&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5 &times; 3 &times; 2:**32**</td>
+<td>119.29&thinsp;&mu;s</td>
+<td></td>
+<td>6 &times; 7:**9**</td>
+<td>69.73&thinsp;&mu;s</td>
+<td></td>
+<td colspan=2 align="center">$N=338$ (67.50&thinsp;&mu;s)</td>
+</tr>
+<tr>
+<td>6 &times; 5:**32**</td>
+<td>121.05&thinsp;&mu;s</td>
+<td></td>
+<td>7 &times; 2 &times; 3:**9**</td>
+<td>69.83&thinsp;&mu;s</td>
+<td></td>
+<td>13 &times; 2:**13**</td>
+<td>66.91&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>5 &times; 6:**32**</td>
+<td>124.21&thinsp;&mu;s</td>
+<td></td>
+<td>7 &times; 3 &times; 2:**9**</td>
+<td>70.76&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 13:**13**</td>
+<td>67.30&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>26:**13**</td>
+<td>106.41&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td colspan=2 align="center">$N=800$ (192.05&thinsp;&mu;s)</td>
+<td></td>
+<td colspan=2 align="center">$N=208$ (32.85&thinsp;&mu;s)</td>
+<td></td>
+<td>13 &times; 13:**2**</td>
+<td>212.18&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>5 &times; 5:**32**</td>
+<td>94.64&thinsp;&mu;s</td>
+<td></td>
+<td>4 &times; 4:**13**</td>
+<td>28.97&thinsp;&mu;s</td>
+<td></td>
+<td>169:**2**</td>
+<td>1701.35&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 4 &times; 4:**25**</td>
+<td>101.56&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 2 &times; 4:**13**</td>
+<td>30.31&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 &times; 2 &times; 4:**25**</td>
+<td>101.67&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 4 &times; 2:**13**</td>
+<td>31.70&thinsp;&mu;s</td>
+<td></td>
+<td colspan=2 align="center">$N=1003$ (2413.41&thinsp;&mu;s)</td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 2 &times; 4:**25**</td>
+<td>104.10&thinsp;&mu;s</td>
+<td></td>
+<td>4 &times; 2 &times; 2:**13**</td>
+<td>32.04&thinsp;&mu;s</td>
+<td></td>
+<td>59:**17**</td>
+<td>1843.99&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>4 &times; 4 &times; 2:**25**</td>
+<td>104.20&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 8:**13**</td>
+<td>33.21&thinsp;&mu;s</td>
+<td></td>
+<td>17:**59**</td>
+<td>2538.96&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 4 &times; 2:**25**</td>
+<td>104.56&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 2 &times; 2 &times; 2:**13**</td>
+<td>33.58&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 4 &times; 2 &times; 2:**25**</td>
+<td>106.56&thinsp;&mu;s</td>
+<td></td>
+<td>8 &times; 2:**13**</td>
+<td>34.26&thinsp;&mu;s</td>
+<td></td>
+<td colspan=2 align="center">$N=115$ (362.84&thinsp;&mu;s)</td>
+</tr>
+<tr>
+<td>4 &times; 2 &times; 2 &times; 2:**25**</td>
+<td>106.61&thinsp;&mu;s</td>
+<td></td>
+<td>13:**16**</td>
+<td>35.31&thinsp;&mu;s</td>
+<td></td>
+<td>23:**5**</td>
+<td>46.50&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 2 &times; 2 &times; 2:**25**</td>
+<td>107.50&thinsp;&mu;s</td>
+<td></td>
+<td>16:**13**</td>
+<td>45.04&thinsp;&mu;s</td>
+<td></td>
+<td>5:**23**</td>
+<td>373.16&thinsp;&mu;s</td>
+</tr>
+<tr>
+<td>2 &times; 5 &times; 4:**20**</td>
+<td>108.47&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 13:**8**</td>
+<td>47.74&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan=2 align="center">$N=512$ (278.94&thinsp;&mu;s)</td>
+<td></td>
+<td colspan=2 align="center">$N=232$ (584.14&thinsp;&mu;s)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 &times; 4:**32**</td>
+<td>55.10&thinsp;&mu;s</td>
+<td></td>
+<td>29:**8**</td>
+<td>87.52&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 4:**64**</td>
+<td>55.63&thinsp;&mu;s</td>
+<td></td>
+<td>29 &times; 2:**4**</td>
+<td>113.47&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 &times; 2:**64**</td>
+<td>55.66&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 29:**4**</td>
+<td>136.21&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 4:**32**</td>
+<td>56.01&thinsp;&mu;s</td>
+<td></td>
+<td>29 &times; 4:**2**</td>
+<td>142.41&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 2:**64**</td>
+<td>56.65&thinsp;&mu;s</td>
+<td></td>
+<td>29 &times; 2 &times; 2:**2**</td>
+<td>159.00&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 &times; 2 &times; 2:**32**</td>
+<td>57.00&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 29 &times; 2:**2**</td>
+<td>185.15&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 4 &times; 2:**32**</td>
+<td>57.34&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 2 &times; 29:**2**</td>
+<td>229.41&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 2 &times; 2 &times; 2:**32**</td>
+<td>58.71&thinsp;&mu;s</td>
+<td></td>
+<td>4 &times; 29:**2**</td>
+<td>231.43&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8:**64**</td>
+<td>60.27&thinsp;&mu;s</td>
+<td></td>
+<td>58:**4**</td>
+<td>254.22&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 8:**32**</td>
+<td>62.38&thinsp;&mu;s</td>
+<td></td>
+<td>58 &times; 2:**2**</td>
+<td>294.84&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan=2 align="center">$N=216$ (69.19&thinsp;&mu;s)</td>
+<td></td>
+<td colspan=2 align="center">$N=238$ (316.93&thinsp;&mu;s)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3 &times; 6:**12**</td>
+<td>31.10&thinsp;&mu;s</td>
+<td></td>
+<td>17:**14**</td>
+<td>51.85&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 3 &times; 3:**12**</td>
+<td>31.18&thinsp;&mu;s</td>
+<td></td>
+<td>17 &times; 2:**7**</td>
+<td>69.44&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3 &times; 2 &times; 3:**12**</td>
+<td>31.51&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 17:**7**</td>
+<td>69.68&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6 &times; 3:**12**</td>
+<td>31.63&thinsp;&mu;s</td>
+<td></td>
+<td>34:**7**</td>
+<td>109.80&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3 &times; 3 &times; 2:**12**</td>
+<td>32.60&thinsp;&mu;s</td>
+<td></td>
+<td>17 &times; 7:**2**</td>
+<td>127.19&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 9:**12**</td>
+<td>35.79&thinsp;&mu;s</td>
+<td></td>
+<td>7 &times; 17:**2**</td>
+<td>160.65&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3 &times; 2 &times; 4:**9**</td>
+<td>36.03&thinsp;&mu;s</td>
+<td></td>
+<td>2 &times; 7:**17**</td>
+<td>327.17&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6 &times; 4:**9**</td>
+<td>36.67&thinsp;&mu;s</td>
+<td></td>
+<td>7 &times; 2:**17**</td>
+<td>329.79&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 &times; 3 &times; 4:**9**</td>
+<td>37.00&thinsp;&mu;s</td>
+<td></td>
+<td>14:**17**</td>
+<td>339.61&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9 &times; 2:**12**</td>
+<td>37.04&thinsp;&mu;s</td>
+<td></td>
+<td>119:**2**</td>
+<td>823.30&thinsp;&mu;s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </table>
 
 It's important to note that we don't need to use these results to

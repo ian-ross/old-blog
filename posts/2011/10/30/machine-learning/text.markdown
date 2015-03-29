@@ -84,16 +84,16 @@ surfaces are the data manifolds, and the coloured points data points
 randomly sampled from these manifolds, perhaps with some added noise):
 
 <div>
-  <div class="img-box" style="width:33%;">
-    <a href="test-hole-plane.png">![Plane with hole](test-hole-plane.png)</a>    
-  </div>
-  <div class="img-box" style="width:33%;">
-    <a href="test-swiss-roll.png">![Swiss roll](test-swiss-roll.png)</a>    
-  </div>
-  <div class="img-box" style="width:33%;">
-    <a href="test-hole-swiss-roll.png">![Swiss roll with hole](test-hole-swiss-roll.png)</a>    
-  </div>
-  <div class="img-spacer"/>
+<div class="img-box" style="width:33%;">
+<a href="test-hole-plane.png">![Plane with hole](test-hole-plane.png)</a>
+</div>
+<div class="img-box" style="width:33%;">
+<a href="test-swiss-roll.png">![Swiss roll](test-swiss-roll.png)</a>
+</div>
+<div class="img-box" style="width:33%;">
+<a href="test-hole-swiss-roll.png">![Swiss roll with hole](test-hole-swiss-roll.png)</a>
+</div>
+<div class="img-spacer"/>
 </div>
 
 Given the three-dimensional coordinates of the coloured points, can
@@ -101,16 +101,16 @@ the HLLE algorithm discover the intrinsic two-dimensional manifolds?
 Yes, it can:
 
 <div>
-  <div class="img-box" style="width:33%;">
-    <a href="hlle-hole-plane.png">![Plane with hole](hlle-hole-plane.png)</a>    
-  </div>
-  <div class="img-box" style="width:33%;">
-    <a href="hlle-swiss-roll.png">![Swiss roll](hlle-swiss-roll.png)</a>    
-  </div>
-  <div class="img-box" style="width:33%;">
-    <a href="hlle-hole-swiss-roll.png">![Swiss roll with hole](hlle-hole-swiss-roll.png)</a>    
-  </div>
-  <div class="img-spacer"/>
+<div class="img-box" style="width:33%;">
+<a href="hlle-hole-plane.png">![Plane with hole](hlle-hole-plane.png)</a>
+</div>
+<div class="img-box" style="width:33%;">
+<a href="hlle-swiss-roll.png">![Swiss roll](hlle-swiss-roll.png)</a>
+</div>
+<div class="img-box" style="width:33%;">
+<a href="hlle-hole-swiss-roll.png">![Swiss roll with hole](hlle-hole-swiss-roll.png)</a>
+</div>
+<div class="img-spacer"/>
 </div>
 
 The important thing to note here, particularly in the third example
@@ -120,10 +120,10 @@ Compare the equivalent results from Isomap and from a neural-network
 nonlinear PCA method:
 
 <div class="img2-left">
-  <a href="isomap-hole-swiss-roll.png">![HLLE](isomap-hole-swiss-roll.png)</a>    
+<a href="isomap-hole-swiss-roll.png">![HLLE](isomap-hole-swiss-roll.png)</a>
 </div>
 <div class="img2-right">
-  <a href="nlpca-hole-swiss-roll.png">![HLLE](nlpca-hole-swiss-roll.png)</a>    
+<a href="nlpca-hole-swiss-roll.png">![HLLE](nlpca-hole-swiss-roll.png)</a>
 </div>
 <div class="img-spacer"/>
 
@@ -146,7 +146,7 @@ point counts and neighbourhood size (click for a *really* big
 version):
 
 <div class="img-full">
-  <a href="hlle-sens-noise.png">![HLLE sensitivity](hlle-sens-noise.png)</a>
+<a href="hlle-sens-noise.png">![HLLE sensitivity](hlle-sens-noise.png)</a>
 </div>
 
 There are some striking patterns in the images here.  Good embeddings

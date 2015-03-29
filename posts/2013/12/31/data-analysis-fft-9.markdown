@@ -121,33 +121,33 @@ $\mathbb{Z}_n^{\times}$.  For example, for $n=5$ and $n=7$, we have
 the following group multiplication tables:
 
 <div style="display: inline-block; width: 48%;">
-  <table class="group-multiplication" style="margin-left: auto; margin-right: auto;">
-    <col class="left-col">
-    <tr class="top-row">
-      <td></td> <td>**1**</td> <td>**2**</td> <td>**3**</td> <td>**4**</td>
-    </tr>
-    <tr><td>**1**</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td></tr>
-    <tr><td>**2**</td> <td>2</td> <td>4</td> <td>1</td> <td>3</td></tr>
-    <tr><td>**3**</td> <td>3</td> <td>1</td> <td>4</td> <td>2</td></tr>
-    <tr><td>**4**</td> <td>4</td> <td>3</td> <td>2</td> <td>1</td></tr>
-  </table>
-  <br>
-  <br>
+<table class="group-multiplication" style="margin-left: auto; margin-right: auto;">
+<col class="left-col">
+<tr class="top-row">
+<td></td> <td>**1**</td> <td>**2**</td> <td>**3**</td> <td>**4**</td>
+</tr>
+<tr><td>**1**</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td></tr>
+<tr><td>**2**</td> <td>2</td> <td>4</td> <td>1</td> <td>3</td></tr>
+<tr><td>**3**</td> <td>3</td> <td>1</td> <td>4</td> <td>2</td></tr>
+<tr><td>**4**</td> <td>4</td> <td>3</td> <td>2</td> <td>1</td></tr>
+</table>
+<br>
+<br>
 </div>
 <div style="display: inline-block; width: 48%;">
-  <table class="group-multiplication" style="margin-left: auto; margin-right: auto;">
-    <col class="left-col">
-    <tr class="top-row">
-      <td></td> <td>**1**</td> <td>**2**</td> <td>**3**</td>
-                <td>**4**</td> <td>**5**</td> <td>**6**</td>
-    </tr>
-    <tr><td>**1**</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td></tr>
-    <tr><td>**2**</td> <td>2</td> <td>4</td> <td>6</td> <td>1</td> <td>3</td> <td>5</td></tr>
-    <tr><td>**3**</td> <td>3</td> <td>6</td> <td>2</td> <td>5</td> <td>1</td> <td>4</td></tr>
-    <tr><td>**4**</td> <td>4</td> <td>1</td> <td>5</td> <td>2</td> <td>6</td> <td>3</td></tr>
-    <tr><td>**5**</td> <td>5</td> <td>3</td> <td>1</td> <td>6</td> <td>4</td> <td>2</td></tr>
-    <tr><td>**6**</td> <td>6</td> <td>5</td> <td>4</td> <td>3</td> <td>2</td> <td>1</td></tr>
-  </table>
+<table class="group-multiplication" style="margin-left: auto; margin-right: auto;">
+<col class="left-col">
+<tr class="top-row">
+<td></td> <td>**1**</td> <td>**2**</td> <td>**3**</td>
+<td>**4**</td> <td>**5**</td> <td>**6**</td>
+</tr>
+<tr><td>**1**</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td></tr>
+<tr><td>**2**</td> <td>2</td> <td>4</td> <td>6</td> <td>1</td> <td>3</td> <td>5</td></tr>
+<tr><td>**3**</td> <td>3</td> <td>6</td> <td>2</td> <td>5</td> <td>1</td> <td>4</td></tr>
+<tr><td>**4**</td> <td>4</td> <td>1</td> <td>5</td> <td>2</td> <td>6</td> <td>3</td></tr>
+<tr><td>**5**</td> <td>5</td> <td>3</td> <td>1</td> <td>6</td> <td>4</td> <td>2</td></tr>
+<tr><td>**6**</td> <td>6</td> <td>5</td> <td>4</td> <td>3</td> <td>2</td> <td>1</td></tr>
+</table>
 </div>
 
 This group turns out to be the key to writing the sum in $(2)$ as a
@@ -250,23 +250,23 @@ convolution of the two sequences $a_q = h_{g^q}$ and $b_q =
 For example, for $p=5$, taking $g=2$:
 
 <div style="width: 100%;">
-  <table class="lines" style="margin-left: auto; margin-right: auto;">
-    <col class="left-col">
-    <tr class="top-row"><td>$q$</td> <td>&nbsp;&nbsp;0&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;1&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;2&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;3&nbsp;&nbsp;</td></tr>
-    <tr><td>$a_q$</td> <td>$h_1$</td> <td>$h_2$</td> <td>$h_4$</td> <td>$h_3$</td></tr>
-    <tr><td>$b_q$</td> <td>$\omega_5^1$</td> <td>$\omega_5^3$</td> <td>$\omega_5^4$</td> <td>$\omega_5^2$</td></tr>
-  </table>
+<table class="lines" style="margin-left: auto; margin-right: auto;">
+<col class="left-col">
+<tr class="top-row"><td>$q$</td> <td>&nbsp;&nbsp;0&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;1&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;2&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;3&nbsp;&nbsp;</td></tr>
+<tr><td>$a_q$</td> <td>$h_1$</td> <td>$h_2$</td> <td>$h_4$</td> <td>$h_3$</td></tr>
+<tr><td>$b_q$</td> <td>$\omega_5^1$</td> <td>$\omega_5^3$</td> <td>$\omega_5^4$</td> <td>$\omega_5^2$</td></tr>
+</table>
 </div>
 
 and for $p=7$ with $g=3$:
 
 <div style="width: 100%;">
-  <table class="lines" style="margin-left: auto; margin-right: auto;">
-  <col class="left-col">
-    <tr class="top-row"><td>$q$</td> <td>&nbsp;&nbsp;0&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;1&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;2&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;3&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;4&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;5&nbsp;&nbsp;</td></tr>
-    <tr><td>$a_q$</td> <td>$h_1$</td> <td>$h_3$</td> <td>$h_2$</td> <td>$h_6$</td> <td>$h_4$</td> <td>$h_5$</td></tr>
-    <tr><td>$b_q$</td> <td>$\omega_7^1$</td> <td>$\omega_7^5$</td> <td>$\omega_7^4$</td> <td>$\omega_7^6$</td> <td>$\omega_7^2$</td> <td>$\omega_7^3$</td></tr>
-  </table>
+<table class="lines" style="margin-left: auto; margin-right: auto;">
+<col class="left-col">
+<tr class="top-row"><td>$q$</td> <td>&nbsp;&nbsp;0&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;1&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;2&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;3&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;4&nbsp;&nbsp;</td> <td>&nbsp;&nbsp;5&nbsp;&nbsp;</td></tr>
+<tr><td>$a_q$</td> <td>$h_1$</td> <td>$h_3$</td> <td>$h_2$</td> <td>$h_6$</td> <td>$h_4$</td> <td>$h_5$</td></tr>
+<tr><td>$b_q$</td> <td>$\omega_7^1$</td> <td>$\omega_7^5$</td> <td>$\omega_7^4$</td> <td>$\omega_7^6$</td> <td>$\omega_7^2$</td> <td>$\omega_7^3$</td></tr>
+</table>
 </div>
 
 #### Calculation of convolution using FFT

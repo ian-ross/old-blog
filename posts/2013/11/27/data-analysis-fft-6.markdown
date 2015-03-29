@@ -93,29 +93,29 @@ place value system, $y$ represents "threes" and $x$ "sixes", then we
 can write the numbers zero to thirty as:
 
 <div style="width: 100%;">
-  <table style="margin-left: auto; margin-right: auto;">
-    <colgroup span=6 width=75></colgroup>
-    <tr>
-      <td> $0_5 0_3 0_2$ </td> <td> $0_5 0_3 1_2$ </td> <td> $0_5 1_3 0_2$ </td>
-      <td> $0_5 1_3 1_2$ </td> <td> $0_5 2_3 0_2$ </td> <td> $0_5 2_3 1_2$ </td>
-    </tr>
-    <tr>
-      <td> $1_5 0_3 0_2$ </td> <td> $1_5 0_3 1_2$ </td> <td> $1_5 1_3 0_2$ </td>
-      <td> $1_5 1_3 1_2$ </td> <td> $1_5 2_3 0_2$ </td> <td> $1_5 2_3 1_2$ </td>
-    </tr>
-    <tr>
-      <td> $2_5 0_3 0_2$ </td> <td> $2_5 0_3 1_2$ </td> <td> $2_5 1_3 0_2$ </td>
-      <td> $2_5 1_3 1_2$ </td> <td> $2_5 2_3 0_2$ </td> <td> $2_5 2_3 1_2$ </td>
-    </tr>
-    <tr>
-      <td> $3_5 0_3 0_2$ </td> <td> $3_5 0_3 1_2$ </td> <td> $3_5 1_3 0_2$ </td>
-      <td> $3_5 1_3 1_2$ </td> <td> $3_5 2_3 0_2$ </td> <td> $3_5 2_3 1_2$ </td>
-    </tr>
-    <tr>
-      <td> $4_5 0_3 0_2$ </td> <td> $4_5 0_3 1_2$ </td> <td> $4_5 1_3 0_2$ </td>
-      <td> $4_5 1_3 1_2$ </td> <td> $4_5 2_3 0_2$ </td> <td> $4_5 2_3 1_2$ </td>
-    </tr>
-  </table>
+<table style="margin-left: auto; margin-right: auto;">
+<colgroup span=6 width=75></colgroup>
+<tr>
+  <td> $0_5 0_3 0_2$ </td> <td> $0_5 0_3 1_2$ </td> <td> $0_5 1_3 0_2$ </td>
+  <td> $0_5 1_3 1_2$ </td> <td> $0_5 2_3 0_2$ </td> <td> $0_5 2_3 1_2$ </td>
+</tr>
+<tr>
+  <td> $1_5 0_3 0_2$ </td> <td> $1_5 0_3 1_2$ </td> <td> $1_5 1_3 0_2$ </td>
+  <td> $1_5 1_3 1_2$ </td> <td> $1_5 2_3 0_2$ </td> <td> $1_5 2_3 1_2$ </td>
+</tr>
+<tr>
+  <td> $2_5 0_3 0_2$ </td> <td> $2_5 0_3 1_2$ </td> <td> $2_5 1_3 0_2$ </td>
+  <td> $2_5 1_3 1_2$ </td> <td> $2_5 2_3 0_2$ </td> <td> $2_5 2_3 1_2$ </td>
+</tr>
+<tr>
+  <td> $3_5 0_3 0_2$ </td> <td> $3_5 0_3 1_2$ </td> <td> $3_5 1_3 0_2$ </td>
+  <td> $3_5 1_3 1_2$ </td> <td> $3_5 2_3 0_2$ </td> <td> $3_5 2_3 1_2$ </td>
+</tr>
+<tr>
+  <td> $4_5 0_3 0_2$ </td> <td> $4_5 0_3 1_2$ </td> <td> $4_5 1_3 0_2$ </td>
+  <td> $4_5 1_3 1_2$ </td> <td> $4_5 2_3 0_2$ </td> <td> $4_5 2_3 1_2$ </td>
+</tr>
+</table>
 </div>
 
 This prime factor digit approach gives us a kind of customised place
