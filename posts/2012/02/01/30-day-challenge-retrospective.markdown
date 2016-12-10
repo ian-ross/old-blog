@@ -2,7 +2,7 @@
 author: Ian
 tags: colophonia
 published: 2012-02-01 20:39:20
-title: Thirty Day Challenge: The Stats
+title: "Thirty Day Challenge: The Stats"
 ---
 Over the course of the month of January, I:
 

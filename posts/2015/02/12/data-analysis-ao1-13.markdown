@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #13: Markov matrix examples
+title: "Non-diffusive atmospheric flow #13: Markov matrix examples"
 tags: data-analysis
 published: 2015-02-12 14:57:45
 ---

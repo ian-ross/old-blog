@@ -2,7 +2,7 @@
 author: Ian
 tags: AI,haskell
 published: 2011-10-23 19:48:56
-title: AI Class: Bayes Networks
+title: "AI Class: Bayes Networks"
 ---
 The second week of the online [Stanford AI class][ai-class] was about
 probability, reasoning when there is uncertainty and, more

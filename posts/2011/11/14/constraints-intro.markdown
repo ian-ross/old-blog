@@ -2,7 +2,7 @@
 author: Ian
 tags: constraints,haskell,programming
 published: 2011-11-14 20:04:49
-title: A project: Constraints
+title: "A project: Constraints"
 ---
 I've recently started making some tiny contributions to Brent Yorgey's
 Haskell [diagrams](http://projects.haskell.org/diagrams/) library,

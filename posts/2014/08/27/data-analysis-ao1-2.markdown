@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #2: outline & plan
+title: "Non-diffusive atmospheric flow #2: outline & plan"
 tags: data-analysis
 published: 2014-08-27 11:56:32
 ---

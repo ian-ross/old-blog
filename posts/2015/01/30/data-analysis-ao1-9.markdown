@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #9: speeding up KDE
+title: "Non-diffusive atmospheric flow #9: speeding up KDE"
 tags: data-analysis,haskell
 published: 2015-01-30 15:21:33
 ---

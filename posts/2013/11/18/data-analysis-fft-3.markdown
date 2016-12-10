@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 3: Cooley-Tukey for Powers of Two
+title: "Haskell FFT 3: Cooley-Tukey for Powers of Two"
 published: 2013-11-18 20:17:26
 ---
 

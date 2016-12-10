@@ -2,7 +2,7 @@
 author: Ian
 tags: data-analysis,haskell
 specials: angular(myApp,['radian'])
-title: Haskell FFT 10: Building a package
+title: "Haskell FFT 10: Building a package"
 published: 2014-01-07 20:06:57
 ---
 

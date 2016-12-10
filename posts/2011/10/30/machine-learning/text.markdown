@@ -2,7 +2,7 @@
 author: Ian
 tags: AI,phd,mathematics
 published: 2011-10-30 20:06:15
-title: AI Class: Machine Learning
+title: "AI Class: Machine Learning"
 ---
 Week 3 of the [Stanford AI class][ai-class] was about machine
 learning.  This was kind of handy for me, since my

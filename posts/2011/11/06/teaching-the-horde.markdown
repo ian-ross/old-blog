@@ -2,7 +2,7 @@
 author: Ian
 tags: AI
 published: 2011-11-06 21:15:52
-title: AI Class: Teaching the horde...
+title: "AI Class: Teaching the horde..."
 ---
 Week four of the Stanford Introduction to AI class was about, well,
 what was it about?  It was a bit of a mish-mash.  Some stuff about

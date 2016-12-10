@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #12: dynamics warm-up
+title: "Non-diffusive atmospheric flow #12: dynamics warm-up"
 tags: data-analysis,haskell
 published: 2015-02-09 08:31:52
 ---

@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-title: North Korea: Nothing To Laugh At
+title: "North Korea: Nothing To Laugh At"
 published: 2013-12-05 20:40:04
 ---
 

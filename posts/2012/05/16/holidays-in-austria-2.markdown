@@ -1,7 +1,7 @@
 ---
 author: Ian
 published: 2012-05-16 19:32:55
-title: Holidays in Austria 2: Ravelsbach
+title: "Holidays in Austria 2: Ravelsbach"
 ---
 After the two days we spent in Vorarlberg, we headed for Rita's
 parents' place in Lower Austria, in the village of Ravelsbach.  The

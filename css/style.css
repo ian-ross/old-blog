@@ -4,7 +4,7 @@
 
 body { font: 16px/2 Lato, sans-serif; }
 h1 { font-family: 'Yanone Kaffeesatz', sans-serif; }
-h2, h3, h4, h5, h6 { font-family: 'Lato', sans-serif; }
+h2, h3, h4, h5, h6 { font-family: 'Lato', sans-serif; font-weight: bold; }
 pre, code { font: 13px/1.5 'Oxygen Mono', monospace; }
 
 a:focus { outline: 1px dotted invert; }

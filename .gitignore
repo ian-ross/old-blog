@@ -13,3 +13,4 @@ build/dist_build
 
 design/*
 old/*
+/build/.stack-work/

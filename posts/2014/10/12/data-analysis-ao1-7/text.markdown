@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #7: PCA for spatio-temporal data
+title: "Non-diffusive atmospheric flow #7: PCA for spatio-temporal data"
 tags: data-analysis,haskell
 published: 2014-10-12 18:46:21
 ---

@@ -23,9 +23,10 @@ might do.
 
 #### Using:
 
-Haskell, JavaScript, C, C++, R, Java, Fortran (77 & 95), Lisp (Scheme,
-AUTOLisp, proprietary dialects), APL, SQL, Mathematica, Matlab,
-ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray, Tcl/Tk
+Haskell, Python, JavaScript, C, C++, R, Java, Fortran (77 & 95), Lisp
+(Scheme, AUTOLisp, proprietary dialects), APL, SQL, Mathematica,
+Matlab, ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray,
+Tcl/Tk
 
 #### to do:
 

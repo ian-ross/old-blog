@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #5: pre-processing
+title: "Non-diffusive atmospheric flow #5: pre-processing"
 tags: data-analysis,haskell
 published: 2014-09-04 12:54:42
 ---

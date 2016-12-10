@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #11: flow pattern visualisations
+title: "Non-diffusive atmospheric flow #11: flow pattern visualisations"
 tags: data-analysis
 published: 2015-02-06 14:41:51
 ---

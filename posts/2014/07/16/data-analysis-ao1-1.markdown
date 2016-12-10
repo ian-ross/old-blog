@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Haskell data analysis: Reading NetCDF files
+title: "Haskell data analysis: Reading NetCDF files"
 tags: haskell, data-analysis
 published: 2014-07-16 21:09:57
 ---

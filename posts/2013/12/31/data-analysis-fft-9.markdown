@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 9: Prime-Length FFT With Rader's Algorithm
+title: "Haskell FFT 9: Prime-Length FFT With Rader's Algorithm"
 published: 2013-12-31 13:49:36
 ---
 

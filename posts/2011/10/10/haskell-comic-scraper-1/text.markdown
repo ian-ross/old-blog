@@ -1,5 +1,5 @@
 ---
-title: Haskell Comic Scraper: Part 1
+title: "Haskell Comic Scraper: Part 1"
 published: 2011-10-10 13:00:00
 author: Ian
 tags: haskell,programming
@@ -279,7 +279,7 @@ through the calls, but we don't need to think about that to use the
 1. To distiquish between pure functional expressions (which use `let`)
    and capturing the execution of I/O actions (which uses the `<-`
    notation);
-   
+
 2. That all assignments are immutable -- once we assign a value using
    `let` or `<-`, that name cannot be reassigned.
 

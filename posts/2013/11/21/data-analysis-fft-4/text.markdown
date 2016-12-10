@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 4: A Simple Application
+title: "Haskell FFT 4: A Simple Application"
 published: 2013-11-21 21:50:42
 ---
 

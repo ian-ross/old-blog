@@ -1,7 +1,7 @@
 ---
 author: Ian
 published: 2012-05-12 12:49:33
-title: Holidays in Austria 1: Vorarlberg
+title: "Holidays in Austria 1: Vorarlberg"
 ---
 <div class="img-right">
 <a href="hittisau-mountains.jpg">![Mountains around Hittisau](hittisau-mountains-small.jpg)</a>

@@ -2,7 +2,7 @@
 author: Ian
 tags: haskell,programming
 published: 2011-10-13 20:44:02
-title: Haskell Comic Scraper: Part 2
+title: "Haskell Comic Scraper: Part 2"
 ---
 [Last time][part1], we looked at the basics for a webcomic scraper.
 In this post, we'll look at extending our code a little to incorporate
@@ -135,10 +135,10 @@ getConfig cfg_path = do
       return (bd, cs)
   where makeComic t = if n == "" || u == "" || r == "" || p == "" then
                          error "attribute missing in comic tag"
-                         else Comic n u r p 
-          where n = fromAttrib "name" t 
+                         else Comic n u r p
+          where n = fromAttrib "name" t
                 u = fromAttrib "url" t
-                r = fromAttrib "regex" t 
+                r = fromAttrib "regex" t
                 p = fromAttrib "prefix" t
 ~~~~
 
@@ -165,4 +165,3 @@ Simple!
 [datatime]: http://haskell.org/ghc/docs/7.0-latest/html/libraries/time-1.2.0.3/Data-Time.html
 [haskxml]: http://en.wikibooks.org/wiki/Haskell/XML
 [tagsoup]: http://hackage.haskell.org/package/tagsoup
-

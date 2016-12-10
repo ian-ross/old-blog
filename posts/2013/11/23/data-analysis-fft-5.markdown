@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 5: Transforming Vectors of Arbitrary Lengths
+title: "Haskell FFT 5: Transforming Vectors of Arbitrary Lengths"
 published: 2013-11-23 13:38:29
 ---
 

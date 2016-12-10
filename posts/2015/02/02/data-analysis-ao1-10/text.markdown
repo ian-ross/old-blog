@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #10: significance of flow patterns
+title: "Non-diffusive atmospheric flow #10: significance of flow patterns"
 tags: data-analysis,haskell
 published: 2015-02-02 07:35:39
 ---

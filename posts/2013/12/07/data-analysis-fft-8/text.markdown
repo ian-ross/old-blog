@@ -2,7 +2,7 @@
 author: Ian
 tags: data-analysis,haskell
 specials: angular(myApp,['radian'])
-title: Haskell FFT 8: Benchmarking Experiments
+title: "Haskell FFT 8: Benchmarking Experiments"
 published: 2013-12-07 14:19:39
 ---
 

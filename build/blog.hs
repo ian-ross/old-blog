@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveDataTypeable, OverloadedStrings #-}
+{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, FlexibleContexts #-}
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
@@ -8,6 +8,7 @@ import Data.List (isInfixOf, isPrefixOf, intersperse, intercalate,
                   sortBy, reverse)
 import qualified Data.Map as M
 import Data.Function (on)
+import Data.Maybe (fromMaybe)
 import Data.Char (isSpace)
 import Data.Generics (everywhereM, mkM)
 import Text.Pandoc (Pandoc, Inline(..), HTMLMathMethod(..), WriterOptions(..),
@@ -19,8 +20,7 @@ import System.Directory (doesFileExist, doesDirectoryExist,
 import Data.Time.Clock (utctDay, getCurrentTime)
 import Data.Time.LocalTime (utcToLocalTime, getCurrentTimeZone)
 import Data.Time.Calendar (toGregorian)
-import System.Locale (defaultTimeLocale)
-import Data.Time.Format (formatTime)
+import Data.Time.Format (defaultTimeLocale, formatTime)
 import System.FilePath ((</>), joinPath, splitDirectories, addExtension,
                         takeDirectory, dropExtension, takeBaseName,
                         replaceExtension, hasExtension)
@@ -124,7 +124,7 @@ doHakyll = hakyllWith hakyllConf $ do
   let pldep = [IdentifierDependency (fromFilePath "post-list")]
   mds <- getAllMetadata postsPattern
   let ids = reverse $ map fst $
-            sortBy (compare `on` ((M.! "published") . snd)) mds
+            sortBy (compare `on` ((lookupString "published") . snd)) mds
       pids = chunk articlesPerIndexPage ids
       indexPages =
         map (\i -> fromFilePath $ "blog/index" ++
@@ -191,7 +191,7 @@ sass = getResourceString >>=
 --
 postCompiler :: Context String -> Compiler (Item String)
 postCompiler ctx = do
-  p <- readPandocWith defaultHakyllReaderOptions <$> processTikZs
+  p <- processTikZs >>= readPandocWith defaultHakyllReaderOptions
   p' <- unsafeCompiler $ fixPostLinks $ itemBody p
   let i = writePandocWith writeOptions (itemSetBody p' p)
   post <- saveSnapshot "post" i
@@ -210,7 +210,7 @@ postCompiler ctx = do
 doSpecials :: Item String -> Compiler (Item String)
 doSpecials item = do
   md <- getMetadata $ itemIdentifier item
-  case "specials" `M.lookup` md of
+  case lookupString "specials" md of
     Nothing -> return item
     Just ss -> do
       let specials = map parseSpecial $ words ss
@@ -254,7 +254,7 @@ parseSpecial s = (f, as)
 --
 fixPostLinks :: Pandoc -> IO Pandoc
 fixPostLinks = everywhereM (mkM fixPostLink)
-fixPostLink l@(Link s (url, title))
+fixPostLink l@(Link as inl (url, title))
   | url =~ ("^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/[^/]+$" :: String) = do
     let mdd = "posts" </> url
         mdf = addExtension mdd "markdown"
@@ -262,9 +262,9 @@ fixPostLink l@(Link s (url, title))
     dexist <- doesDirectoryExist mdd
     case (fexist, dexist) of
       (True, _) ->
-        return $ Link s (addExtension ("/blog/posts" </> url) "html", title)
+        return $ Link as inl (addExtension ("/blog/posts" </> url) "html", title)
       (_, True) ->
-        return $ Link s ("/blog/posts" </> url </> "index.html", title)
+        return $ Link as inl ("/blog/posts" </> url </> "index.html", title)
       (_, _) -> return l
   | url =~ ("^[^/]+$" :: String) = do
     mp <- findPosts url
@@ -273,7 +273,7 @@ fixPostLink l@(Link s (url, title))
       Just p -> let url' = if hasExtension p
                            then replaceExtension ("/blog" </> p) "html"
                            else "/blog" </> p </> "index.html"
-                in return $ Link s (url', title)
+                in return $ Link as inl (url', title)
   | otherwise = return l
 fixPostLink x = return x
 
@@ -317,7 +317,7 @@ postCtx t = do
         join = mconcat . intersperse " "
         pageTitle _ i = do
           m <- getMetadata $ itemIdentifier i
-          return $ "Sky Blue Trades | " ++ (m M.! "title")
+          return $ "Sky Blue Trades | " ++ (fromMaybe "" $ lookupString "title" m)
 
 
 

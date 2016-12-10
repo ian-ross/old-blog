@@ -2,7 +2,7 @@
 author: Ian
 tags: AI,haskell,programming
 published: 2011-10-16 21:34:14
-title: AI Class: A* Search
+title: "AI Class: A* Search"
 ---
 The first week of the online [Stanford AI class][ai-class] has gone
 by.  The format of the presentation is pretty good, with lots of short
@@ -43,7 +43,7 @@ import AStar
 import Data.Maybe
 import Data.List
 
-data Rom = A | B | C | D | E | F | G | H | I | L | M | 
+data Rom = A | B | C | D | E | F | G | H | I | L | M |
            N | O | P | R | S | T | U | V | Z
          deriving (Eq, Ord, Show)
 
@@ -55,23 +55,23 @@ goal = (== B)
 
 distances :: [((Rom, Rom), Int)]
 distances = [((A, S), 140), ((A, T), 118), ((A, Z), 75), ((B, F), 211),
-             ((B, G), 90), ((B, P), 101), ((B, U), 85), ((C, D), 120), 
-             ((C, P), 138), ((C, R), 146), ((D, M), 75), ((E, H), 86), 
-             ((F, S), 99), ((H, U), 98), ((I, N), 87), ((I, V), 92), 
+             ((B, G), 90), ((B, P), 101), ((B, U), 85), ((C, D), 120),
+             ((C, P), 138), ((C, R), 146), ((D, M), 75), ((E, H), 86),
+             ((F, S), 99), ((H, U), 98), ((I, N), 87), ((I, V), 92),
              ((L, M), 70), ((L, T), 111), ((O, S), 151), ((O, Z), 71),
              ((P, R), 97), ((R, S), 80), ((U, V), 142)]
 
 euclidean :: [(Rom, Int)]
-euclidean = [(A, 366), (B, 0), (C, 160), (D, 242), (E, 161), (F, 176), 
-             (G, 77), (H, 151), (I, 226), (L, 244), (M, 241), (N, 234), 
-             (O, 380), (P, 100), (R, 193), (S, 253), (T, 329), (U, 80), 
+euclidean = [(A, 366), (B, 0), (C, 160), (D, 242), (E, 161), (F, 176),
+             (G, 77), (H, 151), (I, 226), (L, 244), (M, 241), (N, 234),
+             (O, 380), (P, 100), (R, 193), (S, 253), (T, 329), (U, 80),
              (V, 199), (Z, 374)]
 
 instance SearchState Rom where
   actions x = map const $ nub $ filter (/= x) $ (map fst ps) ++ (map snd ps)
     where ps = map fst $ filter (\((a, b), _) -> a == x || b == x) distances
 
-  stepCost x y 
+  stepCost x y
     | x < y = fromJust $ lookup (x, y) distances
     | otherwise = fromJust $ lookup (y, x) distances
 
@@ -157,7 +157,7 @@ nodes.
 
 ~~~~ {.haskell}
 data NodeInfo a = NodeInfo { state :: a,
-                             parent :: Maybe (NodeInfo a), 
+                             parent :: Maybe (NodeInfo a),
                              cost :: Int } deriving (Eq, Show)
 
 instance Eq a => Ord (NodeInfo a) where
@@ -193,41 +193,41 @@ steps:
 Here's a Haskell implementation:
 
 ~~~~ {.haskell}
-astar :: (Show a, Eq a, SearchState a, Ord a) => 
+astar :: (Show a, Eq a, SearchState a, Ord a) =>
          a -> (a -> Bool) -> Maybe [a]
 astar init goalTest = helper initFrontier S.empty
   where -- Initial frontier contains just the single initial node (no
         -- parent, zero cost).
         initFrontier = PS.singleton init (NodeInfo init Nothing 0)
-        
+
         -- Tail recursive helper.
         helper fr ex
           | PS.null fr = Nothing   -- Fail if the frontier is empty.
-          | otherwise = if (goalTest s) 
-                        then Just (reverse $ res s p) 
+          | otherwise = if (goalTest s)
+                        then Just (reverse $ res s p)
                         else helper fr'' ex'
             where -- Extract next state to expand and associated
                   -- information.  We produce trace output to show the
                   -- states on the frontier.
                   Just (s PS.:-> ni@(NodeInfo _ p c), fr') =
                     PS.minView (traceShow (PS.keys fr) fr)
-                  
+
                   -- Add to explored set.
                   ex' = S.insert s ex
-                  
+
                   -- Determine possible actions from this state and
                   -- resulting state, filtering out any in the
                   -- explored set.
-                  rs = filter (\r -> not (r `S.member` ex')) $ 
+                  rs = filter (\r -> not (r `S.member` ex')) $
                        map (result s) (actions s)
-                  
+
                   -- Calculate full costs of possible result states.
                   cs = map (\r -> c + stepCost s r + heuristic r) rs
-                  
+
                   -- Find which of the new states are already in the
                   -- queue.
                   exis = map (\n -> PS.lookup n fr) rs
-                  
+
                   -- Combine the existing states in the queue and the
                   -- new ones we've found.  Only ever keep one entry
                   -- in the queue for each state, the one with the
@@ -240,7 +240,7 @@ astar init goalTest = helper initFrontier S.empty
 
                   -- Insert new states into new frontier.
                   fr'' = foldl (\q (k, p) -> PS.insert k p q) fr' toadd
-                  
+
                   -- Build the result by following the parent links
                   -- through the search graph.
                   res n Nothing = [init]
@@ -275,7 +275,7 @@ Just ([A,S,R,P,B],13)
 [B,C,O,P,T,Z]
 [B,C,O,T,Z]
 Just ([A,S,R,P,B],6)
-*Main> 
+*Main>
 ~~~~
 
 First, we try the search using uniform cost search (i.e. a heuristic
@@ -329,7 +329,7 @@ In our framework, this problem looks like this:
 
 ~~~~ {.haskell}
 import AStar
-  
+
 data HWState = HWState Int Int
              deriving (Eq, Ord)
 
@@ -379,7 +379,7 @@ although here the heuristic doesn't seem to help at all:
 Just ([A1,A2,A3,A4,A5,A6,B6,C6,D6],24)
 *Main> astar initial goal heuristic
 Just ([A1,A2,A3,A4,A5,A6,B6,C6,D6],24)
-*Main> 
+*Main>
 ~~~~
 
 ## Sliding blocks puzzles ##
@@ -522,7 +522,7 @@ going on.
 
 ~~~~ {.haskell}
 instance Show BoardState where
-  show (BoardState n m _) = 
+  show (BoardState n m _) =
     unlines $ map concat $ chunks n $ map (format . (m M.!)) (coords n)
       where format x
               | x == 0 = " XX"
@@ -555,7 +555,7 @@ scrambled state derived from this):
 
 ~~~~ {.haskell}
 initial :: Int -> BoardState
-initial n = BoardState n 
+initial n = BoardState n
             (M.fromList $ zip (coords n) ([1..n^2-1] ++ [0])) (n, n)
 ~~~~
 
@@ -572,8 +572,8 @@ the correct position:
 
 ~~~~ {.haskell}
 heuristic1 :: BoardState -> Int
-heuristic1 (BoardState n m _) = sum $ zipWith 
-                                (\x y -> if x /= y then 1 else 0) 
+heuristic1 (BoardState n m _) = sum $ zipWith
+                                (\x y -> if x /= y then 1 else 0)
                                 (map (m M.!) (init $ coords n)) [1..n^2-1]
 ~~~~
 
@@ -599,7 +599,7 @@ scramble :: Int -> BoardState -> IO BoardState
 scramble n b = do
   g <- getStdGen
   return $ foldl (flip move) b (makeMoves g)
-    where makeMoves gen = map ([Up, Down, Left, Right] !!) 
+    where makeMoves gen = map ([Up, Down, Left, Right] !!)
                           (take n $ randomRs (0,3) gen :: [Int])
 ~~~~
 
@@ -625,7 +625,7 @@ Just ([  5  1 XX
   4  5  6
   7  8 XX
 ],54)
-*Main> 
+*Main>
 ~~~~
 
 Here, we generate a scrambled state for the 8-puzzle from the initial

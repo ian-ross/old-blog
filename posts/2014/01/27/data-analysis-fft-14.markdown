@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 14: Wrap-up
+title: "Haskell FFT 14: Wrap-up"
 published: 2014-01-26 09:26:43
 ---
 

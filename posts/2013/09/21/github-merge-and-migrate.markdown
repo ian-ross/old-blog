@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: programming
-title: GitHub: Merging Repos, Migrating Issues
+title: "GitHub: Merging Repos, Migrating Issues"
 published: 2013-09-21 12:41:04
 ---
 

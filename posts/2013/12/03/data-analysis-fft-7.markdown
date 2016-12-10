@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 7: Where We've Got To, Where We're Going
+title: "Haskell FFT 7: Where We've Got To, Where We're Going"
 published: 2013-12-03 13:35:29
 ---
 

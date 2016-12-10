@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 6: Implementing the Mixed-Radix FFT
+title: "Haskell FFT 6: Implementing the Mixed-Radix FFT"
 published: 2013-11-27 18:52:39
 ---
 

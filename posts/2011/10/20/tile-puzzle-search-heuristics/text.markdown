@@ -2,7 +2,7 @@
 author: Ian
 tags: AI
 published: 2011-10-20 07:15:44
-title: AI Class: Tile Puzzle Heuristics
+title: "AI Class: Tile Puzzle Heuristics"
 ---
 In an [earlier post][astar1], I presented some code for solving tile
 puzzles using A* search.  In the lectures, Peter Norvig talked about

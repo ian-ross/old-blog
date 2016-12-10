@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #8: flow pattern distribution
+title: "Non-diffusive atmospheric flow #8: flow pattern distribution"
 tags: data-analysis,haskell
 published: 2015-01-27 07:09:54
 ---

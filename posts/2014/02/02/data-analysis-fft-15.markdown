@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 15: Some small Haskell things
+title: "Haskell FFT 15: Some small Haskell things"
 published: 2014-02-02 17:33:45
 ---
 

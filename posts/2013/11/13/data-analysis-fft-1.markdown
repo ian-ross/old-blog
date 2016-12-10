@@ -1,8 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 1: The Discrete Fourier Transform
-published: 2013-11-11 20:57:04
+title: "Haskell FFT 1: The Discrete Fourier Transform"
 published: 2013-11-13 21:00:07
 ---
 

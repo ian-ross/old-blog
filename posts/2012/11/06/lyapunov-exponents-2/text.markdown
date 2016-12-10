@@ -2,7 +2,7 @@
 author: Ian
 tags: haskell,mathematics
 published: 2012-11-06 16:29:40
-title: Lyapunov Exponents in Haskell: Part 2
+title: "Lyapunov Exponents in Haskell: Part 2"
 ---
 In the
 [previous article](/blog/posts/2012/11/01/lyapunov-exponents-1), we

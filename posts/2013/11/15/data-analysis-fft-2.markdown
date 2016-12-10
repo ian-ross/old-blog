@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: data-analysis,haskell
-title: Haskell FFT 2: Matrix factorisation
+title: "Haskell FFT 2: Matrix factorisation"
 published: 2013-11-15 07:46:37
 ---
 

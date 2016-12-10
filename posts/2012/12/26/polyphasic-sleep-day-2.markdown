@@ -2,7 +2,7 @@
 author: Ian
 tags: sleep
 published: 2012-12-26 11:11:08
-title: Polyphasic Sleep: Day 2
+title: "Polyphasic Sleep: Day 2"
 ---
 Urgh.  Well, that didn't go quite as I was hoping.  I discovered that
 I didn't much enjoy being awake on my own through the 16 hours of

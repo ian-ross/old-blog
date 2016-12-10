@@ -2,7 +2,7 @@
 author: Ian
 tags: past-lives
 published: 2012-01-10 20:14:13
-title: Past Lives: Part III Maths
+title: "Past Lives: Part III Maths"
 ---
 I've been very lucky so far in my life, and have had many
 opportunities to work and study in interesting places.  I'm not sure

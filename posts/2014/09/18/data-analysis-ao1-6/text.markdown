@@ -1,6 +1,6 @@
 ---
 author: Ian
-title: Non-diffusive atmospheric flow #6: principal components analysis
+title: "Non-diffusive atmospheric flow #6: principal components analysis"
 tags: data-analysis,haskell
 published: 2014-09-18 13:39:03
 ---

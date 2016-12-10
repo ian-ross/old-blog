@@ -1,7 +1,7 @@
 ---
 author: Ian
 tags: book-reviews
-title: Gödel, Escher, Bach: An Eternal Golden Braid
+title: "Gödel, Escher, Bach: An Eternal Golden Braid"
 published: 2014-01-04 17:21:28
 ---
 *by Douglas Hoftstadter*

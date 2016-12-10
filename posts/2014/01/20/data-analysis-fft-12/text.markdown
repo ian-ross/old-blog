@@ -2,7 +2,7 @@
 author: Ian
 tags: data-analysis,haskell
 specials: angular(myApp,['radian'])
-title: Haskell FFT 12: Optimisation Part 2
+title: "Haskell FFT 12: Optimisation Part 2"
 published: 2014-01-20 17:12:41
 ---
 
