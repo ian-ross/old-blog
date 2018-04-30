@@ -1,22 +1,17 @@
 <div class="grid_15">
 
-I'm Ian Ross, I live in Igls in Austria with my partner Rita and our
-beagle mix Winnie.
+I'm Ian Ross, I live in [Pöllan][pollan] in Austria with my partner
+Rita and our beagle mix Winnie.
 
-I'm a freelance programmer and data analyst who started out as a
-physicist.  I've worked in programming-centred jobs for about 20
-years, in fields as diverse as climate model development, programming
-language tools, and sonar (naval and scientific).  I've also spent a
-lot of time thinking about effective scientific data visualisation:
-there is a portfolio of selected images
-[here](/data-visualisation.html).
+I started out as a physicist, but more recently I've been working as a
+freelance programmer and data analyst.  I've worked in
+programming-centred jobs for about 20 years, in fields as diverse as
+climate model development, programming language tools, and sonar
+(naval and scientific).  I've also spent a lot of time thinking about
+effective scientific data visualisation: there is a portfolio of
+selected images [here](/data-visualisation.html).
 
-I'm available for consulting work in scientific or functional
-programming, or data analysis work.  I'm always looking for
-interesting projects.  Take a look at my [CV](/files/cv.pdf), take a
-look at my [blog](/blog), and
-[drop me a line](mailto:ian@skybluetrades.net) to talk about what we
-might do.
+I now work for [Memcachier](http://www.memcachier.com).
 
 <div class="grid_8">
 ## Things I've been paid money for
@@ -62,3 +57,6 @@ I have a sort of programming bio [here](/programming-bio.html).
 </div>
 
 </div>
+
+
+[pollan]: https://www.google.at/maps/place/Forstweg+24,+9710+P%C3%B6llan/@46.6994604,13.6385582,803m/data=!3m1!1e3!4m5!3m4!1s0x47709c1d58eaedc5:0x95a927652ec35d8c!8m2!3d46.6994604!4d13.6407469?hl=en
