@@ -14,7 +14,7 @@
 
 module TikZ (processTikZs) where
 
-import Control.Monad (forM, when)
+import Control.Monad (forM, when, void)
 import Data.List (isPrefixOf)
 import System.Directory (doesFileExist, renameFile,
                          createDirectoryIfMissing, removeDirectoryRecursive,
@@ -22,7 +22,6 @@ import System.Directory (doesFileExist, renameFile,
 import System.IO (openFile, hPutStrLn, hClose, IOMode(..))
 import System.FilePath (addExtension)
 import System.Process (system)
-import System.Exit
 import Data.Digest.Pure.MD5
 import qualified Text.HTML.TagSoup as TS
 import qualified Data.ByteString.Lazy.Char8 as C8
@@ -43,9 +42,9 @@ processTikZs = do
 -- includes MD5 digest (used for filename, image width and height in
 -- pixels, plus style information.
 --
-data TikZInfo = TikZInfo { digest :: String,
-                           w :: Int, h :: Int,
-                           style :: String } deriving Show
+data TikZInfo = TikZInfo { _digest :: String,
+                           _w :: Int, _h :: Int,
+                           _style :: String } deriving Show
 
 
 -- | Replace TikZ images with HTML for getting SVG and PNG rendered
@@ -58,12 +57,12 @@ xformTikZs p tikzs = unlines $ concatMap flattenChunk fixedChunks
         htmls = map (Text . tikZHtmlRep) tikzs
 
         tikZHtmlRep :: TikZInfo -> [String]
-        tikZHtmlRep (TikZInfo md5 w h style) =
+        tikZHtmlRep (TikZInfo md5hash w h style) =
           ["<object type=\"image/svg+xml\" data=\"/blog/tikzs/" ++
-           (addExtension md5 "svg") ++
-           "\" width=" ++ (show w) ++
-           " height=" ++ (show h) ++
-           (if (style == "") then "" else (" style=\"" ++ style ++ "\"")) ++
+           addExtension md5hash "svg" ++
+           "\" width=" ++ show w ++
+           " height=" ++ show h ++
+           if style == "" then "" else (" style=\"" ++ style ++ "\"") ++
            "></object>"]
 
 
@@ -78,12 +77,12 @@ generateTikZs p = forM pics renderSVG
 -- | Render a TikZ to an SVG file.
 --
 renderSVG :: Chunk -> IO TikZInfo
-renderSVG p@(Picture wrap attr tikz) = do
+renderSVG (Picture wrap attr tikz) = do
   createDirectoryIfMissing True "_site/blog/tikzs"
   pwd <- getCurrentDirectory
   setCurrentDirectory "_site/blog/tikzs"
-  let md5 = makeDigest tikz
-      svgf = addExtension md5 "svg"
+  let md5hash = makeDigest tikz
+      svgf = addExtension md5hash "svg"
   exists <- doesFileExist svgf
   if exists
     then return ()
@@ -91,7 +90,7 @@ renderSVG p@(Picture wrap attr tikz) = do
     createDirectoryIfMissing True "tmp"
     setCurrentDirectory "tmp"
     writeTikzTmp wrap "tmp.tex" $ unlines tikz
-    system "htlatex tmp.tex 2>&1 > /dev/null"
+    void $ system "htlatex tmp.tex 2>&1 > /dev/null"
     status <- doesFileExist "tmp-1.svg"
     setCurrentDirectory ".."
     if status
@@ -100,7 +99,8 @@ renderSVG p@(Picture wrap attr tikz) = do
     removeDirectoryRecursive "tmp"
   (w, h) <- getSVGDimensions svgf
   setCurrentDirectory pwd
-  return (TikZInfo md5 w h attr)
+  return (TikZInfo md5hash w h attr)
+renderSVG _ = error "Oopsie..."
 
 
 -- | Extract dimensions from first line of TikZ-rendered SVG file and
@@ -167,10 +167,10 @@ extractChunks :: [String] -> [Chunk]
 extractChunks [] = []
 extractChunks (l:ls)
   | "@@@" `isPrefixOf` l =
-    (Picture True (attr l) ls') : extractChunks (tail rest)
+    Picture True (attr l) ls' : extractChunks (tail rest)
   | "@@!" `isPrefixOf` l =
-    (Picture False (attr l) ls') : extractChunks (tail rest)
-  | otherwise            = (Text (l:ls')) : extractChunks rest
+    Picture False (attr l) ls' : extractChunks (tail rest)
+  | otherwise            = Text (l:ls') : extractChunks rest
     where (ls', rest) = break chk ls
           chk s = "@@@" `isPrefixOf` s || "@@!" `isPrefixOf` s
           attr = strip . stripBrackets . strip . dropWhile (`elem` "@!")
@@ -182,7 +182,7 @@ extractChunks (l:ls)
 --
 flattenChunk :: Chunk -> [String]
 flattenChunk (Text ts) = ts
-flattenChunk (Picture _ a ts) = ts
+flattenChunk (Picture _ _ ts) = ts
 
 
 -- | Replace Picture chunks for TikZ images with object and image tag

@@ -2,11 +2,10 @@
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
-import Control.Monad (when, filterM, void, forM_)
+import Control.Monad (filterM, void, forM_)
 import Data.Monoid (mappend, mconcat)
 import Data.List (isInfixOf, isPrefixOf, intersperse, intercalate,
                   sortBy, reverse)
-import qualified Data.Map as M
 import Data.Function (on)
 import Data.Maybe (fromMaybe)
 import Data.Char (isSpace)
@@ -66,6 +65,7 @@ main = do
 
 -- | Main Hakyll processing.
 --
+doHakyll :: IO ()
 doHakyll = hakyllWith hakyllConf $ do
   -- Build tags and build post context allowing us to render a tag
   -- cloud.
@@ -124,7 +124,7 @@ doHakyll = hakyllWith hakyllConf $ do
   let pldep = [IdentifierDependency (fromFilePath "post-list")]
   mds <- getAllMetadata postsPattern
   let ids = reverse $ map fst $
-            sortBy (compare `on` ((lookupString "published") . snd)) mds
+            sortBy (compare `on` (lookupString "published" . snd)) mds
       pids = chunk articlesPerIndexPage ids
       indexPages =
         map (\i -> fromFilePath $ "blog/index" ++
@@ -197,7 +197,7 @@ postCompiler ctx = do
   post <- saveSnapshot "post" i
     >>= loadAndApplyTemplate "templates/post.html" ctx
   ts <- getUnderlying >>= getTags
-  saveSnapshot "haskell-content" $
+  void $ saveSnapshot "haskell-content" $
     if "haskell" `elem` ts then post else post { itemBody = "" }
   saveSnapshot "content" post
     >>= loadAndApplyTemplates ["blog", "default"] ctx
@@ -216,9 +216,9 @@ doSpecials item = do
       let specials = map parseSpecial $ words ss
       return $ foldSpecials item specials
       where foldSpecials i [] = i
-            foldSpecials i ((f,as):ss) = case f of
-              "angular" -> foldSpecials (angularSpecial i as) ss
-              _ -> foldSpecials i ss
+            foldSpecials i ((f,as):ss') = case f of
+              "angular" -> foldSpecials (angularSpecial i as) ss'
+              _ -> foldSpecials i ss'
 
 
 -- | Special processing for articles using Angular.
@@ -229,10 +229,11 @@ angularSpecial i (app:injects) =
   where xform l = if l =~ ("<html([^>]*)>" :: String)
                   then init l ++ " ng-app=\"" ++ app ++ "\">"
                   else l
-        addScript ls = let (before, after) = break (=~ ("</body>" :: String)) ls
-                       in before ++ ["<script>", script, "</script>"] ++ after
+        addScript ls = let (bef, aft) = break (=~ ("</body>" :: String)) ls
+                       in bef ++ ["<script>", script, "</script>"] ++ aft
         script = "angular.module('" ++ app ++ "'" ++
                  if null injects then "" else (", " ++ head injects) ++ ");"
+angularSpecial _ [] = error "Oopsie..."
 
 
 -- | Parse post-processing metadata.
@@ -241,12 +242,12 @@ parseSpecial :: String -> (String, [String])
 parseSpecial s = (f, as)
   where (f, s') = span (/= '(') s
         s'' = drop 1 . take (length s' - 1) $ s'
-        as = map trim $ commaSplit s''
-        trim = takeWhile (not . isSpace) . dropWhile isSpace
-        commaSplit s = case dropWhile (==',') s of
+        as = map trimit $ commaSplit s''
+        trimit = takeWhile (not . isSpace) . dropWhile isSpace
+        commaSplit ss = case dropWhile (==',') ss of
           "" -> []
-          s' -> w : commaSplit s''
-            where (w, s'') = break (==',') s'
+          ss' -> w : commaSplit s''
+            where (w, _) = break (==',') ss'
 
 
 -- | Fix up links to posts that use abbreviated forms
@@ -254,6 +255,7 @@ parseSpecial s = (f, as)
 --
 fixPostLinks :: Pandoc -> IO Pandoc
 fixPostLinks = everywhereM (mkM fixPostLink)
+fixPostLink :: Inline -> IO Inline
 fixPostLink l@(Link as inl (url, title))
   | url =~ ("^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/[^/]+$" :: String) = do
     let mdd = "posts" </> url
@@ -284,13 +286,13 @@ findPosts :: FilePath -> IO (Maybe FilePath)
 findPosts f = do
   days <- dir "posts" >>= dirs >>= dirs
   let ds = map (</> f) days
-      fs = map (\f -> addExtension f "markdown") ds
+      fs = map (`addExtension` "markdown") ds
   existds <- filterM doesDirectoryExist ds
   existfs <- filterM doesFileExist fs
   case (existds, existfs) of
     ([], []) -> return Nothing
     (d:_, _) -> return $ Just d
-    (_, f:_) -> return $ Just f
+    (_, f':_) -> return $ Just f'
   where notdot i = i /= "." && i /= ".."
         dir d = map (d </>) <$> filter notdot <$> getDirectoryContents d
         dirs ds = concat <$> mapM dir ds
@@ -299,7 +301,7 @@ findPosts f = do
 -- | Full context for posts.
 --
 postCtx :: MonadMetadata m => Tags -> m (Context String)
-postCtx t = do
+postCtx t =
   return $
     mapContext prettify
       (tagsFieldWith getTags render join "prettytags" t) `mappend`
@@ -317,7 +319,7 @@ postCtx t = do
         join = mconcat . intersperse " "
         pageTitle _ i = do
           m <- getMetadata $ itemIdentifier i
-          return $ "Sky Blue Trades | " ++ (fromMaybe "" $ lookupString "title" m)
+          return $ "Sky Blue Trades | " ++ fromMaybe "" (lookupString "title" m)
 
 
 
@@ -338,9 +340,9 @@ tagCloudCtx = tagCloudFieldWith "tagcloud" makeLink (intercalate " ") 100 200
         H.a ! A.href (toValue url) $ H.toHtml tag
       where
         -- Show the relative size of one 'count' in percent
-        size count min' max' =
-          let diff = 1 + fromIntegral max' - fromIntegral min'
-              relative = (fromIntegral count - fromIntegral min') / diff
+        size cnt min'' max'' =
+          let diff = 1 + fromIntegral max'' - fromIntegral min''
+              relative = (fromIntegral cnt - fromIntegral min'') / diff
               size' = floor $ minSize + relative * (maxSize - minSize)
           in show (size' :: Int) ++ "%"
 
@@ -363,7 +365,7 @@ staticCompiler = pandocCompiler
 writeOptions :: WriterOptions
 writeOptions = defaultHakyllWriterOptions
     { writerEmailObfuscation = NoObfuscation,
-      writerHTMLMathMethod   = MathML Nothing }
+      writerHTMLMathMethod   = MathML }
 
 
 -- | Auxiliary compiler: generate a post list from a list of given
@@ -374,9 +376,9 @@ postList :: Pattern
          -> Context String
          -> String
          -> Compiler String
-postList pattern preprocess' ctx tmpl = do
+postList pat preprocess' ctx tmpl = do
   postItemTpl <- loadBody $ fromFilePath $ "templates/" ++ tmpl ++ ".html"
-  posts <- loadAll pattern
+  posts <- loadAll pat
   processed <- preprocess' posts
   applyTemplateList postItemTpl ctx processed
 
@@ -384,12 +386,12 @@ postList pattern preprocess' ctx tmpl = do
 -- | Auxiliary compiler: set up a tag list page.
 --
 makeTagList :: Tags -> String -> Pattern -> Rules ()
-makeTagList tags tag pattern = do
+makeTagList tags tag pat = do
   let title = "Posts tagged &#8216;" ++ tag ++ "&#8217;"
       pagetitle = "Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"
   route idRoute
   compile $ do
-    list <- postList pattern recentFirst simplePostCtx "tagitem"
+    list <- postList pat recentFirst simplePostCtx "tagitem"
     makeItem ""
       >>= loadAndApplyTemplates ["tags", "blog", "default"]
            (constField "title" title `mappend`
@@ -406,7 +408,7 @@ makeTagList tags tag pattern = do
 indexCompiler :: Int -> Tags -> Context String -> [Identifier]
               -> Compiler (Item String)
 indexCompiler n tags ctx ids = do
-  pg <- (drop 5 . dropExtension . takeBaseName . toFilePath) <$> getUnderlying
+  pg <- drop 5 . dropExtension . takeBaseName . toFilePath <$> getUnderlying
   let i = if pg == "" then 1 else (read pg :: Int)
       older = indexNavLink i 1 n
       newer = indexNavLink i (-1) n
@@ -427,15 +429,15 @@ indexCompiler n tags ctx ids = do
 --
 indexNavLink :: Int -> Int -> Int -> String
 indexNavLink n d maxn = renderHtml ref
-  where ref = if (refPage == "") then ""
-              else H.a ! A.href (toValue $ toUrl $ refPage) $
-                   (H.preEscapedToMarkup lab)
+  where ref = if refPage == "" then ""
+              else H.a ! A.href (toValue $ toUrl refPage) $
+                   H.preEscapedToMarkup lab
         lab :: String
-        lab = if (d > 0) then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
-        refPage = if (n + d < 1 || n + d > maxn) then ""
-                  else case (n + d) of
+        lab = if d > 0 then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
+        refPage = if n + d < 1 || n + d > maxn then ""
+                  else case n + d of
                     1 -> "/blog/index.html"
-                    _ -> "/blog/index" ++ (show $ n + d) ++ ".html"
+                    _ -> "/blog/index" ++ show (n + d) ++ ".html"
 
 
 -- | RSS feed configuration.
@@ -467,7 +469,7 @@ teaserField _ i = do
       noTeaser [] = []
       noTeaser ("<!--NOTEASERBEGIN-->" : xs) =
         drop 1 $ dropWhile (/= "<!--NOTEASEREND-->") xs
-      noTeaser (x : xs) = x : (noTeaser xs)
+      noTeaser (x : xs) = x : noTeaser xs
 
 
 -- | Generate "Read more" link for an index entry.
@@ -510,7 +512,7 @@ publishDraft :: String -> IO ()
 publishDraft path = do
   fExist <- doesFileExist path
   dExist <- doesDirectoryExist path
-  if (not fExist && not dExist)
+  if not fExist && not dExist
     then error $ "Neither file nor directory exists: " ++ path
     else do
       postDir <- todaysPostDir
@@ -521,7 +523,7 @@ publishDraft path = do
         else do
         putStrLn (path ++ " -> " ++ postPath)
         renameDirectory path postPath
-      err <- rawSystem "touch" [postPath]
+      void $ rawSystem "touch" [postPath]
       addTimestamp postPath
       updatePostList
       putStrLn $ "Published to " ++ postPath
@@ -533,7 +535,7 @@ unpublishDraft :: String -> IO ()
 unpublishDraft path = do
   fExist <- doesFileExist path
   dExist <- doesDirectoryExist path
-  if (not fExist && not dExist)
+  if not fExist && not dExist
     then error $ "Neither file nor directory exists: " ++ path
     else do
       let unpubDir = "drafts/unpublished"
@@ -563,7 +565,7 @@ addTimestamp postPath = do
 --  let t = utcToLocalTime tz utct
   let ts = formatTime defaultTimeLocale "%F %T" t
       pg' = addTimestamp' ts (B.unpack pg)
-  B.writeFile modFile $ B.pack $ pg'
+  B.writeFile modFile $ B.pack pg'
     where addTimestamp' :: String -> String -> String
           addTimestamp' ts i = init $ unlines ["---", md, "---", body]
             where (m, b) = span (/= "---") . tail . lines $ i
@@ -613,11 +615,12 @@ loadAndApplyTemplates [c] ctx i =
 loadAndApplyTemplates (c:cs) ctx i = do
   i' <- loadAndApplyTemplate (fromFilePath $ "templates/" ++ c ++ ".html") ctx i
   loadAndApplyTemplates cs ctx i'
+loadAndApplyTemplates [] _ _ = error "Oopsie..."
 
 
 -- | Split list into equal sized sublists.
 --
 chunk :: Int -> [a] -> [[a]]
-chunk n [] = []
+chunk _ [] = []
 chunk n xs = ys : chunk n zs
   where (ys,zs) = splitAt n xs

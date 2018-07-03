@@ -1,0 +1,42 @@
+name:         blog
+version:      0.1.0.0
+synopsis:     My Hakyll blog
+description:  My Hakyll blog
+author:       Ian Ross <ian@skybluetrades.net>
+maintainer:   Ian Ross <ian@skybluetrades.net>
+homepage:     https://www.skybluetrades.net
+license:      BSD3
+license-file: LICENSE
+
+github: ian-ross/blog
+
+dependencies:
+  - base >= 4.8 && < 5
+  - containers
+  - directory
+  - process
+  - filepath
+  - hakyll
+  - bytestring
+  - pureMD5
+  - blaze-html
+  - tagsoup
+  - blaze-markup
+  - time
+  - old-locale
+  - pandoc
+  - syb
+  - regex-posix
+
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wredundant-constraints
+  - -O2
+
+executables:
+  blog:
+    main: blog.hs
+    other-modules: TikZ
