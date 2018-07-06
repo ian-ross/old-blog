@@ -1,4 +1,3 @@
-<div class="grid_11">
 # Programming bio
 
 *WARNING: This is nearly 6000 words, and mostly written for my own
@@ -594,16 +593,3 @@ ideas that I have lying around.  Should be fun!
       email, which they liked.
 [^7]: My main manager tried to reassure me that it was OK: "We don't
       make anything that actually goes bang!" he told me...
-
-</div>
-
-<div class="grid_4">
-<div id="toc"><p><strong>Contents</strong></p>
-<p><a class="toc_a" target="_self" href="#the-early-days-1982-1992">The early days (1982-1992)</a></p>
-<p><a class="toc_a" target="_self" href="#coding-for-cash-1992-1997">Coding for cash (1992-1997)</a></p>
-<p><a class="toc_a" target="_self" href="#science-1997-2001">Science! (1997-2001)</a></p>
-<p><a class="toc_a" target="_self" href="#back-in-the-world-2001-2004">Back in the world (2001-2004)</a></p>
-<p><a class="toc_a" target="_self" href="#academia-again-2004-2012">Academia again (2004-2012)</a></p>
-<p><a class="toc_a" target="_self" href="#recent-interests">Recent interests</a></p>
-</div>
-</div>

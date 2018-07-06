@@ -1,4 +1,5 @@
-<div class="grid_11">
+<div class="row">
+<div class="col">
 # Web apps
 
 ## BayesHive
@@ -27,3 +28,6 @@ Because the number and type of plots in a document can't be known in
 advance, we settled on an approach using AngularJS directives to
 construct a custom HTML library for describing plots, which I called
 [Radian](http://openbrainsrc.github.io/Radian/).
+
+</div>
+</div>

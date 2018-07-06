@@ -1,4 +1,5 @@
-<div class="grid_11">
+<div class="row">
+<div class="col">
 # Haskell FFT posts
 
 1. [The Discrete Fourier Transform][post1] Introduction to the DFT and
@@ -55,4 +56,5 @@
 [post13]: /blog/posts/2014/01/26/data-analysis-fft-13/index.html
 [post14]: /blog/posts/2014/01/27/data-analysis-fft-14.html
 
+</div>
 </div>

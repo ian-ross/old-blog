@@ -15,7 +15,7 @@ $N=256$ example in detail, then we'll develop a general approach.
 
 <!--MORE-->
 
-## Experiments with $N=256$
+## Experiments with N=256
 
 So far, we've been using a fixed scheme for decomposing the overall
 Fourier matrix for our transforms, splitting out single prime factors

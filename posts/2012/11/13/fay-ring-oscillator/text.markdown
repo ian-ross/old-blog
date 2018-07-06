@@ -80,11 +80,10 @@ mean drift of the oscillators around the ring.  Have a play...
 
 <br>
 
-<div class="clear"></div>
-<div class="grid_11">
+<div class="toy">
   <canvas id="canvas" width=400 height=400></canvas>
 </div>
-<div class="grid_4">
+<div class="controls">
   <input id="go" type="button">
   <input id="stop" type="button">
   <input id="reset" type="button" value="Reset">
@@ -146,7 +145,6 @@ mean drift of the oscillators around the ring.  Have a play...
     </select>
   </p>
 </div>
-<div class="clear"></div>
 <canvas id="graph" width=640 height=200></canvas>
 
 
@@ -427,7 +425,10 @@ required, or perhaps I'll have to try a cleverer method...
       **16**(1), 21-37.
 
 <style type="text/css">
+.toy { width: 60%; float: left; }
+.controls { width: 25%; float: left; }
 #go { background-image: url(play-icon.png); width: 20px; }
 #stop { background-image: url(stop-icon.png); width: 20px; }
+#graph { margin-bottom: 40px; }
 </style>
 <script type="text/javascript" src="RingOscillator.js"></script>

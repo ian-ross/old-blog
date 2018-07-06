@@ -1,5 +1,3 @@
-<div class="grid_15">
-
 I'm Ian Ross, I live in [Pöllan][pollan] in Austria with my partner
 Rita and our beagle mix Winnie.
 
@@ -13,15 +11,14 @@ selected images [here](/data-visualisation.html).
 
 I now work for [Memcachier](http://www.memcachier.com).
 
-<div class="grid_8">
 ## Things I've been paid money for
 
 #### Using:
 
-Haskell, Python, JavaScript, C, C++, R, Java, Fortran (77 & 95), Lisp
-(Scheme, AUTOLisp, proprietary dialects), APL, SQL, Mathematica,
-Matlab, ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X, Motif, Povray,
-Tcl/Tk
+Haskell, Python, JavaScript, Ruby, Go, C, C++, R, Java, Fortran (77 &
+95), Lisp (Scheme, AUTOLisp, proprietary dialects), APL, SQL,
+Mathematica, Matlab, ArcGIS, Perl, NCL, PHP, MPI, Trilinos, SNMP, X,
+Motif, Povray, Tcl/Tk
 
 #### to do:
 
@@ -39,9 +36,7 @@ Tcl/Tk
  * [GUI programming](/gui-programming.html)
  * Programming language tools
  * Atmospheric radiative transfer
-</div>
 
-<div class="grid_7">
 ## Other things I know about
 
  * Functional programming (especially Haskell)
@@ -53,10 +48,8 @@ Tcl/Tk
 
 ## All the grubby details
 
-I have a sort of programming bio [here](/programming-bio.html).
-</div>
-
-</div>
+I have a sort of programming bio [here](/programming-bio.html), and
+here's [my CV](/files/cv.pdf).
 
 
 [pollan]: https://www.google.at/maps/place/Forstweg+24,+9710+P%C3%B6llan/@46.6994604,13.6385582,803m/data=!3m1!1e3!4m5!3m4!1s0x47709c1d58eaedc5:0x95a927652ec35d8c!8m2!3d46.6994604!4d13.6407469?hl=en

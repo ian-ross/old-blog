@@ -22,6 +22,9 @@ each channel in the WAV file.  Here's how this works:
 
 <div class="img-center-noscale">
 ![Audio windowing](audio-windowing.png)
+<div style="text-align: center;">
+<p>*Audio windowing*<br>
+</div>
 </div>
 <br>
 

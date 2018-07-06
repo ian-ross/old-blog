@@ -1,4 +1,5 @@
-<div class="grid_11">
+<div class="row">
+<div class="col">
 # GUI programming
 
 ## Early exposure
@@ -126,5 +127,4 @@ on in terms of GUI programming:
 [three]: http://www.haskell.org/haskellwiki/Threepenny-gui
 
 </div>
-
-
+</div>

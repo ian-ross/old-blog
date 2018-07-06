@@ -12,11 +12,7 @@
     <link rel="alternate" type="application/rss+xml"
          title="Sky Blue Trades" href="/rss.xml" />
     <link href='https://fonts.googleapis.com/css?family=Philosopher:400,700,400italic|Oxygen+Mono|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/css/reset.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/css/grid.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/css/nav.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/css/radian.css" />
     <script type="text/javascript">
@@ -34,43 +30,39 @@
     </script>
   </head>
   <body>
-    <div class="container_16">
-      <div class="grid_16 branding">
-        <h1 id="branding">
-          <a href="/">sky blue trades</a>
-        </h1>
-      </div>
-      <div class="clear"></div>
-      <div class="grid_16 topnav">
-	<ul class="topnav main">
-          <li><a href="/">home</a></li>
-          <li><a href="/blog">blog</a></li>
-          <li><a href="/files/cv.pdf">cv</a></li>
-          <li><a href="mailto:ian@skybluetrades.net">mail</a></li>
-        </ul>
-      </div>
-      <div class="clear"></div>
+    <header>
+      <a class="branding" href="/">sky blue trades</a>
+    </header>
 
+    <nav>
+      <ul>
+        <li><a href="/about.html">about</a></li>
+        <li><a href="mailto:ian@skybluetrades.net">contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="main">
       $body$
-
-      <div class="clear"></div>
-      <div class="grid_16 branding" id="site_info">
-        Site content copyright &copy; 2011-2017 Ian Ross &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a>
-      </div>
-      <div class="clear"></div>
     </div>
+
+    <footer>
+      Site content copyright &copy; 2011-2018 Ian Ross
+      <br>
+      Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a>
+      <div class="rss"><a href="/rss.xml"><img src="/images/rss.png"></img></a></div>
+    </footer>
+
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({ "HTML-CSS": { scale: 90 } });
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
     <script src="/js/jquery.js"></script>
     <script src="/js/jquery.csv.js"></script>
-    <script src="/js/bootstrap.js"></script>
     <script src="/js/d3.v2.js"></script>
     <script src="/js/escodegen.browser.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/radian.js"></script>
     <script src="/js/html5slider.js"></script>
+    <script src="/js/app.js"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
-<div class="grid_11">
+<div class="row">
+<div class="col">
 # Haskell "non-diffusive atmospheric flow" data analysis posts
 
 1. [Reading NetCDF files][post1] Not really part of the main series of
@@ -58,4 +59,5 @@
 [post14]: /blog/posts/2015/04/02/data-analysis-ao1-14/index.html
 [post15]: /blog/posts/2015/04/05/data-analysis-ao1-15.html
 
+</div>
 </div>

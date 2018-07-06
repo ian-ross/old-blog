@@ -43,7 +43,7 @@ that can be mapped to Haskell types in a sensible way.
 
 You can now say things like:
 
-~~~~ {.c2hs}
+~~~~ {.haskell}
 #include <stdio.h>
 
 {#pointer *FILE as File foreign finalizer fclose newtype#}
@@ -95,7 +95,7 @@ functions like `func` through the Haskell FFI is a tedious because you
 need to allocate space for an `oid` structure, marshall a pointer to
 the allocated space and so on.  Now though, the C2HS code
 
-~~~~ {.c2hs}
+~~~~ {.haskell}
 {#pointer *oid as Oid foreign newtype#}
 
 {#fun func as ^ {+, `Int', `Float'} -> `Oid'#}
@@ -149,7 +149,7 @@ int coord_x(coord_t c, int dummy);
 Here, the `coord_x` function takes a bare `coord_t` structure as a
 parameter.  To bind to these functions in C2HS code, we write this:
 
-~~~~ {.c2hs}
+~~~~ {.haskell}
 {#pointer *coord_t as CoordPtr foreign finalizer free_coord newtype#}
 
 {#fun pure make_coord as makeCoord {`Int', `Int'} -> `CoordPtr'#}
@@ -175,7 +175,7 @@ whatever it's building.
 Previously, variadic C functions weren't supported in C2HS at all.
 Now though, you can do fun things like this:
 
-~~~~ {.c2hs}
+~~~~ {.haskell}
 #include <stdio.h>
 
 {#fun variadic printf[int] as printi {`String', `Int'} -> `()'#}
@@ -212,7 +212,7 @@ define default marshallers between them.  As an example, using this
 facility, you can write code to marshal Haskell `String` values to and
 from C wide character strings like this:
 
-~~~~ {.c2hs}
+~~~~ {.haskell}
 #include <wchar.h>
 
 {#typedef wchar_t CWchar#}

@@ -1,11 +1,10 @@
-{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, FlexibleContexts #-}
+{-# LANGUAGE OverloadedStrings, FlexibleContexts #-}
 module Main where
 
 import Control.Applicative ((<$>), (<*>))
 import Control.Monad (filterM, void, forM_)
 import Data.Monoid (mappend, mconcat)
-import Data.List (isInfixOf, isPrefixOf, intersperse, intercalate,
-                  sortBy, reverse)
+import Data.List (isInfixOf, isPrefixOf, intersperse, sortBy, reverse)
 import Data.Function (on)
 import Data.Maybe (fromMaybe)
 import Data.Char (isSpace)
@@ -127,7 +126,7 @@ doHakyll = hakyllWith hakyllConf $ do
             sortBy (compare `on` (lookupString "published" . snd)) mds
       pids = chunk articlesPerIndexPage ids
       indexPages =
-        map (\i -> fromFilePath $ "blog/index" ++
+        map (\i -> fromFilePath $ "index" ++
                    (if i == 1 then "" else show i) ++ ".html")
         [1..length pids]
       indexes = zip indexPages pids
@@ -135,10 +134,10 @@ doHakyll = hakyllWith hakyllConf $ do
   rulesExtraDependencies pldep $ forM_ indexes $ \(idx, pages) ->
     create [idx] $ do
       route idRoute
-      compile $ indexCompiler nindexes tags pctx pages
+      compile $ indexCompiler nindexes pctx pages
 
   -- Add a tag list compiler for every tag used in blog articles.
-  tagsRules tags (makeTagList tags)
+  tagsRules tags makeTagList
 
   -- Render RSS feed for blog.
   create ["rss.xml"] $ do
@@ -305,7 +304,6 @@ postCtx t =
   return $
     mapContext prettify
       (tagsFieldWith getTags render join "prettytags" t) `mappend`
-    tagCloudCtx t `mappend`
     functionField "teaser" teaserField `mappend`
     functionField "readmore" readMoreField `mappend`
     functionField "pagetitle" pageTitle `mappend`
@@ -327,24 +325,6 @@ postCtx t =
 --
 simplePostCtx :: Context String
 simplePostCtx = dateField "date" "%B %e, %Y" `mappend` defaultContext
-
-
--- | Tag cloud context.
---
-tagCloudCtx :: Tags -> Context String
-tagCloudCtx = tagCloudFieldWith "tagcloud" makeLink (intercalate " ") 100 200
-  where
-    makeLink minSize maxSize tag url count min' max' = renderHtml $
-        H.span ! A.class_ "tagcloud" !
-        A.style (toValue $ "font-size: " ++ size count min' max') $
-        H.a ! A.href (toValue url) $ H.toHtml tag
-      where
-        -- Show the relative size of one 'count' in percent
-        size cnt min'' max'' =
-          let diff = 1 + fromIntegral max'' - fromIntegral min''
-              relative = (fromIntegral cnt - fromIntegral min'') / diff
-              size' = floor $ minSize + relative * (maxSize - minSize)
-          in show (size' :: Int) ++ "%"
 
 
 -- | Static page compiler: renders date field, adds tags, page title,
@@ -385,8 +365,8 @@ postList pat preprocess' ctx tmpl = do
 
 -- | Auxiliary compiler: set up a tag list page.
 --
-makeTagList :: Tags -> String -> Pattern -> Rules ()
-makeTagList tags tag pat = do
+makeTagList :: String -> Pattern -> Rules ()
+makeTagList tag pat = do
   let title = "Posts tagged &#8216;" ++ tag ++ "&#8217;"
       pagetitle = "Sky Blue Trades | Tagged &#8216;" ++ tag ++ "&#8217;"
   route idRoute
@@ -397,7 +377,6 @@ makeTagList tags tag pat = do
            (constField "title" title `mappend`
             constField "pagetitle" pagetitle `mappend`
             constField "posts" list `mappend`
-            tagCloudCtx tags `mappend`
             defaultContext)
       >>= relativizeUrls
 
@@ -405,9 +384,9 @@ makeTagList tags tag pat = do
 -- | Index page compiler: generate a single index page based on
 -- identifier name, with the appropriate posts on each one.
 --
-indexCompiler :: Int -> Tags -> Context String -> [Identifier]
+indexCompiler :: Int -> Context String -> [Identifier]
               -> Compiler (Item String)
-indexCompiler n tags ctx ids = do
+indexCompiler n ctx ids = do
   pg <- drop 5 . dropExtension . takeBaseName . toFilePath <$> getUnderlying
   let i = if pg == "" then 1 else (read pg :: Int)
       older = indexNavLink i 1 n
@@ -420,7 +399,6 @@ indexCompiler n tags ctx ids = do
           constField "posts" list `mappend`
           constField "navlinkolder" older `mappend`
           constField "navlinknewer" newer `mappend`
-          tagCloudCtx tags `mappend`
           defaultContext)
     >>= relativizeUrls
 
@@ -436,8 +414,8 @@ indexNavLink n d maxn = renderHtml ref
         lab = if d > 0 then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
         refPage = if n + d < 1 || n + d > maxn then ""
                   else case n + d of
-                    1 -> "/blog/index.html"
-                    _ -> "/blog/index" ++ show (n + d) ++ ".html"
+                    1 -> "/index.html"
+                    _ -> "/index" ++ show (n + d) ++ ".html"
 
 
 -- | RSS feed configuration.
@@ -461,7 +439,7 @@ teaserField :: [String] -> Item String -> Compiler String
 teaserField _ i = do
   let url = itemIdentifier i
   b <- itemBody<$> loadSnapshot url "post"
-  return $ fixResourceUrls' (takeDirectory $ toFilePath url) (extractTeaser b)
+  return $ fixResourceUrls' ("blog/" ++ takeDirectory (toFilePath url)) (extractTeaser b)
     where
       extractTeaser = unlines . (noTeaser . extractTeaser') . lines
       extractTeaser' = takeWhile (/= "<!--MORE-->")

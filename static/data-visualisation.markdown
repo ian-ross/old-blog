@@ -1,4 +1,3 @@
-<div class="grid_11">
 # Data visualisation
 
 I've been interested in scientific data visualisation for a long time.
@@ -136,8 +135,6 @@ immediate visual impact of these figures is quite striking.
 <div class="img2-right">
   <a href="dv/noisy-hole-swiss-roll.png">![Noisy Swiss roll](dv/noisy-hole-swiss-roll-small.png)</a>
 </div>
-<div class="img-spacer"/>
-
 
 ## "Cartoon" plots
 
@@ -184,9 +181,6 @@ this are so difficult to produce, since they are extremely effective.
   <a href="dv/soil-profiles-1d.svg">![Soil profile #4](dv/soil-profiles-1d.svg)</a>
 </div>
 
-<div class="img-spacer"/>
-
-
 ## Ray-tracing with POV-Ray
 
 Sometimes, you want something a bit more visually polished.  I started
@@ -217,9 +211,6 @@ on the paleogeography poster at the bottom of the page.
   <a href="dv/mediterranean-bathymetry.png">![Mediterranean bathymetry](dv/mediterranean-bathymetry-small.png)</a>
 </div>
 
-<div class="img-spacer"/>
-
-
 ## Posters
 
 And sometimes, you need to put a whole bunch of images together into a
@@ -237,13 +228,5 @@ meeting.
 <div class="img2-right">
   <a href="dv/science-alive-poster.pdf">![Noisy Swiss roll](dv/science-alive-poster.png)</a>
 </div>
-</div>
 
-<div class="grid_4">
-<div id="toc"><p><strong>Contents</strong></p>
-<p><a class="toc_a" target="_self" href="#standard-plots">"Standard" plots</a></p>
-<p><a class="toc_a" target="_self" href="#cartoon-plots">"Cartoon" plots</a></p>
-<p><a class="toc_a" target="_self" href="#ray-tracing-with-pov-ray">Ray-tracing with POV-Ray</a></p>
-<p><a class="toc_a" target="_self" href="#posters">Posters</a></p>
-</div>
-</div>
+<div class="clear"></div>

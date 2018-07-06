@@ -10,8 +10,8 @@ build/.hsenv_build
 build/00-HSENV-DIRECTORY
 build/dist
 build/dist_build
-
 design/*
 old/*
-/build/.stack-work/
+.stack-work/
 blog.cabal
+post-list
