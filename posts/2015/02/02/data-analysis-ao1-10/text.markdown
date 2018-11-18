@@ -140,11 +140,7 @@ procedure looks like, using the same colour scale as the "real data"
 distribution in the [earlier article][blog8] to aid in comparison
 (darker colours show regions of greater probability density):
 
-<br>
-<div class="img-full">
-<a href="spherical-pdf-unif-sample.png">![Spherical PDF for null hypothesis data](spherical-pdf-unif-sample.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="spherical-pdf-unif-sample.png">![Spherical PDF for null hypothesis data](spherical-pdf-unif-sample.png)</a></div>
 
 We can see that our sample from the null hypothesis distribution also
 has "bumps", although they seem to be less prominent than the bumps in
@@ -312,11 +308,7 @@ the plot to highlight the most significant regions, i.e. the regions
 least likely to have occurred by chance if the null hypothesis is
 true:
 
-<br>
-<div class="img-full">
-<a href="spherical-pdf-significance.png">![Significance levels for spherical PDF](spherical-pdf-significance.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="spherical-pdf-significance.png">![Significance levels for spherical PDF](spherical-pdf-significance.png)</a></div>
 
 In particular, we see that each of the three bumps picked out with
 labels in the "real data" PDF plot in the [earlier article][blog8] are

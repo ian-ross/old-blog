@@ -25,7 +25,6 @@ following problem: find a vector $\mathbf{x} \in \mathbb{R}^N$ that
 minimises a linear objective function
 
 <div class="eq">$z = \mathbf{c} \cdot \mathbf{x}$</div>
-<br>
 
 subject to the constraints $A \mathbf{x} = \mathbf{b}$, with all
 components of $\mathbf{x}$ non-negative, i.e. $x_i \geq 0$.

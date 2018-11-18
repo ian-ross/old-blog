@@ -26,7 +26,6 @@ $\mathbf{x} \in \mathbb{R}^N$ that maximises a linear objective
 function
 
 <div class="eq">$z = \mathbf{c} \cdot \mathbf{x}$</div>
-<br>
 
 subject to $M$ linear constraints of the form $\mathbf{a}_i \cdot
 \mathbf{x} \geq b_i$, $\mathbf{a}_i \cdot \mathbf{x} = b_i$ or
@@ -71,7 +70,6 @@ connecting points $p_1$ and $p_2$ using the constraints
 $x_3=x_1+t\,(x_2-x_1) \wedge y_3=y_1+t\,(y_2-y_1) \wedge t \geq 0
 \wedge t \leq 1$,
 </div>
-<br>
 
 where we introduce an auxiliary variable $t$.  We can express the
 condition that the line segment between points $p_1$ and $p_2$ be
@@ -83,7 +81,6 @@ saying
 $x_2=x_1+t\,\cos \theta \wedge y_2=y_1+t\,\sin \theta \wedge t
 \geq 0$,
 </div>
-<br>
 
 where again we introduce an auxiliary variable $t$.
 
@@ -94,7 +91,6 @@ constraint, we would need to say something like
 <div class="eq">
 $(x_2-x_1)^2 + (y_2-y_1)^2 \leq d^2$,
 </div>
-<br>
 
 which is *not* a linear constraint.  That seems like a bit of a shame,
 since distance-based constraints are very natural from a geometrical

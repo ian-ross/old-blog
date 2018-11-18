@@ -4,7 +4,7 @@ table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode
 table.sourceCode { padding-bottom: 10px; margin-bottom: 10px; }
 td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; }
 td.sourceCode { padding-left: 5px; background-color: #F8F8F8; padding-right: 5px; }
-pre.sourceCode { padding: 10px 0 10px 1em; background-color: #F8F8F8; } /* TRBL */
+pre.sourceCode { margin: 0; padding: 10px 0 10px 1em; background-color: #F8F8F8; } /* TRBL */
 pre.sourceCode span.kw { color: #007020; font-weight: bold; } 
 pre.sourceCode span.dt { color: #902000; }
 pre.sourceCode span.dv { color: #40a070; }

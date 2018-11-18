@@ -94,45 +94,39 @@ represent each $Z_{500}$ pattern as a point on this sphere,
 parameterised by $\theta$ and $\phi$, the angular components of the
 usual spherical coordinates in this three-dimensional space.
 
-<a name="figs"></a>
-<ul class="nav nav-tabs" role="tablist">
-<li class="active">
-<a href="#fig1" role="tab" data-toggle="tab">
-Figure 1
-</a>
-</li>
-<li>
-<a href="#fig2" role="tab" data-toggle="tab">
-Figure 2
-</a>
-</li>
-<li>
-<a href="#fig3" role="tab" data-toggle="tab">
-Figure 3
-</a>
-</li>
-</ul>
+<div class="tabs800">
 
-<div class="tab-content">
-<div class="tab-pane active" id="fig1">
+<div class="tab">
+<input type="radio" id="tab-1" name="tab-group-1" checked>
+<label for="tab-1">Figure 1</label>
+<div class="content">
 Original data points.
 
 <img src="projection-points-only.png">
 </div>
-<div class="tab-pane" id="fig2">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-2" name="tab-group-1">
+<label for="tab-2">Figure 2</label>
+<div class="content">
 Data points with projection sphere.
 
 <img src="projection-points-and-sphere.png">
 </div>
-<div class="tab-pane" id="fig3">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-3" name="tab-group-1">
+<label for="tab-3">Figure 3</label>
+<div class="content">
 Points projected onto unit sphere.
 
 <img src="projection-projected.png">
 </div>
 </div>
 
-<br>
-
+</div>
 
 ### Kernel density estimation
 
@@ -140,11 +134,7 @@ Once we've projected our PCA data onto the unit sphere as described
 above, we can look at the distribution of data points in terms of the
 polar coordinates $\theta$ and $\phi$:
 
-<br>
-<div class="img-full">
-<a href="proj-points.png">![Projected points](proj-points.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="proj-points.png">![Projected points](proj-points.png)</a></div>
 
 Note that we're doing *two* kinds of projection here: first we're
 transforming the original $Z_{500}$ data (a time series of spatial
@@ -369,11 +359,7 @@ the next plot, parametrised by spherical polar coordinates $\theta$
 and $\phi$: darker colours show regions of greater probability
 density.
 
-<br>
-<div class="img-full">
-<a href="spherical-pdf.png">![Spherical PDF](spherical-pdf.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="spherical-pdf.png">![Spherical PDF](spherical-pdf.png)</a></div>
 
 We can now see quite clearly that the distribution of spatial patterns
 of $Z_{500}$ in $(\theta, \phi)$ space does appear to be non-uniform,

@@ -74,10 +74,15 @@ doHakyll = hakyllWith hakyllConf $ do
   -- Read templates.
   match "templates/*" $ compile templateCompiler
 
-  -- Compress CSS files.
-  match "css/*" $ do
-    route $ setExtension "css"
-    compile sass
+  -- Copy CSS files.
+  match "css/*.css" $ do
+    route idRoute
+    compile copyFileCompiler
+
+  -- Copy fonts.
+  match "fonts/*.woff" $ do
+    route idRoute
+    compile copyFileCompiler
 
   -- Copy JavaScript files.
   match "js/*" $ do
@@ -173,14 +178,6 @@ rssBodyField :: String -> String -> Context String
 rssBodyField root key = field key $ \item -> do
   let dir = takeDirectory . toFilePath . itemIdentifier $ item
   return $ fixResourceUrls' (root </> dir) (itemBody item)
-
-
--- | Process SCSS or CSS.
---
-sass :: Compiler (Item String)
-sass = getResourceString >>=
-       withItemBody (unixFilter "sass" ["-s", "--scss"]) >>=
-       return . fmap compressCss
 
 
 -- | Main post compiler: renders date field, adds tags, page title,
@@ -411,7 +408,7 @@ indexNavLink n d maxn = renderHtml ref
               else H.a ! A.href (toValue $ toUrl refPage) $
                    H.preEscapedToMarkup lab
         lab :: String
-        lab = if d > 0 then "&laquo; OLDER POSTS" else "NEWER POSTS &raquo;"
+        lab = if d > 0 then "&ltrif; older posts" else "newer posts &rtrif;"
         refPage = if n + d < 1 || n + d > maxn then ""
                   else case n + d of
                     1 -> "/index.html"
@@ -463,7 +460,7 @@ readMoreField _ i = do
     where readMoreLink r' =
             renderHtml $ H.div ! A.class_ "readmore" $
             H.a ! A.href (toValue $ "/" ++ r') $
-            H.preEscapedToMarkup ("Read more &raquo;"::String)
+            H.preEscapedToMarkup ("read more &rtrif;"::String)
 
 
 -- | Fix up resource URLs for index page teasers and RSS feed entries.

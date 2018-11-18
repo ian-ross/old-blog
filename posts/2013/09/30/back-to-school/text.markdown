@@ -41,9 +41,4 @@ Here are some pictures from by the Patscherkofelhaus.  Our house is
 outlined in red in the first one (it's tiny: click on the image for a
 bigger version so you can see it).
 
-<div>
-  <a href="view-1.jpg"><img src="view-1-small.jpg" style="width:24%"></a>
-  <a href="view-2.jpg"><img src="view-2-small.jpg" style="width:24%"></a>
-  <a href="view-3.jpg"><img src="view-3-small.jpg" style="width:24%"></a>
-  <a href="view-4.jpg"><img src="view-4-small.jpg" style="width:24%"></a>
-</div>
+<div class="img-row"><a href="view-1.jpg"><img class="row-image" src="view-1-small.jpg"></a><a href="view-2.jpg"><img class="row-image" src="view-2-small.jpg"></a><a href="view-3.jpg"><img class="row-image" src="view-3-small.jpg"></a><a href="view-4.jpg"><img class="row-image" src="view-4-small.jpg"></a></div>

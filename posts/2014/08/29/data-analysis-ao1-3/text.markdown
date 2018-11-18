@@ -30,11 +30,7 @@ contours are labelled in hPa (i.e. 100 Pascals), which correspond
 pretty closely to the more "traditional" units of millibars (1000 hPa
 &asymp; 1000 mb):
 
-<br>
-<div class="img-center">
-<a href="slp-map.png">![SLP map](slp-map.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="slp-map.png">![SLP map](slp-map.png)</a></div>
 
 Because of the rotation of the Earth, in the Northern Hemisphere the
 winds flow anticlockwise around regions of low pressure, clockwise
@@ -124,11 +120,7 @@ Here's a plot of the $Z_{500}$ field for the North Atlantic from 1
 Janurary 2014, the same day as that for which the top figure shows the
 sea level pressure (the contours are labelled in metres):
 
-<br>
-<div class="img-center">
-<a href="z500-map.png">![Z500 map](z500-map.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-map.png">![Z500 map](z500-map.png)</a></div>
 
 Think of a tank filled with two immiscible liquids of different
 densities, oil and water say.  If we dye the bottom layer blue, we'll

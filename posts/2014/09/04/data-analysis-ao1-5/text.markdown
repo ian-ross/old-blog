@@ -487,19 +487,11 @@ patterns in the data relatively easily.
 
 First, the "normal" anomalies:
 
-<br>
-<div class="img-center">
-<a href="z500-normal-anomaly-snapshots.png">![Normal Z500 anomaly snapshots](z500-normal-anomaly-snapshots.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-normal-anomaly-snapshots.png">![Normal Z500 anomaly snapshots](z500-normal-anomaly-snapshots.png)</a></div>
 
 then the "blocking" anomalies:
 
-<br>
-<div class="img-center">
-<a href="z500-blocking-anomaly-snapshots.png">![Blocking Z500 anomaly snapshots](z500-blocking-anomaly-snapshots.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-blocking-anomaly-snapshots.png">![Blocking Z500 anomaly snapshots](z500-blocking-anomaly-snapshots.png)</a></div>
 
 
 [gist]: https://gist.github.com/ian-ross/ed3a21f6238719d4aaeb

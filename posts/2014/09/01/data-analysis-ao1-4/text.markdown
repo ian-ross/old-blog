@@ -38,11 +38,7 @@ of variations in the "normal" pattern of flow over the North Atlantic
 -- contours of constant $Z_{500}$ run more or less east-to-west,
 representing the prevailing westerly winds we find there:
 
-<br>
-<div class="img-center">
-<a href="z500-normal-snapshots.png">![Normal Z500 snapshots](z500-normal-snapshots.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-normal-snapshots.png">![Normal Z500 snapshots](z500-normal-snapshots.png)</a></div>
 
 Remember that because of the rotation of the Earth, the wind blows
 more or less *along* lines of constant pressure in the atmosphere,
@@ -60,11 +56,7 @@ prevailing east-west pattern is quite clear.
 The next plots show another nine-day period from just
 a few days later than the sequence above:
 
-<br>
-<div class="img-center">
-<a href="z500-blocking-snapshots.png">![Blocking Z500 snapshots](z500-blocking-snapshots.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-blocking-snapshots.png">![Blocking Z500 snapshots](z500-blocking-snapshots.png)</a></div>
 
 Here, the pattern over the North Atlantic is quite different to the
 first plots.  We have a big incursion of higher values of $Z_{500}$
@@ -92,11 +84,7 @@ plots).
 We can get some idea of the temporal behaviour of these different
 regimes from this plot:
 
-<br>
-<div class="img-center">
-<a href="z500-time-series.png">![Z500 time series](z500-time-series.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="z500-time-series.png">![Z500 time series](z500-time-series.png)</a></div>
 
 This shows a smoothed time series of the spatial average of $Z_{500}$
 over the region 20&deg;W--0&deg;E, 50&deg;N--60&deg;N (an area of the
@@ -125,10 +113,9 @@ To give you a better feeling for what these variations look like, here
 is an animation that displays variations in $Z_{500}$ over a few
 interesting periods:
 
-<div class="img-center-noscale">
+<div class="centered-image-noscale">
 <iframe src="//player.vimeo.com/video/104223833" width="500" height="529" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
-<br>
 
 The values of $Z_{500}$ are shown as coloured regions (warmer colours
 are larger $Z_{500}$ values) and regions of blocking flow are

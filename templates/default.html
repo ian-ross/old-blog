@@ -11,10 +11,7 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="alternate" type="application/rss+xml"
          title="Sky Blue Trades" href="/rss.xml" />
-    <link href='https://fonts.googleapis.com/css?family=Philosopher:400,700,400italic|Oxygen+Mono|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
-    <link rel="stylesheet" type="text/css" href="/css/radian.css" />
+    <link rel="stylesheet" type="text/css" href="/css/all.css" />
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-22380558-1']);
@@ -24,33 +21,38 @@
 
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
     </script>
   </head>
+
   <body>
-    <header>
-      <a class="branding" href="/">sky blue trades</a>
-    </header>
+    <div class="container">
+      <div class="top-nav">
+        <ul>
+          <li class="brand"><a href="/">sky blue trades</a></li>
+          <li class="fade-text"> </li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/index.html">Blog</a></li>
+          <li><a href="/projects.html">Projects</a></li>
+          <li><a href="mailto:ian@skybluetrades.net">Contact</a></li>
+        </ul>
+      </div>
 
-    <nav>
-      <ul>
-        <li><a href="/about.html">about</a></li>
-        <li><a href="mailto:ian@skybluetrades.net">contact</a></li>
-      </ul>
-    </nav>
+      <div class="main">
+        $body$
+      </div>
 
-    <div class="main">
-      $body$
+
+      <footer>
+        <div class="footer-left">
+          <p class="copyright">Site content copyright &copy; 2011-2018 Ian Ross</p>
+          <p>Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a></p>
+        </div>
+        <div class="rss"><a href="/rss.xml"><img src="/images/rss.png"></img></a></div>
+      </footer>
     </div>
-
-    <footer>
-      Site content copyright &copy; 2011-2018 Ian Ross
-      <br>
-      Powered by <a href="http://jaspervdj.be/hakyll/">Hakyll</a>
-      <div class="rss"><a href="/rss.xml"><img src="/images/rss.png"></img></a></div>
-    </footer>
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({ "HTML-CSS": { scale: 90 } });

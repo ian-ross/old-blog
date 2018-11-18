@@ -53,7 +53,6 @@ then embedded in the resulting HTML pages, like this:
   \draw (0.5,0.5) +(-.25,-.25) rectangle ++(.25,.25);
 \end{scope}
 @@@@@
-<br>
 
 Why do this?  Well, often when you're writing things with some
 mathematical content, you want to embed little diagrams along the way
@@ -131,8 +130,6 @@ Here are some examples taken straight from the TikZ manual:
 \fill[blue] (-30:1cm) circle (11mm);
 @@@
 </div>
-
-<br>
 
 Personally, I think that's kind of fun, although I agree that it won't
 be to everyone's taste.  If you want to play with it, you can find the

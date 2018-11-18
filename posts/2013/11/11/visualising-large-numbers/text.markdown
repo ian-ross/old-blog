@@ -39,7 +39,6 @@ let's start with a little square:
 \end{scope}
 @@@@@
 
-<br>
 Being (mostly) bipedal (mostly) pentadactyl lifeforms, we'll follow
 tradition and work in powers of ten.  Ten of something is a small
 enough number to capture in a single glance:
@@ -50,7 +49,6 @@ enough number to capture in a single glance:
 \end{scope}
 @@@@@
 
-<br>
 But then we need to start getting a little creative.  One hundred is
 pretty easy -- it's 10<sup>2</sup>, so let's just make a square with
 ten things along a side:
@@ -61,7 +59,6 @@ ten things along a side:
 \end{scope}
 @@@@@
 
-<br>
 Nice and easy.  We can think in three dimensions as well as two, so
 one thousand (10<sup>3</sup>) is just as easy:
 
@@ -73,7 +70,6 @@ one thousand (10<sup>3</sup>) is just as easy:
 \end{scope}
 @@@@@
 
-<br>
 Now we're kind of stuck -- we can't really think in four spatial
 dimensions, so we need to do something else.
 
@@ -82,10 +78,7 @@ Remember those metre sticks you used in school science classes?  One
 metre of wood or plastic with centimetre and millimetre markings all
 the way along?
 
-<div class="img-center-small">
-<a href="metre-stick-cm.jpg">![Metre stick](metre-stick-cm.jpg)</a>
-</div>
-<br>
+<div class="centered-image"><a href="metre-stick-cm.jpg">![Metre stick](metre-stick-cm.jpg)</a></div>
 
 Those 100 centimetres, they're easy to visualise as a unit.  Most
 people have handled a metre stick enough[^1] to have a physical
@@ -105,9 +98,7 @@ most people, not terribly far from the distance from fingertips to
 shoulder with a straight arm.  And for a millimetre, you can think of
 ten laid end to end across your fingernail.
 
-<div class="img-center-small">
-<a href="metre-stick-mm.jpg">![Metre stick](metre-stick-mm.jpg)</a>
-</div>
+<div class="centered-image"><a href="metre-stick-mm.jpg">![Metre stick](metre-stick-mm.jpg)</a></div>
 
 At this point, we have two ways of thinking about hundreds (as 10
 &times; 10, or as 100 in a row), and two ways of thinking about
@@ -128,7 +119,6 @@ delineate the edges of a 100 &times; 100 grid, just like this one.
 \filldraw (0,0) rectangle ++(7,0.1);
 @@@@@
 
-<br>
 It would take a long time to count all the squares in this grid one by
 one, but we can still take in the magnitude of the number of squares
 more or less "at a glance".
@@ -267,10 +257,7 @@ sprinters run along is pretty clear, and we can get some idea of what
 our big cube of water looks like in a setting with people and some
 other objects for scale:
 
-<div class="img-center3">
-<a href="water-stadium.jpg">![Stadium](water-stadium.jpg)</a>
-</div>
-<br>
+<div class="centered-image"><a href="water-stadium.jpg">![Stadium](water-stadium.jpg)</a></div>
 
 To get 10<sup>24</sup> things, we need to imagine that each cubic
 metre of water in this big 100 metre cube is one of our

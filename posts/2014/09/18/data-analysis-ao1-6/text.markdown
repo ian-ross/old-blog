@@ -223,40 +223,43 @@ with plotting, then call the `doPlot` function for each of the plots
 we want.  Here are the plots we produce, which we'll refer to below as
 we work through the PCA calculation:
 
-<a name="figs"></a>
-<ul class="nav nav-tabs" role="tablist">
-<li class="active">
-<a href="#fig1" role="tab" data-toggle="tab">Figure 1</a>
-</li>
-<li>
-<a href="#fig2" role="tab" data-toggle="tab">Figure 2</a>
-</li>
-<li>
-<a href="#fig3" role="tab" data-toggle="tab">Figure 3</a>
-</li>
-<li>
-<a href="#fig4" role="tab" data-toggle="tab">Figure 4</a>
-</li>
-</ul>
+<div class="tabs800">
 
-<div class="tab-content">
-<div class="tab-pane active" id="fig1">
+<div class="tab">
+<input type="radio" id="tab-1" name="tab-group-1" checked>
+<label for="tab-1">Figure 1</label>
+<div class="content">
 Synthetic mussel shell test data for two-dimensional PCA example.
 
 <img src="pca-2d-0.svg">
 </div>
-<div class="tab-pane" id="fig2">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-2" name="tab-group-1">
+<label for="tab-2">Figure 2</label>
+<div class="content">
 Centred synthetic mussel shell test data for two-dimensional PCA
 example.
 
 <img src="pca-2d-1.svg">
 </div>
-<div class="tab-pane" id="fig3">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-3" name="tab-group-1">
+<label for="tab-3">Figure 3</label>
+<div class="content">
 PCA eigenvectors for two-dimensional PCA example.
 
 <img src="pca-2d-2.svg">
 </div>
-<div class="tab-pane" id="fig4">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-4" name="tab-group-1">
+<label for="tab-4">Figure 4</label>
+<div class="content">
 Data projection onto PCA eigenvectors for two-dimensional PCA
 example.
 
@@ -264,7 +267,7 @@ example.
 </div>
 </div>
 
-<br>
+</div>
 
 Let's now run through the "recipe" for performing PCA, looking at the
 figures above in parallel with the code for the `pca` function:

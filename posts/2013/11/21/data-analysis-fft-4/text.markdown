@@ -20,13 +20,12 @@ information and samples.
 We'll use a sort of sliding window FFT to process the samples from
 each channel in the WAV file.  Here's how this works:
 
-<div class="img-center-noscale">
+<div class="centered-image-noscale">
 ![Audio windowing](audio-windowing.png)
 <div style="text-align: center;">
 <p>*Audio windowing*<br>
 </div>
 </div>
-<br>
 
 We split the audio samples up into fixed-length "windows" (each $w$
 samples long) with adjacent windows overlapping by $o$ samples.  We

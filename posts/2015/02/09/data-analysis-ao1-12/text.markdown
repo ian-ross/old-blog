@@ -162,46 +162,41 @@ PCA projected component time series, except this time we're looking at
 the 7-day means of the projected component time series, to ensure that
 we have data without significant temporal autocorrelation.
 
-<a name="figs"></a>
-<ul class="nav nav-tabs" role="tablist">
-<li class="active">
-<a href="#fig1" role="tab" data-toggle="tab">
-Projected points
-</a>
-</li>
-<li>
-<a href="#fig2" role="tab" data-toggle="tab">
-Spherical PDF
-</a>
-</li>
-<li>
-<a href="#fig3" role="tab" data-toggle="tab">
-Significance
-</a>
-</li>
-<li>
-<a href="#fig4" role="tab" data-toggle="tab">
-Bump patterns
-</a>
-</li>
-</ul>
+<div class="tabs540">
 
-<div class="tab-content">
-<div class="tab-pane active" id="fig1">
+<div class="tab">
+<input type="radio" id="tab-1" name="tab-group-1" checked>
+<label for="tab-1">Projected points</label>
+<div class="content">
 <img src="proj-points.png">
 </div>
-<div class="tab-pane" id="fig2">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-2" name="tab-group-1">
+<label for="tab-2">Spherical PDF</label>
+<div class="content">
 <img src="spherical-pdf.png">
 </div>
-<div class="tab-pane" id="fig3">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-3" name="tab-group-1">
+<label for="tab-3">Significance</label>
+<div class="content">
 <img src="spherical-pdf-significance.png">
 </div>
-<div class="tab-pane" id="fig4">
+</div>
+
+<div class="tab">
+<input type="radio" id="tab-4" name="tab-group-1">
+<label for="tab-4">Bump patterns</label>
+<div class="content">
 <img src="pdf-bump-pattern-blog.png">
 </div>
 </div>
 
-<br>
+</div>
 
 The first figure tab ("Projected points") shows the individual 7-day
 mean data points, plotted using $(\theta, \phi)$ polar coordinates.
@@ -244,8 +239,6 @@ corresponding to the labelled bumps in the PDF, just as we did for the
 two most prominent bumps in the 7-day means PDF.  As before, the two
 flow patterns seem to distinguish quite clearly between "normal" zonal
 flow (in this case, pattern #2) and blocking flow (pattern #1).
-
-<br>
 
 Now that we've dealt with this autocorrelation problem, we're ready to
 start thinking about how we model transitions between different flow

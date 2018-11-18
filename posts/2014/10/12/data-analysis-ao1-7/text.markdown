@@ -39,7 +39,7 @@ spatial point as the corresponding entry in the input data vectors,
 everything works seamlessly.  The transformation goes like this:
 
 <div style="width:100%">
-<span style="display:block; margin-left:auto; margin-right:auto; width:60%">
+<span style="display:block; margin-left:auto; margin-right:auto; width:80%">
 pattern &rarr; vector &rarr; PCA &rarr; eigenvector &rarr; eigenpattern
 </span>
 </div>
@@ -413,20 +413,12 @@ data (you can click on these images to see larger versions; the
 numbers in parentheses show the fraction of total $Z_{500}$ anomaly
 variance explained by each PCA eigenpattern.):
 
-<br>
-<div class="img-full">
-<a href="pca-pattern-1-6.png">![Z500 PCA eigenpatterns 1-6](pca-pattern-1-6.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="pca-pattern-1-6.png">![Z500 PCA eigenpatterns 1-6](pca-pattern-1-6.png)</a></div>
 
 For comparison here are the eigenpatterns for eigenpatterns $10, 20,
 \dots, 60$:
 
-<br>
-<div class="img-full">
-<a href="pca-pattern-10-60.png">![Z500 PCA eigenpatterns 10-60](pca-pattern-10-60.png)</a>
-</div>
-<br>
+<div class="centered-image"><a href="pca-pattern-10-60.png">![Z500 PCA eigenpatterns 10-60](pca-pattern-10-60.png)</a></div>
 
 The first thing to note about these figures is that the spatial scales
 of variation for the PCA eigenpatterns corresponding to smaller
