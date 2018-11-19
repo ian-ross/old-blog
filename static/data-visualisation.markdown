@@ -125,10 +125,6 @@ the behaviour with and without noise in the data.  All of these
 features can be explained relatively straightforwardly, but the
 immediate visual impact of these figures is quite striking.
 
-[hlle-blog]: blog/posts/2011/10/30/machine-learning/index.html
-[thesis]: http://arxiv.org/abs/0901.0537
-[tufte]: http://www.edwardtufte.com/
-
 <div class="img2-left">
   <a href="dv/hole-swiss-roll.png">![Swiss roll](dv/hole-swiss-roll-small.png)</a>
 </div>
@@ -230,3 +226,7 @@ meeting.
 </div>
 
 <div class="clear"></div>
+
+[hlle-blog]: blog/posts/2011/10/30/machine-learning/index.html
+[thesis]: http://arxiv.org/abs/0901.0537
+[tufte]: http://www.edwardtufte.com/

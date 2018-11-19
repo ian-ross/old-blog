@@ -70,6 +70,7 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    clear: both;
 }
 
 .footer-left {
@@ -222,6 +223,12 @@ footer {
 .img-left img { width: 100%; }
 .img-row { width: 100%; display: flex; flex-direction: row; }
 .img-row img.row-image { width: 100%; margin: 0; }
+.img2-left { float: left; width: 50%; margin: 0; }
+.img2-left p { margin-top: 0; }
+.img2-left img { width: 90%; margin-left: auto; margin-right: auto; }
+.img2-right { float: right; width: 50%; margin: 0; }
+.img2-right p { margin-top: 0; }
+.img2-right img { width: 90%; margin-left: auto; margin-right: auto; }
 
 .post video {
     display: block;
