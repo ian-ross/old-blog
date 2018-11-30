@@ -85,7 +85,7 @@ doHakyll = hakyllWith hakyllConf $ do
     compile copyFileCompiler
 
   -- Copy JavaScript files.
-  match "js/*" $ do
+  match "js/all.js" $ do
     route idRoute
     compile copyFileCompiler
 

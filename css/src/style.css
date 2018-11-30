@@ -352,7 +352,7 @@ table.packed {
     color: #FFFFFF;
     font-weight: bold;
     font-size: 70%;
-    background-color: #4080C2;
+    background-color: #3059D8;
     padding: 2px 5px;
     border-radius: 5px;
 }
@@ -364,5 +364,5 @@ table.packed {
 
 .tag a:hover {
     color: #CCCCCC;
-    background-color: #4080C2;
+    background-color: #3059D8;
 }
